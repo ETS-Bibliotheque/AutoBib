@@ -318,8 +318,9 @@ def get_country_for_request(country_name : str):
 # Inverser le dictionnaire en échangeant les clés et les valeurs
 trad_fr2en = {v: k for k, v in trad_en2fr.items()}
 
-# Fonction qui retourne l'incrément de la variable d'état en fonction du nombre de résultats pour un nom et un prénom de la personne
 def homonyme(resultatRecherche: AuthorSearch, console: QPlainTextEdit, window_width: int):
+    """Fonction qui retourne l'incrément de la variable d'état en fonction du nombre de résultats pour un nom et un prénom de la personne
+    """
     if not resultatRecherche.get_results_size():
         console.append('<p style={}>! Aucun résultat</p>'.format(text_style_warning))
         console.append('')
@@ -343,14 +344,16 @@ def homonyme(resultatRecherche: AuthorSearch, console: QPlainTextEdit, window_wi
             return 1
     return 2
 
-# Fonction utilitaire pour la fonction "selection_homonyme"
 def _is_valid_integer(value, max_value):
+    """Fonction utilitaire pour la fonction "selection_homonyme"
+    """
     if value.isdigit():
         return 0 <= int(value) < max_value
     return False
     
-# Fonction qui retourne vrai si les index rentrés sont valides
 def selection_homonyme(choix: str, s: AuthorSearch, console: QPlainTextEdit):
+    """Fonction qui retourne vrai si les index rentrés sont valides
+    """
     # Vérifier si la valeur entrée est un entier et compris dans range de personnes trouvées
     if _is_valid_integer(choix, len(s.authors)):
         return True
@@ -361,8 +364,9 @@ def selection_homonyme(choix: str, s: AuthorSearch, console: QPlainTextEdit):
         return False
 
 
-# Fonction qui retourne l'EID tronqué et surtout l'instance de AuthorRetrieval sur la personne sélectionnée
 def retrieval(choix: int, s: AuthorSearch, console: QPlainTextEdit):
+    """Fonction qui retourne l'EID tronqué et surtout l'instance de AuthorRetrieval sur la personne sélectionnée
+    """
     # Récupération de l'identifier de l'eid en fonction de la personne sélectionné
     author_eid = s.authors[choix].eid
     author_eid = author_eid.split("s2.0-")[-1] # récupère le 2ème élément créé avec le split (donc eid)
@@ -378,8 +382,9 @@ def retrieval(choix: int, s: AuthorSearch, console: QPlainTextEdit):
 
     return author_eid, au_retrieval
 
-# Fonction qui retourne le scopus ID et l'instance de AffiliationRetrieval sur l'entité selectionnée
 def affRetrieval(choix: int, s: AffiliationSearch, console: QPlainTextEdit):
+    """Fonction qui retourne le scopus ID et l'instance de AffiliationRetrieval sur l'entité selectionnée
+    """
     # Récupération de l'identifier de l'eid en fonction de la personne sélectionné
     affiliation_eid = s.affiliations[choix].eid
     affiliation_eid = affiliation_eid.split("s2.0-")[-1] # récupère le 2ème élément créé avec le split (donc eid)
@@ -389,8 +394,9 @@ def affRetrieval(choix: int, s: AffiliationSearch, console: QPlainTextEdit):
 
     return affiliation_eid, aff_retrieval
 
-# Fonction qui retourne un DataFrame sur les types de documents avec leur nombre en fonction de la personne sélectionnée
 def tous_les_docs_chercheur(au_retrieval: AuthorRetrieval, console: QPlainTextEdit):
+    """Fonction qui retourne un DataFrame sur les types de documents avec leur nombre en fonction de la personne sélectionnée
+    """
     # Récupère tous les documents publiés de la personne et les stock dans un DataFrame
     docs = pd.DataFrame(au_retrieval.get_documents(refresh=10))
 
@@ -419,14 +425,16 @@ def tous_les_docs_chercheur(au_retrieval: AuthorRetrieval, console: QPlainTextEd
 
     return df
 
-# Fonction qui retourne un DataFrame contenant toutes les collaborations d'une entité
 def tous_les_docs_entite(aff_retrieval: AffiliationRetrieval):
+    """Fonction qui retourne un DataFrame contenant toutes les collaborations d'une entité
+    """
     # Récupère tous les documents publiés de la personne et les stock dans un DataFrame
     docs = pd.DataFrame(aff_retrieval.__str__())
     return docs
 
-# Fonction qui retourne vrai si la sélection des types est correcte
 def selection_types_de_documents(selected_types: list, len_df: int, console: QPlainTextEdit):
+    """Fonction qui retourne vrai si la sélection des types est correcte
+    """
     tout_valide = True
 
     # Pour chaque type de docs sélectionné vérifier si l'index est valide si seulement un n'est pas valide alors la fonction retournera faux
@@ -441,9 +449,10 @@ def selection_types_de_documents(selected_types: list, len_df: int, console: QPl
     
     return tout_valide
 
-# Fonction qui retourne les listes de : du nombre de documents par année avec prise en compte des types de docs sélectionnés, 
-# des eids de tous les documents des types sélectionnés, ainsi que les années de carrière de la personne
 def donnees_documents_graph_citations(au_retrieval: AuthorRetrieval, selected_types: list, df: pd.DataFrame, console: QPlainTextEdit):
+    """Fonction qui retourne les listes de : du nombre de documents par année avec prise en compte des types de docs sélectionnés, 
+    des eids de tous les documents des types sélectionnés, ainsi que les années de carrière de la personne
+    """
     # Créé un DataFrame avec toutes les données sur tous les documents de la personne sélectionnée
     docs = pd.DataFrame(au_retrieval.get_documents(refresh=10))
 
@@ -501,8 +510,9 @@ def donnees_documents_graph_citations(au_retrieval: AuthorRetrieval, selected_ty
 
     return final_list, eids_list, years
 
-# Fonction qui retourne les listes de : du nombre de citations par année et les années de carrière de la personne
 def donnees_citations_graph_citations(au_retrieval: AuthorRetrieval, document_eids: list):
+    """Fonction qui retourne les listes de : du nombre de citations par année et les années de carrière de la personne
+    """
     # Constantes nécessaires pour la suite des calculs
     first_year = au_retrieval.publication_range[0]
     total_annees = datetime.now().year - first_year + 2
@@ -558,8 +568,9 @@ def donnees_citations_graph_citations(au_retrieval: AuthorRetrieval, document_ei
 
     return nb_cit_annees, years_list, header_citation
 
-# Fonction qui retourne le tableau pour le graphique des citations
 def tab_graph_citations(au_retrieval: AuthorRetrieval, eids_list: list, liste_docs: list, console: QPlainTextEdit, window_width: int):
+    """Fonction qui retourne le tableau pour le graphique des citations
+    """
     # PARTIE sur les citations
     liste_citations, years_list, header = donnees_citations_graph_citations(au_retrieval, eids_list)
 
@@ -583,16 +594,18 @@ def tab_graph_citations(au_retrieval: AuthorRetrieval, eids_list: list, liste_do
     return df, [au_retrieval.given_name, au_retrieval.surname], header
 
 
-# Fonction utilitaire qui permet d'une liste de retourner une liste avec des 0
-# à la place des éléments vides (NONE)
 def _replace_none_with_zero(lst: list):
+    """Fonction utilitaire qui permet d'une liste de retourner une liste avec des 0
+    à la place des éléments vides (NONE)
+    """
     for i in range(len(lst)):
         if lst[i] is None:
             lst[i] = 0
     return lst
 
-# Fonction qui retourne les valeurs de l'encadré du rapport en fonction de l'eid de la personne sélectionnée
 def valeurs_encadre(author_eid, years_list: list):
+    """Fonction qui retourne les valeurs de l'encadré du rapport en fonction de l'eid de la personne sélectionnée
+    """
     # Instance de l'objet AuthorLookup correspondant à la personne sélectionnée via l'EID
     au = AuthorLookup(author_id=author_eid, refresh=True)
 
@@ -643,8 +656,9 @@ def valeurs_encadre(author_eid, years_list: list):
     return [top_citations, cit_per_pub, moy_MCR, acad_collab], annee_10y_adapt, au._header
 
 
-# Fonction utilitaire pour gérer l'affichage mais aussi la création la liste des années sélectionnées
 def _affichage_plages_annees(parts: list, selected_types: list, df: pd.DataFrame, console: QPlainTextEdit):
+    """Fonction utilitaire pour gérer l'affichage mais aussi la création la liste des années sélectionnées
+    """
     # Constante nécessaire pour l'affichage et les calculs
     current_year = datetime.now().year
 
@@ -669,9 +683,10 @@ def _affichage_plages_annees(parts: list, selected_types: list, df: pd.DataFrame
 
     return year_list, df_filtre_reset
 
-# Fonction qui permet de retourner un booléen pour connaitre la validité de la commande de l'utilisateur,
-# une liste de listes des plages d'années sélectionnées et un DataFrame avec les types de docs sélectionnés
 def selection_plages_annees(annees_selec: str, years: list, selected_types: list, df: pd.DataFrame, console: QPlainTextEdit):
+    """Fonction qui permet de retourner un booléen pour connaitre la validité de la commande de l'utilisateur,
+    une liste de listes des plages d'années sélectionnées et un DataFrame avec les types de docs sélectionnés
+    """
     # Séparer les types de documents sélectionnés par l'utilisateur (et supprimer les espaces avant et après les éléments)
     parts = annees_selec.split(',')
     parts = [element.strip() for element in parts]
@@ -705,8 +720,9 @@ def selection_plages_annees(annees_selec: str, years: list, selected_types: list
     return True, *_affichage_plages_annees(parts, selected_types, df, console) # * permet d'ouvrir le tuple généré par la fonction
 
 
-# Fonction utilitaire pour créer une liste de listes en fonction des combinaisons sélectionnées
 def _combine_types(chaine: str):
+    """Fonction utilitaire pour créer une liste de listes en fonction des combinaisons sélectionnées
+    """
     main_indices_list = []
     # Création de la liste des types sélectionnés avec mise en forme (suppression des espaces)
     selected_types = chaine.split(',')
@@ -726,9 +742,10 @@ def _combine_types(chaine: str):
             main_indices_list.append([types])
     return main_indices_list
 
-# Fonction qui retourne un booléen qui confirme la validité de la commande de l'utilisateur
-# et les types de docs sélectionnés pour être mis en avant (combinaisons comprises)
 def selection_2_types_docs(index_took: str, df: pd.DataFrame, console: QPlainTextEdit):
+    """Fonction qui retourne un booléen qui confirme la validité de la commande de l'utilisateur
+    et les types de docs sélectionnés pour être mis en avant (combinaisons comprises)
+    """
     # Combiner des types si c'est indiqué par l'utilisateur
     selected_types = _combine_types(index_took)
     
@@ -739,9 +756,9 @@ def selection_2_types_docs(index_took: str, df: pd.DataFrame, console: QPlainTex
     # Si l'utilisateur prend les choix par défaut
     if len(selected_types) == 1 and selected_types[0][0] == "":
         console.append('')
-        console.append('<p><a style="font-weight: bold;">Votre sélection :</a> {}, {}</p>'.format(liste_types_selec[0], liste_types_selec[1] if len(liste_types_selec)>1 else '∅'))
+        console.append('<p><a style="font-weight: bold;">Votre sélection :</a> {}, {}</p>'.format(liste_types_selec[0], liste_types_selec[1] if len(liste_types_selec)>1 else 'N/A'))
         console.append('\n')
-        return True, [[liste_types_selec[0]], [liste_types_selec[1] if len(liste_types_selec)>1 else '∅']]
+        return True, [[liste_types_selec[0]], [liste_types_selec[1] if len(liste_types_selec)>1 else 'N/A']]
     
     # Si sélection avec manque ou surplus d'éléments
     if not len(selected_types) == 2:
@@ -777,8 +794,9 @@ def selection_2_types_docs(index_took: str, df: pd.DataFrame, console: QPlainTex
 
 
 
-# Fonction qui retourne le tableau pour le graphique des publications
 def tab_graph_publications(au_retrieval: AuthorRetrieval, document_eids: list, liste_annees: list, liste_type: list, console: QPlainTextEdit, window_width: int):
+    """Fonction qui retourne le tableau pour le graphique des publications
+    """
     # Parcourir chaque sous-liste de la liste pour modifier les les types des années (de int à str)
     liste_annees = [[str(annee) for annee in sous_liste] for sous_liste in liste_annees]
 
@@ -831,9 +849,10 @@ def tab_graph_publications(au_retrieval: AuthorRetrieval, document_eids: list, l
     return results
 
 
-# Fonction utilitaire de la fonction "tab_graph_SNIP" pour permettre d'extraire depuis un résultat
-# d'une requête les valeurs nécessaires pour les calculs pour le graphique SNIP
 def _for_SNIP_list_10y_current_future(lst: list):
+    """Fonction utilitaire de la fonction "tab_graph_SNIP" pour permettre d'extraire depuis un résultat
+    d'une requête les valeurs nécessaires pour les calculs pour le graphique SNIP
+    """
     # Pour chaque élément de la liste (qui sont des dictionnaires)
     for element in lst:
         # Prend les valeurs par années
@@ -849,15 +868,17 @@ def _for_SNIP_list_10y_current_future(lst: list):
 
     return [annees, element_with_threshold_5, element_with_threshold_10, element_with_threshold_25]
 
-# Fonction générique pour trier plusieurs listes selon l'ordre croissant de la première liste
 def sort_by_first_list(*lists):
+    """Fonction générique pour trier plusieurs listes selon l'ordre croissant de la première liste
+    """
     # Zip toutes les listes, trie selon la première, puis dézippe
     zipped = list(zip(*lists))
     zipped_sorted = sorted(zipped, key=lambda x: x[0])
     return tuple([list(t) for t in zip(*zipped_sorted)])
 
-# Fonction qui retourne un DataFrame (tableau) pour le graphique SNIP du rapport
 def tab_graph_SNIP(author_id: str, years_list: list, console: pd.DataFrame, window_width: int):
+    """Fonction qui retourne un DataFrame (tableau) pour le graphique SNIP du rapport
+    """
     # Convertie le type toutes les années (de str/string à int/integer)
     years_list = [[int(item) for item in sublist] for sublist in years_list]
 
@@ -910,9 +931,10 @@ def tab_graph_SNIP(author_id: str, years_list: list, console: pd.DataFrame, wind
     return df, au._header
 
 
-# Fonction utilitaire de la fonction "tab_graph_Collab" pour permettre d'extraire depuis un résultat
-# d'une requête les valeurs nécessaires pour les calculs pour le graphique SNIP
 def _for_Collab_list_10y_current_future(lst: list):
+    """Fonction utilitaire de la fonction "tab_graph_Collab" pour permettre d'extraire depuis un résultat
+    d'une requête les valeurs nécessaires pour les calculs pour le graphique SNIP
+    """
     # Pour chaque élément de la liste (qui sont des dictionnaires)
     for element in lst:
         # Prend les valeurs par années
@@ -930,8 +952,9 @@ def _for_Collab_list_10y_current_future(lst: list):
 
     return [annees, inst_collab, international_collab, national_collab, no_collab]
 
-# Fonction qui retourne un DataFrame (tableau) pour le graphique Collaborations du rapport
 def tab_graph_Collab(author_id: str, years_list: list, console: pd.DataFrame, window_width: int):
+    """Fonction qui retourne un DataFrame (tableau) pour le graphique Collaborations du rapport
+    """
     # Instance de l'objet AuthorLookup correspondant à la personne sélectionnée via l'ID
     au = AuthorLookup(author_id=author_id, refresh=True)
 
@@ -978,9 +1001,10 @@ def tab_graph_Collab(author_id: str, years_list: list, console: pd.DataFrame, wi
 
 
 
-# Fonction qui permet d'exporter les données sur le gabarit Excel et d'appeler les
-# routines VBA du gabarit
 def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_adapt: int):
+    """Fonction qui permet d'exporter les données sur le gabarit Excel et d'appeler les
+    routines VBA du gabarit
+    """
     # Ouvrir le classeur Excel existant
     nom_fichier = os.path.dirname(os.path.abspath(__file__)) + '\\..\\GABARIT.xlsm'
     nom_feuille = 'Raw_Data'
@@ -1110,10 +1134,11 @@ def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_ada
     return excel, classeur
 
     
-# Fonction qui reprend le classeur ouvert (caché) et qui permet d'exporter le reste des 
-# données sur le gabarit Excel et d'appeler la routine VBA du gabarit Excel qui
-# remplie le gabarit Word pour avoir la fiche bibliométrique finale!
 def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Collab: pd.DataFrame):
+    """Fonction qui reprend le classeur ouvert (caché) et qui permet d'exporter le reste des 
+    données sur le gabarit Excel et d'appeler la routine VBA du gabarit Excel qui
+    remplie le gabarit Word pour avoir la fiche bibliométrique finale!
+    """
     # Ouvrir le classeur Excel existant
     nom_fichier = os.path.dirname(os.path.abspath(__file__)) + '\\..\\GABARIT.xlsm'
     nom_feuille = 'Raw_Data'
@@ -1332,9 +1357,10 @@ def collaborationExtract(researchersA: list = None, institutionsA: list = None, 
             return None
     except Exception as e: 
         return None
-# Retourne des informations sur le profil recherché 
-# On peut faire la recherche à partir d'un nom d'un chercher ou d'un identifiant  
 def getEntityProfile(selection: str, entity: str, keys: list, rechercheParId: bool):
+    """Retourne des informations sur le profil recherché 
+    On peut faire la recherche à partir d'un nom d'un chercher ou d'un identifiant  
+    """
 
     if selection == '1':
         if rechercheParId is False : 
@@ -1374,24 +1400,22 @@ def getEntityProfile(selection: str, entity: str, keys: list, rechercheParId: bo
             return institution_info
     else :
         return
-# Limite les plages de colloborations à année courante -20 , année courante +1
-def getSelectedYears(response:str):
-        if response == '' :
-            start_year = datetime.now().year-5
-            end_year = datetime.now().year
-        elif ',' in response: 
-            selected_years = response.split(',')
-            # Recuperer les limites de la plage séléctionnée
-            start_year = int(selected_years[0])
-            end_year = int(selected_years[1])
-            if start_year < datetime.now().year-20 or end_year > datetime.now().year + 1: 
-                start_year = 'NULL'
-                end_year = 'NULL'
-        else:
+def getSelectedYears(response: str):
+    """Limite la plage de collaboration a [annee courante - 20, annee courante + 1]."""
+    if response == '':
+        start_year = datetime.now().year - 5
+        end_year = datetime.now().year
+    elif ',' in response:
+        selected_years = response.split(',')
+        start_year = int(selected_years[0])
+        end_year = int(selected_years[1])
+        if start_year < datetime.now().year - 20 or end_year > datetime.now().year + 1:
             start_year = 'NULL'
             end_year = 'NULL'
-        return start_year, end_year
-
+    else:
+        start_year = 'NULL'
+        end_year = 'NULL'
+    return start_year, end_year
 def count_document_types(df: pd.DataFrame):
     # Initialiser un dictionnaire pour stocker les comptes de chaque type de document
     doc_type_counts = {
@@ -1760,9 +1784,10 @@ def highlight_fuzzy_matches(fileName, fuzzy_matches):
                     cell.fill = fill
         wb.save(file_path)
 
-# Fonction qui permet d'exporter les données sur le gabarit Excel et d'appeler les
-# routines VBA du gabarit
 def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df: pd.DataFrame, other_authors_df: pd.DataFrame, institutions_df: pd.DataFrame, allResults_df: pd.DataFrame, fuzzy_matches_df: pd.DataFrame, country : str, debut : str, fin : str, date : str):
+    """Fonction qui permet d'exporter les données sur le gabarit Excel et d'appeler les
+    routines VBA du gabarit
+    """
 
     # Remplacer l'extension par .docx
     rapportPath = DOCS_PATH[0] + '\\' + os.path.splitext(fileName)[0] + '.docx'

@@ -16,8 +16,15 @@ text_style_warning = '"color: #D35230"'
 text_style_parameter = '"color: #AA1C4F"'
 text_style_question = '"color: #0C5E31"'
 
-# Fonction permettant de checker la présence d'un fichier de configuration si non la création se fait alors (reprise de la bibliothèque "pybliometrics"), également fonction d'initialisation
 def check_create_config(console: QPlainTextEdit, response: str, keys: list = None, first_time: bool = False):
+    """Assure l'existence du fichier de configuration pybliometrics avant de poursuivre.
+
+    :param console: composant console utilise pour afficher les invites et messages.
+    :param response: saisie brute retournee par l'utilisateur via la console.
+    :param keys: paire cle API / insttoken deja enregistree.
+    :param first_time: indique si l'application s'execute pour la premiere fois.
+    :return: tuple (validation, liste des cles normalisees).
+    """
     import configparser
     from Include.pybliometrics.utils.constants import CONFIG_FILE
     from Include.pybliometrics.utils.create_config import create_config
@@ -106,10 +113,13 @@ def check_create_config(console: QPlainTextEdit, response: str, keys: list = Non
 
 
 
-# Créé la classe ConsoleWindow (classe fille de QMainWindow), qui est la fenêtre principale qui nous fait office de console/prompt 2.0
 class ConsoleWindow(QMainWindow):
-    # Définie le constructeur de la classe
+    """Fenetre principale d'AutoBib+ pilotant le deroulement conversationnel.
+
+    Elle orchestre la logique de generation des rapports bibliometriques et de collaboration.
+    """
     def __init__(self):
+        """Initialise les widgets, les menus et les variables d'etat de la console."""
         super().__init__() # Permet de récupérer le constructeur de la classe mère: QMainWindow
         script_path = os.getcwd()
 
@@ -260,8 +270,8 @@ class ConsoleWindow(QMainWindow):
             'NULL'
         ]
 
-    # Méthode qui réalise les différentes fonctions dès que l'utilisateur valide sa commande (appuie sur la touche "Entrée")
     def handle_input(self):
+        """Traite la saisie courante et fait avancer la machine a etats."""
         # print('dans handle_input')
         # Stock la réponse de l'utilisateur, efface la zone d'entrée de texte et affiche la réponse sur la zone de texte
         self.response = self.input_box.text()
@@ -885,8 +895,8 @@ class ConsoleWindow(QMainWindow):
         # Fermer le message de chargement
         self.loading_dialog.close()
 
-    # Méthode : Gestion de l'affichage pour chaque état de la machine à états
     def _affichageQuestions(self, affichage_type: int):
+        """Affiche la question ou le message correspondant a l'etat du deroulement."""
         if affichage_type == 3:
             # Supprimer le troisième élément en utilisant pop()
             self.tableauQuestions.pop(3)
@@ -895,7 +905,15 @@ class ConsoleWindow(QMainWindow):
             # Supprimer le quatrième élément en utilisant pop()
             self.tableauQuestions.pop(4)
             liste_types_selec = self.df_doc_type_selected['Type de documents'].to_list()
-            self.tableauQuestions.insert(4, "<span style={}>● Quels sont les 2 types de publications que vous voulez mettre en valeur? (Par défaut : {}, {} (c-à-d : {}, {}))[Entrez les numéros de l'index]</span><br><span style={}>--Option de combinaison sous le format [n1; n2] : syntaxe permettant de combiner des types de publications sous le nom du 1er type (n1).</span>".format(self.text_style_question, self.index_list[0], self.index_list[1] if len(self.index_list)>1 else '∅', liste_types_selec[0], liste_types_selec[1] if len(liste_types_selec)>1 else '∅', '"color: #75163F"')),
+            default_first = self.index_list[0]
+            default_second = self.index_list[1] if len(self.index_list) > 1 else 'N/A'
+            label_first = liste_types_selec[0]
+            label_second = liste_types_selec[1] if len(liste_types_selec) > 1 else 'N/A'
+            prompt = (
+                "<span style={}>? Quels sont les 2 types de publications a mettre en avant ? (Par defaut : {}, {} soit {}, {}) [Entrez les numeros d'index]</span>"
+                "<br><span style={}>--Option de combinaison [n1; n2] pour regrouper sous le premier type.</span>"
+            ).format(self.text_style_question, default_first, default_second, label_first, label_second, '"color: #75163F"')
+            self.tableauQuestions.insert(4, prompt)
         elif affichage_type == 18:
             self.tableauQuestions.pop(18)
             self.tableauQuestions.insert(18, "<span style={}>● Quelle est la plage d'années que vous choisissez? (Par défaut : {}, {})</span>".format(self.text_style_question, datetime.now().year-5, datetime.now().year))
@@ -909,8 +927,8 @@ class ConsoleWindow(QMainWindow):
         self.console.append('')
         self.console.append(self.tableauQuestions[affichage_type])
 
-    # Méthode : Recherche de la personne sélectionnée
     def _rechercheSurChercheur(self, choix: int = 0):
+        """Interroge Scopus pour la personne selectionnee et actualise le cache local."""
         from Include.Tools import retrieval, tous_les_docs_chercheur
 
         self.authorEID, self.au_retrieval = retrieval(choix, self.search, self.console)
@@ -921,8 +939,8 @@ class ConsoleWindow(QMainWindow):
         self._affichageQuestions(2)
 
 
-    # Demande de fermeture de la fenêtre
     def closeEvent(self, event):
+        """Propose une confirmation avant de fermer la fenetre de l'application."""
         message_box = ExitBox(self) # Instanciation
         message_box.exec()
 
@@ -941,6 +959,7 @@ class ConsoleWindow(QMainWindow):
 
     @Slot()
     def retour(self):
+        """Revient a l'etape precedente lorsque le retour est autorise."""
         if self.state != 0 and self.state != -1:
             if (self.state > 1 and  self.state < 6) or (self.state > 11 and  self.state < 21):
                 if self.state == 13 or self.state == 16:
@@ -959,6 +978,7 @@ class ConsoleWindow(QMainWindow):
 
     @Slot()
     def raz(self):
+        """Reinitialise l'interaction et renvoie vers l'accueil."""
         if self.state != 0 and self.state != -1:
             self.state = 0
             self._affichageQuestions(self.state)
@@ -970,6 +990,7 @@ class ConsoleWindow(QMainWindow):
             
     @Slot()
     def reconfig(self):
+        """Ouvre l'assistant de reconfiguration pour mettre a jour identifiants et chemins."""
         message_box = ReconfigMessageBox(self) # Instanciation
         message_box.exec()
         if self.state != -1 and message_box.clickedButton() == message_box.buttonYes:            
@@ -980,16 +1001,19 @@ class ConsoleWindow(QMainWindow):
 
     @Slot()
     def API(self):
+        """Affiche les informations d'API memorisees pour la session en cours."""
         message_box = InfoAPI(self.infos_API) # Instanciation
         message_box.exec()
 
     @Slot()
     def infos(self):
+        """Affiche la boite d'information generale sur AutoBib+."""
         message_box = Info() # Instanciation
         message_box.exec()
 
     @Slot()
     def whitesheet(self):
+        """Vide la console sans modifier l'etat courant."""
         if self.state != -1:
             self.console.setPlainText('')
             

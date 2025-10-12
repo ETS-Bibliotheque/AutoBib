@@ -6,6 +6,18 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  PYTHON_VERSION: "3.12"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   validate:
     name: Validate on Python ${{ matrix.python-version }}
@@ -50,3 +62,59 @@ jobs:
             Write-Host "No tests directory found; skipping unit tests."
           }
         shell: pwsh
+
+  docs:
+    name: Build documentation
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install documentation dependencies
+        run: uv pip install -r docs/requirements.txt
+
+      - name: Build Sphinx documentation
+        run: uv run sphinx-build -b html docs docs/_build/html
+
+      - name: Upload docs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-html
+          path: docs/_build/html
+
+  deploy:
+    name: Deploy GitHub Pages
+    needs: docs
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Download docs artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-html
+          path: docs/_build/html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/_build/html
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
