@@ -15,7 +15,7 @@ python-dateutil==2.8.2
 pytz==2023.3
 pywin32==306
 pywin32-ctypes==0.2.2
-requests==2.31.0
+requests==2.32.5
 shiboken6==6.5.2
 six==1.16.0
 tqdm==4.67.1
