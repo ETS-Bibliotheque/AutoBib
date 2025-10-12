@@ -10,7 +10,7 @@ pyinstaller==5.13.0
 pyinstaller-hooks-contrib==2025.9
 PySide6==6.5.2
 PySide6-Addons==6.5.2
-PySide6-Essentials==6.5.2
+PySide6-Essentials==6.10.0
 python-dateutil==2.8.2
 pytz==2023.3
 pywin32==306
