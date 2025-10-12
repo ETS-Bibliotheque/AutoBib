@@ -2,7 +2,7 @@ Overview
 ========
 
 AutoBib+ automates several steps required to assemble bibliometric reports for the
-Ecole de technologie superieure (ETS). The graphical interface guides consultants
+École de technologie supérieure (ETS). The graphical interface guides consultants
 through a conversational workflow that collects credentials, fetches metrics from
 Elsevier APIs and exports both Excel and Word deliverables.
 
