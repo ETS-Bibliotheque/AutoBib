@@ -15,6 +15,7 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
+    "sphinx.ext.ifconfig",
     "sphinx_autodoc_typehints",
 ]
 
@@ -68,6 +69,9 @@ autodoc_mock_imports = [
     "idna",
     "urllib3",
 ]
+
+if os.name != "nt":
+    autodoc_mock_imports.append("Include.Tools")
 
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
