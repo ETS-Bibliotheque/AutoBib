@@ -319,7 +319,17 @@ def get_country_for_request(country_name : str):
 trad_fr2en = {v: k for k, v in trad_en2fr.items()}
 
 def homonyme(resultatRecherche: AuthorSearch, console: QPlainTextEdit, window_width: int):
-    """Fonction qui retourne l'incrément de la variable d'état en fonction du nombre de résultats pour un nom et un prénom de la personne
+    """
+    Determine the next step in the author disambiguation flow based on the search results.
+    
+    :param resultatRecherche: Result set returned by the Scopus author search.
+    :type resultatRecherche: AuthorSearch
+    :param console: Output console used to display guidance to the user.
+    :type console: QPlainTextEdit
+    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :type window_width: int
+    :return: 0 when no candidate is found, 1 when several candidates require a manual choice, 2 when a single author is identified.
+    :rtype: int
     """
     if not resultatRecherche.get_results_size():
         console.append('<p style={}>! Aucun résultat</p>'.format(text_style_warning))
@@ -345,14 +355,32 @@ def homonyme(resultatRecherche: AuthorSearch, console: QPlainTextEdit, window_wi
     return 2
 
 def _is_valid_integer(value, max_value):
-    """Fonction utilitaire pour la fonction "selection_homonyme"
+    """
+    Validate that a textual value represents an accepted integer index.
+    
+    :param value: Raw value provided by the user.
+    :type value: str
+    :param max_value: Upper bound (excluded) for the accepted range.
+    :type max_value: int
+    :return: ``True`` when the value is a valid integer index, ``False`` otherwise.
+    :rtype: bool
     """
     if value.isdigit():
         return 0 <= int(value) < max_value
     return False
     
 def selection_homonyme(choix: str, s: AuthorSearch, console: QPlainTextEdit):
-    """Fonction qui retourne vrai si les index rentrés sont valides
+    """
+    Check whether the user selection corresponds to a valid author index.
+    
+    :param choix: Value entered by the user.
+    :type choix: str
+    :param s: Scopus search object containing the list of authors.
+    :type s: AuthorSearch
+    :param console: Output console used to display guidance to the user.
+    :type console: QPlainTextEdit
+    :return: ``True`` if the selection is valid, ``False`` otherwise.
+    :rtype: bool
     """
     # Vérifier si la valeur entrée est un entier et compris dans range de personnes trouvées
     if _is_valid_integer(choix, len(s.authors)):
@@ -365,7 +393,17 @@ def selection_homonyme(choix: str, s: AuthorSearch, console: QPlainTextEdit):
 
 
 def retrieval(choix: int, s: AuthorSearch, console: QPlainTextEdit):
-    """Fonction qui retourne l'EID tronqué et surtout l'instance de AuthorRetrieval sur la personne sélectionnée
+    """
+    Retrieve the Scopus author profile selected by the user.
+    
+    :param choix: Index of the author chosen by the user.
+    :type choix: int
+    :param s: Scopus author search containing the results.
+    :type s: AuthorSearch
+    :param console: Output console used to present the summary.
+    :type console: QPlainTextEdit
+    :return: Tuple containing the author EID (without the ``s2.0-`` prefix) and the :class:`~pybliometrics.scopus.author_retrieval.AuthorRetrieval` instance.
+    :rtype: tuple[str, AuthorRetrieval]
     """
     # Récupération de l'identifier de l'eid en fonction de la personne sélectionné
     author_eid = s.authors[choix].eid
@@ -383,7 +421,17 @@ def retrieval(choix: int, s: AuthorSearch, console: QPlainTextEdit):
     return author_eid, au_retrieval
 
 def affRetrieval(choix: int, s: AffiliationSearch, console: QPlainTextEdit):
-    """Fonction qui retourne le scopus ID et l'instance de AffiliationRetrieval sur l'entité selectionnée
+    """
+    Retrieve the Scopus affiliation profile selected by the user.
+    
+    :param choix: Index of the affiliation chosen by the user.
+    :type choix: int
+    :param s: Scopus affiliation search containing the results.
+    :type s: AffiliationSearch
+    :param console: Output console used to present the summary.
+    :type console: QPlainTextEdit
+    :return: Tuple of the affiliation EID (without the ``s2.0-`` prefix) and the :class:`~pybliometrics.scopus.author_retrieval.AuthorRetrieval` instance.
+    :rtype: tuple[str, AuthorRetrieval]
     """
     # Récupération de l'identifier de l'eid en fonction de la personne sélectionné
     affiliation_eid = s.affiliations[choix].eid
@@ -395,7 +443,15 @@ def affRetrieval(choix: int, s: AffiliationSearch, console: QPlainTextEdit):
     return affiliation_eid, aff_retrieval
 
 def tous_les_docs_chercheur(au_retrieval: AuthorRetrieval, console: QPlainTextEdit):
-    """Fonction qui retourne un DataFrame sur les types de documents avec leur nombre en fonction de la personne sélectionnée
+    """
+    Build a dataframe summarising the publication types for the selected author.
+    
+    :param au_retrieval: Author retrieval instance previously fetched with :func:`retrieval`.
+    :type au_retrieval: AuthorRetrieval
+    :param console: Output console used to display the summary.
+    :type console: QPlainTextEdit
+    :return: Dataframe with the document types (translated to French) and their occurrence count.
+    :rtype: pandas.DataFrame
     """
     # Récupère tous les documents publiés de la personne et les stock dans un DataFrame
     docs = pd.DataFrame(au_retrieval.get_documents(refresh=10))
@@ -433,7 +489,17 @@ def tous_les_docs_entite(aff_retrieval: AffiliationRetrieval):
     return docs
 
 def selection_types_de_documents(selected_types: list, len_df: int, console: QPlainTextEdit):
-    """Fonction qui retourne vrai si la sélection des types est correcte
+    """
+    Validate that the selected document types correspond to existing rows.
+    
+    :param selected_types: List of user provided indices.
+    :type selected_types: list
+    :param len_df: Number of rows available in the dataframe.
+    :type len_df: int
+    :param console: Output console used to display error messages.
+    :type console: QPlainTextEdit
+    :return: ``True`` when all indices are valid, ``False`` otherwise.
+    :rtype: bool
     """
     tout_valide = True
 
@@ -450,8 +516,19 @@ def selection_types_de_documents(selected_types: list, len_df: int, console: QPl
     return tout_valide
 
 def donnees_documents_graph_citations(au_retrieval: AuthorRetrieval, selected_types: list, df: pd.DataFrame, console: QPlainTextEdit):
-    """Fonction qui retourne les listes de : du nombre de documents par année avec prise en compte des types de docs sélectionnés, 
-    des eids de tous les documents des types sélectionnés, ainsi que les années de carrière de la personne
+    """
+    Prepare publication metadata required by the citation graph view.
+    
+    :param au_retrieval: Author retrieval instance used to obtain document information.
+    :type au_retrieval: AuthorRetrieval
+    :param selected_types: List of document subtypes selected by the user.
+    :type selected_types: list
+    :param df: Dataframe describing the available documents.
+    :type df: pandas.DataFrame
+    :param console: Output console used to display intermediate feedback.
+    :type console: QPlainTextEdit
+    :return: Tuple containing the filtered dataframe and the list of document EIDs.
+    :rtype: tuple[pandas.DataFrame, list[str]]
     """
     # Créé un DataFrame avec toutes les données sur tous les documents de la personne sélectionnée
     docs = pd.DataFrame(au_retrieval.get_documents(refresh=10))
@@ -511,7 +588,15 @@ def donnees_documents_graph_citations(au_retrieval: AuthorRetrieval, selected_ty
     return final_list, eids_list, years
 
 def donnees_citations_graph_citations(au_retrieval: AuthorRetrieval, document_eids: list):
-    """Fonction qui retourne les listes de : du nombre de citations par année et les années de carrière de la personne
+    """
+    Fetch citation counts per year for the provided documents.
+    
+    :param au_retrieval: Author retrieval instance used to query Scopus.
+    :type au_retrieval: AuthorRetrieval
+    :param document_eids: Identifiers of the documents to analyse.
+    :type document_eids: list[str]
+    :return: Dataframe containing citation counts per year.
+    :rtype: pandas.DataFrame
     """
     # Constantes nécessaires pour la suite des calculs
     first_year = au_retrieval.publication_range[0]
@@ -569,7 +654,21 @@ def donnees_citations_graph_citations(au_retrieval: AuthorRetrieval, document_ei
     return nb_cit_annees, years_list, header_citation
 
 def tab_graph_citations(au_retrieval: AuthorRetrieval, eids_list: list, liste_docs: list, console: QPlainTextEdit, window_width: int):
-    """Fonction qui retourne le tableau pour le graphique des citations
+    """
+    Compose the dataset and textual feedback required to plot citation trends.
+    
+    :param au_retrieval: Author retrieval instance used to fetch analytics.
+    :type au_retrieval: AuthorRetrieval
+    :param eids_list: List of document EIDs involved in the citation chart.
+    :type eids_list: list[str]
+    :param liste_docs: List of document titles displayed to the user.
+    :type liste_docs: list[str]
+    :param console: Output console used to display tables and summaries.
+    :type console: QPlainTextEdit
+    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :type window_width: int
+    :return: Tuple containing the dataframe of citation values and the list of years considered.
+    :rtype: tuple[pandas.DataFrame, list[int]]
     """
     # PARTIE sur les citations
     liste_citations, years_list, header = donnees_citations_graph_citations(au_retrieval, eids_list)
@@ -604,7 +703,15 @@ def _replace_none_with_zero(lst: list):
     return lst
 
 def valeurs_encadre(author_eid, years_list: list):
-    """Fonction qui retourne les valeurs de l'encadré du rapport en fonction de l'eid de la personne sélectionnée
+    """
+    Calculate the key metrics displayed in the dashboard panel for an author.
+    
+    :param author_eid: Scopus identifier of the author.
+    :type author_eid: str
+    :param years_list: Years that delimit the analysis window.
+    :type years_list: list[int]
+    :return: Tuple containing total citation count, h-index, and publication count.
+    :rtype: tuple[int, int, int]
     """
     # Instance de l'objet AuthorLookup correspondant à la personne sélectionnée via l'EID
     au = AuthorLookup(author_id=author_eid, refresh=True)
@@ -684,8 +791,21 @@ def _affichage_plages_annees(parts: list, selected_types: list, df: pd.DataFrame
     return year_list, df_filtre_reset
 
 def selection_plages_annees(annees_selec: str, years: list, selected_types: list, df: pd.DataFrame, console: QPlainTextEdit):
-    """Fonction qui permet de retourner un booléen pour connaitre la validité de la commande de l'utilisateur,
-    une liste de listes des plages d'années sélectionnées et un DataFrame avec les types de docs sélectionnés
+    """
+    Validate and parse the year ranges provided by the user.
+    
+    :param annees_selec: Raw textual input describing the year ranges.
+    :type annees_selec: str
+    :param years: Sorted list of available years.
+    :type years: list[int]
+    :param selected_types: Selected document types that restrict the ranges.
+    :type selected_types: list
+    :param df: Dataframe of publications for the author.
+    :type df: pandas.DataFrame
+    :param console: Output console used to display instructions and errors.
+    :type console: QPlainTextEdit
+    :return: List of valid year ranges expressed as tuples ``(start, end)``.
+    :rtype: list[tuple[int, int]]
     """
     # Séparer les types de documents sélectionnés par l'utilisateur (et supprimer les espaces avant et après les éléments)
     parts = annees_selec.split(',')
@@ -743,8 +863,17 @@ def _combine_types(chaine: str):
     return main_indices_list
 
 def selection_2_types_docs(index_took: str, df: pd.DataFrame, console: QPlainTextEdit):
-    """Fonction qui retourne un booléen qui confirme la validité de la commande de l'utilisateur
-    et les types de docs sélectionnés pour être mis en avant (combinaisons comprises)
+    """
+    Handle the user selection of the two document types to highlight.
+    
+    :param index_took: User input referencing the chosen document types.
+    :type index_took: str
+    :param df: Dataframe of available document types.
+    :type df: pandas.DataFrame
+    :param console: Output console used to display guidance to the user.
+    :type console: QPlainTextEdit
+    :return: Tuple ``(type_1, type_2)`` with the selected subtype descriptors.
+    :rtype: tuple[str, str]
     """
     # Combiner des types si c'est indiqué par l'utilisateur
     selected_types = _combine_types(index_took)
@@ -795,7 +924,23 @@ def selection_2_types_docs(index_took: str, df: pd.DataFrame, console: QPlainTex
 
 
 def tab_graph_publications(au_retrieval: AuthorRetrieval, document_eids: list, liste_annees: list, liste_type: list, console: QPlainTextEdit, window_width: int):
-    """Fonction qui retourne le tableau pour le graphique des publications
+    """
+    Build the dataset required to render publication counts by year and subtype.
+    
+    :param au_retrieval: Author retrieval instance used to obtain document metadata.
+    :type au_retrieval: AuthorRetrieval
+    :param document_eids: Identifiers of the documents to include.
+    :type document_eids: list[str]
+    :param liste_annees: Years displayed on the publication graph.
+    :type liste_annees: list[int]
+    :param liste_type: Document types tracked on the graph.
+    :type liste_type: list[str]
+    :param console: Output console used to display textual feedback.
+    :type console: QPlainTextEdit
+    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :type window_width: int
+    :return: Dataframe indexed by year and document type containing publication counts.
+    :rtype: pandas.DataFrame
     """
     # Parcourir chaque sous-liste de la liste pour modifier les les types des années (de int à str)
     liste_annees = [[str(annee) for annee in sous_liste] for sous_liste in liste_annees]
@@ -877,7 +1022,19 @@ def sort_by_first_list(*lists):
     return tuple([list(t) for t in zip(*zipped_sorted)])
 
 def tab_graph_SNIP(author_id: str, years_list: list, console: pd.DataFrame, window_width: int):
-    """Fonction qui retourne un DataFrame (tableau) pour le graphique SNIP du rapport
+    """
+    Aggregate SNIP indicators for the journals linked to the author output.
+    
+    :param author_id: Scopus identifier of the author.
+    :type author_id: str
+    :param years_list: Years that delimit the analysis window.
+    :type years_list: list[int]
+    :param console: Output console used to display textual feedback.
+    :type console: QPlainTextEdit
+    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :type window_width: int
+    :return: Dataframe containing the SNIP statistics per year.
+    :rtype: pandas.DataFrame
     """
     # Convertie le type toutes les années (de str/string à int/integer)
     years_list = [[int(item) for item in sublist] for sublist in years_list]
@@ -953,7 +1110,19 @@ def _for_Collab_list_10y_current_future(lst: list):
     return [annees, inst_collab, international_collab, national_collab, no_collab]
 
 def tab_graph_Collab(author_id: str, years_list: list, console: pd.DataFrame, window_width: int):
-    """Fonction qui retourne un DataFrame (tableau) pour le graphique Collaborations du rapport
+    """
+    Aggregate collaboration indicators for the given author.
+    
+    :param author_id: Scopus identifier of the author.
+    :type author_id: str
+    :param years_list: Years that delimit the analysis window.
+    :type years_list: list[int]
+    :param console: Output console used to display textual feedback.
+    :type console: QPlainTextEdit
+    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :type window_width: int
+    :return: Dataframe containing collaboration counts per year.
+    :rtype: pandas.DataFrame
     """
     # Instance de l'objet AuthorLookup correspondant à la personne sélectionnée via l'ID
     au = AuthorLookup(author_id=author_id, refresh=True)
@@ -1002,8 +1171,19 @@ def tab_graph_Collab(author_id: str, years_list: list, console: pd.DataFrame, wi
 
 
 def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_adapt: int):
-    """Fonction qui permet d'exporter les données sur le gabarit Excel et d'appeler les
-    routines VBA du gabarit
+    """
+    Populate the first Excel template with author level indicators.
+    
+    :param df: Dataframe containing the metrics to export.
+    :type df: pandas.DataFrame
+    :param nom_prenom: Pair ``[last_name, first_name]`` used to label the sheets.
+    :type nom_prenom: list[str]
+    :param en_tete: Header values injected in the workbook.
+    :type en_tete: list[str]
+    :param annee_10y_adapt: First year of the ten year rolling window.
+    :type annee_10y_adapt: int
+    :return: Tuple ``(excel_app, workbook)`` exposing the COM objects.
+    :rtype: tuple
     """
     # Ouvrir le classeur Excel existant
     nom_fichier = os.path.dirname(os.path.abspath(__file__)) + '\\..\\GABARIT.xlsm'
@@ -1135,9 +1315,21 @@ def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_ada
 
     
 def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Collab: pd.DataFrame):
-    """Fonction qui reprend le classeur ouvert (caché) et qui permet d'exporter le reste des 
-    données sur le gabarit Excel et d'appeler la routine VBA du gabarit Excel qui
-    remplie le gabarit Word pour avoir la fiche bibliométrique finale!
+    """
+    Write SNIP and collaboration data into the existing Excel workbook.
+    
+    :param excel: Running Excel COM application returned by :func:`Excel_part1`.
+    :type excel: Any
+    :param classeur: Workbook instance returned by :func:`Excel_part1`.
+    :type classeur: Any
+    :param df: Publication dataframe appended to the workbook.
+    :type df: pandas.DataFrame
+    :param df_SNIP: Dataframe containing SNIP values.
+    :type df_SNIP: pandas.DataFrame
+    :param df_Collab: Dataframe containing collaboration counts.
+    :type df_Collab: pandas.DataFrame
+    :return: ``None``.
+    :rtype: None
     """
     # Ouvrir le classeur Excel existant
     nom_fichier = os.path.dirname(os.path.abspath(__file__)) + '\\..\\GABARIT.xlsm'
@@ -1288,6 +1480,26 @@ def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Col
 #-------------------------------------Nouvelles fonctions d'Autobib+-------------------------------------------------
 
 def collaborationExtract(researchersA: list = None, institutionsA: list = None, researchersB: list = None, institutionsB: list = None,\
+                         """
+                         Extract collaboration records between two sets of researchers or institutions.
+                         
+                         :param researchersA: Optional identifiers for the first group of researchers.
+                         :type researchersA: list[str] | None
+                         :param institutionsA: Optional identifiers for the first group of institutions.
+                         :type institutionsA: list[str] | None
+                         :param researchersB: Optional identifiers for the second group of researchers.
+                         :type researchersB: list[str] | None
+                         :param institutionsB: Optional identifiers for the second group of institutions.
+                         :type institutionsB: list[str] | None
+                         :param collabCountry: Optional country filter applied to collaborations.
+                         :type collabCountry: str | None
+                         :param keys: Pair of API key and token used to call Elsevier services.
+                         :type keys: list[str]
+                         :param console: Output console used to display progress.
+                         :type console: QPlainTextEdit | None
+                         :return: Dataframe with the collaboration records.
+                         :rtype: pandas.DataFrame
+                         """
                          country: str = None, start_year: int = None, end_year: int = None, keys: list = None, console: QPlainTextEdit = None):
     # Construction de la requete pour les collabs entre l'entité A et l'entité B
     query_part2 = []
@@ -1358,8 +1570,19 @@ def collaborationExtract(researchersA: list = None, institutionsA: list = None, 
     except Exception as e: 
         return None
 def getEntityProfile(selection: str, entity: str, keys: list, rechercheParId: bool):
-    """Retourne des informations sur le profil recherché 
-    On peut faire la recherche à partir d'un nom d'un chercher ou d'un identifiant  
+    """
+    Retrieve the bibliometric profile of a given entity.
+    
+    :param selection: Type of entity to query (author or institution).
+    :type selection: str
+    :param entity: Identifier or search text identifying the entity.
+    :type entity: str
+    :param keys: Pair of API key and token used to call Elsevier services.
+    :type keys: list[str]
+    :param rechercheParId: When ``True`` the entity value is treated as a direct identifier.
+    :type rechercheParId: bool
+    :return: Tuple containing the search object and the retrieval object associated with the entity.
+    :rtype: tuple[AuthorSearch | AffiliationSearch, AuthorRetrieval | AffiliationRetrieval]
     """
 
     if selection == '1':
@@ -1401,7 +1624,14 @@ def getEntityProfile(selection: str, entity: str, keys: list, rechercheParId: bo
     else :
         return
 def getSelectedYears(response: str):
-    """Limite la plage de collaboration a [annee courante - 20, annee courante + 1]."""
+    """
+    Parse the user response describing the analysis period.
+    
+    :param response: Raw textual input collected from the interface.
+    :type response: str
+    :return: List of selected years, sorted chronologically.
+    :rtype: list[int]
+    """
     if response == '':
         start_year = datetime.now().year - 5
         end_year = datetime.now().year
@@ -1417,6 +1647,14 @@ def getSelectedYears(response: str):
         end_year = 'NULL'
     return start_year, end_year
 def count_document_types(df: pd.DataFrame):
+    """
+    Count the number of retrieved publications per document subtype.
+    
+    :param df: Dataframe listing the publications.
+    :type df: pandas.DataFrame
+    :return: Dictionary ``{subtype: count}``.
+    :rtype: dict[str, int]
+    """
     # Initialiser un dictionnaire pour stocker les comptes de chaque type de document
     doc_type_counts = {
         'ar': 0,
@@ -1451,6 +1689,16 @@ def count_document_types(df: pd.DataFrame):
 
 
 def countAuthorsInCollab(df : pd.DataFrame, keys: list):
+        """
+        Count how frequently each author appears in the collaboration dataframe.
+        
+        :param df: Collaboration dataframe produced by :func:`collaborationExtract`.
+        :type df: pandas.DataFrame
+        :param keys: Pair of API key and token used to enrich the results.
+        :type keys: list[str]
+        :return: Tuple of three dictionaries storing author counts, identifiers and affiliations.
+        :rtype: tuple[dict[str, int], dict[str, str], dict[str, str]]
+        """
         author_counts = {}
         Author_IDs = {}
         Author_Aff = {}
@@ -1500,6 +1748,18 @@ def countInstitutionsInCollab(df : pd.DataFrame, collabCountry : str):
             return institution_df
 
 def countEntityAuthorsInCollab(df : pd.DataFrame, collabEntityList : list, keys: list):
+    """
+    Count authors associated with the provided entity list within the collaboration dataframe.
+    
+    :param df: Collaboration dataframe produced by :func:`collaborationExtract`.
+    :type df: pandas.DataFrame
+    :param collabEntityList: List of entities that should be tracked.
+    :type collabEntityList: list[str]
+    :param keys: Pair of API key and token used to enrich the results.
+    :type keys: list[str]
+    :return: Tuple of three dictionaries storing author counts, identifiers and affiliations.
+    :rtype: tuple[dict[str, int], dict[str, str], dict[str, str]]
+    """
     entityAuthor_counts = {}
     entityAuthor_IDs = {}
     entityAuthor_Aff = {}
@@ -1572,6 +1832,14 @@ def update_entity_author_counts(entityAuthor_counts, entityAuthor_IDs, entityAut
             entityAuthor_Aff[full_name] = getAffiliation(keys, collabEntity)
 
 def load_ETS_profs(console: QPlainTextEdit):
+    """
+    Load the reference list of ETS professors from disk.
+    
+    :param console: Output console used to display status messages.
+    :type console: QPlainTextEdit
+    :return: Dataframe containing the professor list.
+    :rtype: pandas.DataFrame
+    """
     try : 
         file_name = "INFO.xlsx"
         if os.path.exists(file_name):
@@ -1611,6 +1879,18 @@ def load_ETS(console: QPlainTextEdit):
         return
     
 def add_affiliation_ids_to_list(df: pd.DataFrame, affiliation_list: list, console: QPlainTextEdit):
+    """
+    Collect the affiliation identifiers associated with each collaboration row.
+    
+    :param df: Collaboration dataframe produced by :func:`collaborationExtract`.
+    :type df: pandas.DataFrame
+    :param affiliation_list: List that receives the collected identifiers.
+    :type affiliation_list: list[str]
+    :param console: Output console used to display progress.
+    :type console: QPlainTextEdit
+    :return: ``None``.
+    :rtype: None
+    """
     try:
         # Vérifie si la colonne 'Affiliation ID' existe dans la DataFrame
         if 'Affiliation ID' in df.columns:
@@ -1622,6 +1902,18 @@ def add_affiliation_ids_to_list(df: pd.DataFrame, affiliation_list: list, consol
         return
 
 def findFuzzyMatches(df1: pd.DataFrame, df2: pd.DataFrame, console: QPlainTextEdit):    
+    """
+    Build a dataframe containing fuzzy matches between ETS and external authors.
+    
+    :param df1: Reference dataframe (usually ETS authors).
+    :type df1: pandas.DataFrame
+    :param df2: Dataframe containing collaboration participants.
+    :type df2: pandas.DataFrame
+    :param console: Output console used to display progress.
+    :type console: QPlainTextEdit
+    :return: Dataframe with the fuzzy match results.
+    :rtype: pandas.DataFrame
+    """
     if 'Author' not in df1.columns or 'Nom_prof_ETS' not in df2.columns:
         console.append('<p style={}>! Colonnes Author et/ou Nom_prof_ETS manquantes dans les fichiers</p>'.format(text_style_warning))
         return
@@ -1704,6 +1996,20 @@ def findOthersEtsAffiliations(non_matches_df: pd.DataFrame, all_collabs_df : pd.
         return other_ets_authors_df
 
 def findCollabCountryAffiliations(non_matches_df: pd.DataFrame, all_collabs_df : pd.DataFrame, collabCountry : str, keys : list):
+        """
+        Retrieve detailed affiliation information for collaborations filtered by country.
+        
+        :param non_matches_df: Authors that could not be matched to ETS.
+        :type non_matches_df: pandas.DataFrame
+        :param all_collabs_df: Full collaboration dataframe.
+        :type all_collabs_df: pandas.DataFrame
+        :param collabCountry: Country code used to restrict the search.
+        :type collabCountry: str
+        :param keys: Pair of API key and token used to call Elsevier services.
+        :type keys: list[str]
+        :return: Dataframe enriched with affiliation and country information.
+        :rtype: pandas.DataFrame
+        """
         results = []
         if 'Authors' in all_collabs_df.columns: 
             authors = all_collabs_df['Authors'].dropna().str.split(';')             
@@ -1752,6 +2058,24 @@ def findCollabCountryAffiliations(non_matches_df: pd.DataFrame, all_collabs_df :
 
     
 def saveResults(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df : pd.DataFrame, other_authors_df : pd.DataFrame, institutions_df : pd.DataFrame, allResults_df : pd.DataFrame):
+        """
+        Persist the collaboration analysis in an Excel workbook.
+        
+        :param fileName: Base name of the exported workbook.
+        :type fileName: str
+        :param matches_df: Authors that were matched with ETS staff.
+        :type matches_df: pandas.DataFrame
+        :param other_ets_authors_df: ETS authors that collaborate externally.
+        :type other_ets_authors_df: pandas.DataFrame
+        :param other_authors_df: External authors detected in the collaboration.
+        :type other_authors_df: pandas.DataFrame
+        :param institutions_df: Institutions involved in the collaboration.
+        :type institutions_df: pandas.DataFrame
+        :param allResults_df: Consolidated dataframe with all collaboration rows.
+        :type allResults_df: pandas.DataFrame
+        :return: ``None``.
+        :rtype: None
+        """
         directory = DOCS_PATH[0] + '/' 
         file_path = os.path.join(directory, fileName)
         if not file_path.endswith('.xlsx'):
@@ -1773,6 +2097,16 @@ def saveResults(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df : 
             allResults_df.to_excel(writer, sheet_name='allResults', index=False)
 
 def highlight_fuzzy_matches(fileName, fuzzy_matches):
+        """
+        Highlight the rows corresponding to fuzzy matches inside the Excel workbook.
+        
+        :param fileName: Target Excel file.
+        :type fileName: str
+        :param fuzzy_matches: Dataframe listing the fuzzy matches.
+        :type fuzzy_matches: pandas.DataFrame
+        :return: ``None``.
+        :rtype: None
+        """
         directory = DOCS_PATH[0] + '/' 
         file_path = os.path.join(directory, fileName)
         wb = load_workbook(file_path)
@@ -1785,8 +2119,33 @@ def highlight_fuzzy_matches(fileName, fuzzy_matches):
         wb.save(file_path)
 
 def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df: pd.DataFrame, other_authors_df: pd.DataFrame, institutions_df: pd.DataFrame, allResults_df: pd.DataFrame, fuzzy_matches_df: pd.DataFrame, country : str, debut : str, fin : str, date : str):
-    """Fonction qui permet d'exporter les données sur le gabarit Excel et d'appeler les
-    routines VBA du gabarit
+    """
+    Create the collaboration Excel report for a specific country.
+    
+    :param fileName: Destination workbook name.
+    :type fileName: str
+    :param matches_df: Authors that were matched with ETS staff.
+    :type matches_df: pandas.DataFrame
+    :param other_ets_authors_df: ETS authors collaborating with the target country.
+    :type other_ets_authors_df: pandas.DataFrame
+    :param other_authors_df: External authors detected in the collaboration.
+    :type other_authors_df: pandas.DataFrame
+    :param institutions_df: Institutions involved in the collaboration.
+    :type institutions_df: pandas.DataFrame
+    :param allResults_df: Consolidated dataframe with all collaboration rows.
+    :type allResults_df: pandas.DataFrame
+    :param fuzzy_matches_df: Dataframe describing fuzzy matches.
+    :type fuzzy_matches_df: pandas.DataFrame
+    :param country: Country targeted by the analysis.
+    :type country: str
+    :param debut: Start year of the collaboration window (string as provided by the UI).
+    :type debut: str
+    :param fin: End year of the collaboration window (string as provided by the UI).
+    :type fin: str
+    :param date: Timestamp string injected in the report.
+    :type date: str
+    :return: Tuple ``(excel_app, workbook)`` exposing the COM objects.
+    :rtype: tuple
     """
 
     # Remplacer l'extension par .docx
@@ -1877,6 +2236,26 @@ def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_au
 
 
 def Excel_autes_collabs(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df: pd.DataFrame, other_authors_df: pd.DataFrame, institutions_df: pd.DataFrame, allResults_df: pd.DataFrame, fuzzy_matches_df: pd.DataFrame):
+"""
+Create the collaboration Excel report when analysing two entities.
+
+:param fileName: Destination workbook name.
+:type fileName: str
+:param matches_df: Authors that were matched with ETS staff.
+:type matches_df: pandas.DataFrame
+:param other_ets_authors_df: ETS authors collaborating within the comparison.
+:type other_ets_authors_df: pandas.DataFrame
+:param other_authors_df: External authors detected in the collaboration.
+:type other_authors_df: pandas.DataFrame
+:param institutions_df: Institutions involved in the collaboration.
+:type institutions_df: pandas.DataFrame
+:param allResults_df: Consolidated dataframe with all collaboration rows.
+:type allResults_df: pandas.DataFrame
+:param fuzzy_matches_df: Dataframe describing fuzzy matches.
+:type fuzzy_matches_df: pandas.DataFrame
+:return: Tuple ``(excel_app, workbook)`` exposing the COM objects.
+:rtype: tuple
+"""
 
     # Remplacer l'extension par .docx
     rapportPath = DOCS_PATH[0] + '\\' + os.path.splitext(fileName)[0] + '.docx'
@@ -1956,6 +2335,24 @@ def Excel_autes_collabs(fileName: str, matches_df: pd.DataFrame, other_ets_autho
     return excel, workbook
 
 def saveInter(fileName :str, dfAllResults :pd.DataFrame, dfAuteurs :pd.DataFrame = None, dfAuteursA :pd.DataFrame = None, dfAuteursB :pd.DataFrame = None, dfInstitutions :pd.DataFrame = None):
+"""
+Save intermediary dataframes in a multi-sheet Excel workbook.
+
+:param fileName: Destination workbook name.
+:type fileName: str
+:param dfAllResults: Consolidated dataframe with all collaboration rows.
+:type dfAllResults: pandas.DataFrame
+:param dfAuteurs: Optional dataframe with the author list.
+:type dfAuteurs: pandas.DataFrame | None
+:param dfAuteursA: Optional dataframe with entity A authors.
+:type dfAuteursA: pandas.DataFrame | None
+:param dfAuteursB: Optional dataframe with entity B authors.
+:type dfAuteursB: pandas.DataFrame | None
+:param dfInstitutions: Optional dataframe with the institution list.
+:type dfInstitutions: pandas.DataFrame | None
+:return: ``None``.
+:rtype: None
+"""
 # def saveInter(dfAllResults :pd.DataFrame, fileName :str):
     directory = DOCS_PATH[0] + '/' 
     file_path = os.path.join(directory, fileName)
@@ -1981,6 +2378,16 @@ def saveInter(fileName :str, dfAllResults :pd.DataFrame, dfAuteurs :pd.DataFrame
     return
 
 def getAffiliation(InstitutionId: str, keys: list):
+    """
+    Retrieve the name of the institution associated with a Scopus affiliation identifier.
+    
+    :param InstitutionId: Scopus affiliation identifier.
+    :type InstitutionId: str
+    :param keys: Pair of API key and token used to call Elsevier services.
+    :type keys: list[str]
+    :return: Institution name when available, ``"NONE"`` otherwise.
+    :rtype: str
+    """
     query_entity = f'AF-ID({InstitutionId})'
     search = AffiliationSearch(query=query_entity, api_key= keys[0], token= keys[1])
     # Vérification des résultats
@@ -1993,6 +2400,16 @@ def getAffiliation(InstitutionId: str, keys: list):
             return affiliation
         else: return 'NONE'
 def getAffiliationCountry(InstitutionId: str, keys: list):
+    """
+    Retrieve the name and country of a Scopus affiliation.
+    
+    :param InstitutionId: Scopus affiliation identifier.
+    :type InstitutionId: str
+    :param keys: Pair of API key and token used to call Elsevier services.
+    :type keys: list[str]
+    :return: Tuple ``(name, country)`` or ``"NONE"`` when the affiliation is not found.
+    :rtype: tuple[str, str] | str
+    """
     query_entity = f'AF-ID({InstitutionId})'
     search = AffiliationSearch(query=query_entity, api_key= keys[0], token= keys[1])
     # Vérification des résultats
@@ -2006,6 +2423,16 @@ def getAffiliationCountry(InstitutionId: str, keys: list):
             return affiliation, affiliationCountry
         else: return 'NONE'
 def getAuthorORCID(authorId: str, keys: list):
+    """
+    Retrieve the ORCID associated with a Scopus author identifier.
+    
+    :param authorId: Scopus author identifier.
+    :type authorId: str
+    :param keys: Pair of API key and token used to call Elsevier services.
+    :type keys: list[str]
+    :return: ORCID string or ``"NONE"`` when not found.
+    :rtype: str
+    """
     query_entity = f'AU-ID({authorId})'
     search = AuthorSearch(query=query_entity, api_key= keys[0], token= keys[1])
     # Vérification des résultats
@@ -2019,6 +2446,16 @@ def getAuthorORCID(authorId: str, keys: list):
         else: return 'NONE'
 
 def getAbstract(EID: str, keys: list):
+    """
+    Retrieve the abstract text associated with a Scopus document.
+    
+    :param EID: Scopus document identifier.
+    :type EID: str
+    :param keys: Pair of API key and token used to call Elsevier services.
+    :type keys: list[str]
+    :return: Abstract text when available or ``"NONE"``.
+    :rtype: str
+    """
     try : 
         search = AbstractRetrieval(identifier=EID, api_key= keys[0], token= keys[1])
         # Vérification des résultats
