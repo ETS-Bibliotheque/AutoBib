@@ -103,6 +103,8 @@ jobs:
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Download docs artifact
         uses: actions/download-artifact@v4
