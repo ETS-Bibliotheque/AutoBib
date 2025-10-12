@@ -6,9 +6,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-env:
-  PYTHON_VERSION: "3.12"
-
 permissions:
   contents: read
   pages: write
@@ -20,44 +17,41 @@ concurrency:
 
 jobs:
   validate:
-    name: Validate on Python ${{ matrix.python-version }}
+    name: Validate (Python 3.12 via uv)
     runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - python-version: "3.11"
-            requirements-file: "requirements_Python_3_11_and_earlier.txt"
-          - python-version: "3.12"
-            requirements-file: "requirements_Python_3_12.txt"
-
     steps:
       - name: Checkout sources
         uses: actions/checkout@v5
 
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{ matrix.python-version }}
+      - name: Read Python version
+        run: |
+          $version = Get-Content .python-version | Select-Object -First 1
+          "PYTHON_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        shell: pwsh
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install Python ${{ env.PYTHON_VERSION }}
+        run: uv python install $env:PYTHON_VERSION
+        shell: pwsh
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r "${{ matrix.requirements-file }}"
+        run: uv sync --locked --python $env:PYTHON_VERSION
         shell: pwsh
 
       - name: Check installed packages
-        run: python -m pip check
+        run: uv run python -m pip check
         shell: pwsh
 
       - name: Compile sources
-        run: python -m compileall AutoBibPlus.py Include
+        run: uv run python -m compileall AutoBibPlus.py Include
         shell: pwsh
 
       - name: Run unit tests (if any)
         run: |
           if (Test-Path tests) {
-            python -m unittest discover -s tests -p "test_*.py"
+            uv run python -m unittest discover -s tests -p "test_*.py"
           } else {
             Write-Host "No tests directory found; skipping unit tests."
           }
@@ -72,19 +66,23 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v5
 
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Read Python version
+        run: echo "PYTHON_VERSION=$(sed -n '1p' .python-version)" >> "$GITHUB_ENV"
 
       - name: Install uv
         uses: astral-sh/setup-uv@v3
 
+      - name: Install Python ${{ env.PYTHON_VERSION }}
+        run: uv python install $PYTHON_VERSION
+
+      - name: Install project dependencies
+        run: uv sync --locked --python $PYTHON_VERSION
+
       - name: Install documentation dependencies
-        run: uv pip install --system -r docs/requirements.txt
+        run: uv pip install --python $PYTHON_VERSION -r docs/requirements.txt
 
       - name: Build Sphinx documentation
-        run: python -m sphinx -b html docs docs/_build/html
+        run: uv run python -m sphinx -b html docs docs/_build/html
 
       - name: Upload docs artifact
         uses: actions/upload-artifact@v4
