@@ -22,7 +22,7 @@ dependencies = [
     "pefile==2023.2.7",
     "pillow==11.1.0",
     "pyinstaller==6.11.1",
-    "pyinstaller-hooks-contrib==2025.0",
+    "pyinstaller-hooks-contrib==2025.9",
     "pyside6==6.8.1.1",
     "pyside6-addons==6.8.1.1",
     "pyside6-essentials==6.8.1.1",
