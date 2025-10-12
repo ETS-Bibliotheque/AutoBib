@@ -19,7 +19,7 @@ requests==2.32.5
 shiboken6==6.5.2
 six==1.16.0
 tqdm==4.67.1
-tzdata==2023.3
+tzdata==2025.2
 urllib3==2.5.0
 openpyxl==3.1.5
 fuzzywuzzy==0.18.0
