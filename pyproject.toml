@@ -24,7 +24,7 @@ dependencies = [
     "pyinstaller==6.11.1",
     "pyinstaller-hooks-contrib==2025.9",
     "pyside6==6.10.0",
-    "pyside6-addons==6.8.1.1",
+    "pyside6-addons==6.10.0",
     "pyside6-essentials==6.10.0",
     "python-dateutil==2.9.0.post0",
     "pytz==2024.2",
