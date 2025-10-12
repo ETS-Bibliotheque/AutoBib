@@ -28,6 +28,8 @@ autodoc_default_options = {
     "show-inheritance": True,
 }
 
+suppress_warnings = ["autodoc.mocked_object"]
+
 autodoc_mock_imports = [
     "PySide6",
     "PySide6.QtWidgets",
