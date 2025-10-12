@@ -41,7 +41,7 @@ jobs:
         shell: pwsh
 
       - name: Check installed packages
-        run: uv run python -m pip check
+        run: uv pip check --python $env:PYTHON_VERSION
         shell: pwsh
 
       - name: Compile sources
