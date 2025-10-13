@@ -4,11 +4,6 @@
 .. automodule:: Include.Tools
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -62,15 +57,3 @@
       update_entity_author_counts
       valeurs_encadre
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

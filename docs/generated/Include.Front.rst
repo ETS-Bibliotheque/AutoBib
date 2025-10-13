@@ -4,15 +4,6 @@
 .. automodule:: Include.Front
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
    .. rubric:: Classes
 
    .. autosummary::
@@ -26,11 +17,3 @@
       ReconfigMessageBox
       Timer
    
-   
-
-   
-   
-   
-
-
-

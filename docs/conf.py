@@ -72,9 +72,6 @@ autodoc_mock_imports = [
     "urllib3",
 ]
 
-if os.name != "nt":
-    autodoc_mock_imports.append("Include.Tools")
-
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 

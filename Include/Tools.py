@@ -27,37 +27,74 @@ Nous avons choisi d'utiliser un script Python pour gerer toute l'automatisation 
 """
 
 
-""" 
-Projet repris par Adji Toure
-Contexte :
-   Stage de 12 semaines sur l'ete 2024 (3 juin au 23 aout) a l'Ecole de Technologie Superieure, Montreal, Canada.
+# Projet repris par Adji Toure
+# Contexte :
+#    Stage de 12 semaines sur l'ete 2024 (3 juin au 23 aout) a l'Ecole de Technologie Superieure, Montreal, Canada.
+#
+# Mission principale :
+#    Continuer le developpement de l'outil en integrant la production de rapports de collaborations entre deux entites.
+#
+# Approche adoptee et taches realisees :
+#    Observation de la methodologie existante : analyse des processus et methodes actuels utilises pour la realisation des rapports bibliometriques.
+#    Participation aux echanges avec les fournisseurs : interaction avec les partenaires externes pour mieux comprendre les outils et services disponibles.
+#    Evaluation de differentes approches : identification et test de la faisabilite de diverses approches pour le projet, analyse des avantages et inconvenients de chacune, et presentation de recommandations a l'equipe.
+#    Maitrise des bibliotheques et APIs : etude approfondie des documentations Elsevier/pybliometrics/pandas pour l'extraction et le traitement des donnees.
+#    Developpement de scripts pour la detection de noms : creation d'un script Python utilisant une correspondance approximative pour reperer les professeurs de l'etablissement.
+#    Automatisation des rapports : developpement de scripts Python pour l'extraction, le traitement et l'exportation vers Excel/Word.
 
-Mission principale : 
-   Continuer le developpement de l'outil en integrant la production de rapports de colloaborations entre deux entites.
+from __future__ import annotations
 
-Approche adoptee et taches realisees:
-   Observation de la methodologie existante : Analyse des processus et methodes actuels utilises pour la realisation des rapports bibliometriques.
-   Participation aux echanges avec les fournisseurs : Interaction avec les partenaires externes pour mieux comprendre les outils et services disponibles.
-   Evaluation de differentes approches : Identification et test de la faisabilite de diverses approches pour le projet, analyse des avantages et inconvenients de chacune, et presentation de recommandations a l'equipe pour selectionner l'approche optimale.
-   Maitrise des bibliotheques et APIs : Etude approfondie de la documentation sur l'exploitation des APIs, notamment celles d'Elsevier, et acquisition de competences en utilisant des bibliotheques comme pybliometrics pour l'extraction de donnees et pandas pour leur traitement.
-   Developpement de scripts pour la detection de noms : Creation d'un script Python pour detecter et identifier les noms des professeurs de l'etablissement en utilisant des techniques de correspondance approximative.
-   Automatisation des rapports : Developpement de scripts Python pour :
-        Extraction des donnees bibliometriques via l'API Scopus.
-        Traitement et calcul des indicateurs requis.
-        Exportation des donnees vers Excel et integration des graphiques dans des rapports Word via des routines VBA.
-        Amelioration de l'Interface Homme-Machine (IHM) : Developpement d'une nouvelle branche pour l'IHM en Qt.
-"""
-
-import os, unicodedata, win32gui, time, re
-import pandas as pd
 import json
-from unidecode import unidecode
-from fuzzywuzzy import fuzz
-import win32com.client as win32
-from datetime import datetime
+import os
+import re
+import time
+import unicodedata
 from collections import Counter
+from datetime import datetime
+
+import pandas as pd
+from fuzzywuzzy import fuzz
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
+from unidecode import unidecode
+
+try:
+    from PySide6.QtWidgets import QPlainTextEdit  # type: ignore[attr-defined]
+except Exception:  # pragma: no cover - PySide6 peut etre absent
+    QPlainTextEdit = None  # type: ignore[assignment]
+
+if not isinstance(QPlainTextEdit, type):  # pragma: no cover - cas mock
+    class QPlainTextEdit:  # type: ignore[empty-body]
+        """Fallback minimale pour les environnements sans PySide6."""
+
+        def append(self, *args, **kwargs) -> None:
+            """Ignorer les appels lors des tests sans interface graphique."""
+            pass
+
+try:
+    import win32api  # type: ignore[attr-defined]
+    import win32clipboard  # type: ignore[attr-defined]
+    import win32com.client as win32  # type: ignore[attr-defined]
+    import win32con  # type: ignore[attr-defined]
+    import win32gui  # type: ignore[attr-defined]
+except ImportError:  # pragma: no cover - platform specific
+    win32api = None
+    win32clipboard = None
+    win32 = None  # type: ignore[assignment]
+    win32con = None
+    win32gui = None
+
+
+def _require_windows(feature: str) -> None:
+    """
+    Lever une erreur explicite si une fonctionnalite Windows est utilisee hors Windows.
+
+    :param feature: Nom de la fonctionnalite invoquee.
+    :type feature: str
+    :raises RuntimeError: si les dependances Windows ne sont pas disponibles.
+    """
+    if win32 is None or win32gui is None:
+        raise RuntimeError(f"{feature} est uniquement disponible sous Windows.")
 from xlsxwriter import Workbook
 
 # Importations locales
@@ -1184,7 +1221,9 @@ def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_ada
     :type annee_10y_adapt: int
     :return: Tuple ``(excel_app, workbook)`` exposant les objets COM.
     :rtype: tuple
+    :raises RuntimeError: si la fonctionnalite est utilisee hors Windows.
     """
+    _require_windows("Excel_part1")
     # Ouvrir le classeur Excel existant
     nom_fichier = os.path.dirname(os.path.abspath(__file__)) + '\\..\\GABARIT.xlsm'
     nom_feuille = 'Raw_Data'
@@ -1330,7 +1369,9 @@ def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Col
     :type df_Collab: pandas.DataFrame
     :return: ``None``.
     :rtype: None
+    :raises RuntimeError: si la fonctionnalite est utilisee hors Windows.
     """
+    _require_windows("Excel_part2")
     # Ouvrir le classeur Excel existant
     nom_fichier = os.path.dirname(os.path.abspath(__file__)) + '\\..\\GABARIT.xlsm'
     nom_feuille = 'Raw_Data'
@@ -2070,66 +2111,70 @@ def findCollabCountryAffiliations(non_matches_df: pd.DataFrame, all_collabs_df :
         return other_authors_df
 
     
-def saveResults(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df : pd.DataFrame, other_authors_df : pd.DataFrame, institutions_df : pd.DataFrame, allResults_df : pd.DataFrame):
-        """
-        Enregistrer l'analyse des collaborations dans un classeur Excel.
-        
-        :param fileName: Nom de base du classeur exporte.
-        :type fileName: str
-        :param matches_df: Auteurs apparies avec le personnel ETS.
-        :type matches_df: pandas.DataFrame
-        :param other_ets_authors_df: Auteurs ETS collaborant avec l'exterieur.
-        :type other_ets_authors_df: pandas.DataFrame
-        :param other_authors_df: Auteurs externes identifies.
-        :type other_authors_df: pandas.DataFrame
-        :param institutions_df: Institutions impliquees.
-        :type institutions_df: pandas.DataFrame
-        :param allResults_df: DataFrame consolide de toutes les lignes de collaboration.
-        :type allResults_df: pandas.DataFrame
-        :return: ``None``.
-        :rtype: None
-        """
-        directory = DOCS_PATH[0] + '/' 
-        file_path = os.path.join(directory, fileName)
-        if not file_path.endswith('.xlsx'):
-            file_path += '.xlsx'
-                
-        # Sort dataframes by 'Nbre de publications' before saving
-        matches_df['Nbre de publications'] = matches_df['Nbre de publications'].replace('N/A', 0).astype(int)
-        matches_df = matches_df.sort_values(by='Nbre de publications', ascending=False)
-        other_ets_authors_df['Nbre de publications'] = other_ets_authors_df['Nbre de publications'].replace('N/A', 0).astype(int)
-        other_ets_authors_df = other_ets_authors_df.sort_values(by='Nbre de publications', ascending=False)
-        other_authors_df['Nbre de publications'] = other_authors_df['Nbre de publications'].replace('N/A', 0).astype(int)
-        other_authors_df = other_authors_df.sort_values(by='Nbre de publications', ascending=False)
-            
-        with pd.ExcelWriter(file_path, engine='xlsxwriter') as writer:
-            matches_df.to_excel(writer, sheet_name='professeurs_ETS', index=False)
-            other_ets_authors_df.to_excel(writer, sheet_name='autres_ETS', index=False)
-            other_authors_df.to_excel(writer, sheet_name='autres', index=False)
-            institutions_df.to_excel(writer, sheet_name='Institutions', index=False)
-            allResults_df.to_excel(writer, sheet_name='allResults', index=False)
+def saveResults(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df: pd.DataFrame, other_authors_df: pd.DataFrame, institutions_df: pd.DataFrame, allResults_df: pd.DataFrame):
+    """
+    Enregistrer l'analyse des collaborations dans un classeur Excel.
+    
+    :param fileName: Nom de base du classeur exporte.
+    :type fileName: str
+    :param matches_df: Auteurs apparies avec le personnel ETS.
+    :type matches_df: pandas.DataFrame
+    :param other_ets_authors_df: Auteurs ETS collaborant avec l'exterieur.
+    :type other_ets_authors_df: pandas.DataFrame
+    :param other_authors_df: Auteurs externes identifies.
+    :type other_authors_df: pandas.DataFrame
+    :param institutions_df: Institutions impliquees.
+    :type institutions_df: pandas.DataFrame
+    :param allResults_df: DataFrame consolide de toutes les lignes de collaboration.
+    :type allResults_df: pandas.DataFrame
+    :return: ``None``.
+    :rtype: None
+    :raises RuntimeError: si la fonctionnalite est utilisee hors Windows.
+    """
+    _require_windows("saveResults")
+    directory = DOCS_PATH[0] + '/'
+    file_path = os.path.join(directory, fileName)
+    if not file_path.endswith('.xlsx'):
+        file_path += '.xlsx'
+
+    # Trier les DataFrames selon le nombre de publications
+    matches_df['Nbre de publications'] = matches_df['Nbre de publications'].replace('N/A', 0).astype(int)
+    matches_df = matches_df.sort_values(by='Nbre de publications', ascending=False)
+    other_ets_authors_df['Nbre de publications'] = other_ets_authors_df['Nbre de publications'].replace('N/A', 0).astype(int)
+    other_ets_authors_df = other_ets_authors_df.sort_values(by='Nbre de publications', ascending=False)
+    other_authors_df['Nbre de publications'] = other_authors_df['Nbre de publications'].replace('N/A', 0).astype(int)
+    other_authors_df = other_authors_df.sort_values(by='Nbre de publications', ascending=False)
+
+    with pd.ExcelWriter(file_path, engine='xlsxwriter') as writer:
+        matches_df.to_excel(writer, sheet_name='professeurs_ETS', index=False)
+        other_ets_authors_df.to_excel(writer, sheet_name='autres_ETS', index=False)
+        other_authors_df.to_excel(writer, sheet_name='autres', index=False)
+        institutions_df.to_excel(writer, sheet_name='Institutions', index=False)
+        allResults_df.to_excel(writer, sheet_name='allResults', index=False)
 
 def highlight_fuzzy_matches(fileName, fuzzy_matches):
-        """
-        Mettre en surbrillance les lignes correspondant aux appariements approximatifs.
-        
-        :param fileName: Fichier Excel cible.
-        :type fileName: str
-        :param fuzzy_matches: DataFrame listant les appariements.
-        :type fuzzy_matches: pandas.DataFrame
-        :return: ``None``.
-        :rtype: None
-        """
-        directory = DOCS_PATH[0] + '/' 
-        file_path = os.path.join(directory, fileName)
-        wb = load_workbook(file_path)
-        ws = wb['professeurs_ETS']
-        fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')
-        for row in ws.iter_rows(min_row=2, max_col=3, max_row=ws.max_row):
-            if row[0].value in fuzzy_matches:
-                for cell in row:
-                    cell.fill = fill
-        wb.save(file_path)
+    """
+    Mettre en surbrillance les lignes correspondant aux appariements approximatifs.
+
+    :param fileName: Fichier Excel cible.
+    :type fileName: str
+    :param fuzzy_matches: DataFrame listant les appariements.
+    :type fuzzy_matches: pandas.DataFrame
+    :return: ``None``.
+    :rtype: None
+    :raises RuntimeError: si la fonctionnalite est utilisee hors Windows.
+    """
+    _require_windows("highlight_fuzzy_matches")
+    directory = DOCS_PATH[0] + '/'
+    file_path = os.path.join(directory, fileName)
+    wb = load_workbook(file_path)
+    ws = wb['professeurs_ETS']
+    fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')
+    for row in ws.iter_rows(min_row=2, max_col=3, max_row=ws.max_row):
+        if row[0].value in fuzzy_matches:
+            for cell in row:
+                cell.fill = fill
+    wb.save(file_path)
 
 def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df: pd.DataFrame, other_authors_df: pd.DataFrame, institutions_df: pd.DataFrame, allResults_df: pd.DataFrame, fuzzy_matches_df: pd.DataFrame, country : str, debut : str, fin : str, date : str):
     """
@@ -2159,7 +2204,9 @@ def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_au
     :type date: str
     :return: Tuple ``(excel_app, workbook)`` exposant les objets COM.
     :rtype: tuple
+    :raises RuntimeError: si la fonctionnalite est utilisee hors Windows.
     """
+    _require_windows("Excel_collabs_ETS_pays")
 
     # Remplacer l'extension par .docx
     rapportPath = DOCS_PATH[0] + '\\' + os.path.splitext(fileName)[0] + '.docx'
@@ -2268,8 +2315,10 @@ def Excel_autes_collabs(fileName: str, matches_df: pd.DataFrame, other_ets_autho
     :type fuzzy_matches_df: pandas.DataFrame
     :return: Tuple ``(excel_app, workbook)`` exposant les objets COM.
     :rtype: tuple
+    :raises RuntimeError: si la fonctionnalite est utilisee hors Windows.
     """
 
+    _require_windows("Excel_autes_collabs")
     # Remplacer l'extension par .docx
     rapportPath = DOCS_PATH[0] + '\\' + os.path.splitext(fileName)[0] + '.docx'
     gabaritPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'GABARITCOLLABS.docx')

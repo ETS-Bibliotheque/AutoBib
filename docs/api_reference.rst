@@ -8,3 +8,10 @@ API Reference
    AutoBibPlus
    Include.Front
    Include.Tools
+
+.. toctree::
+   :hidden:
+
+   generated/AutoBibPlus
+   generated/Include.Front
+   generated/Include.Tools

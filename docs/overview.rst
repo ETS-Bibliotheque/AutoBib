@@ -1,15 +1,12 @@
-Overview
-========
+Aperçu
+======
 
-AutoBib+ automates several steps required to assemble bibliometric reports for the
-École de technologie supérieure (ETS). The graphical interface guides consultants
-through a conversational workflow that collects credentials, fetches metrics from
-Elsevier APIs and exports both Excel and Word deliverables.
+AutoBib+ automatise plusieurs étapes nécessaires pour assembler les rapports bibliométriques pour l'École de technologie supérieure (ETS). L'interface graphique guide les consultants à travers un flux de travail conversationnel qui collecte les identifiants, récupère les métriques des API Elsevier et exporte les livrables Excel et Word.
 
-This documentation highlights:
+Cette documentation met en évidence :
 
-* High level architecture of the desktop application.
-* The most important classes involved in the Qt-based interface.
-* Utility functions in :mod:`Include.Tools` used to query pybliometrics and post-process results.
+* L'architecture de haut niveau de l'application de bureau.
+* Les classes les plus importantes impliquées dans l'interface basée sur Qt.
+* Les fonctions utilitaires dans :mod:`Include.Tools` utilisées pour interroger pybliometrics et post-traiter les résultats.
 
-For day-to-day usage instructions refer to the PDF guides packaged with the project.
+Pour les instructions d'utilisation quotidiennes, consultez les guides PDF fournis avec le projet.
