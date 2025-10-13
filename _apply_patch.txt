@@ -1,0 +1,10 @@
+*** Begin Patch
+*** Update File: docs/api_reference.rst
+@@
+-.. toctree::
+-   :hidden:
+-
+-   generated/AutoBibPlus
+-   generated/Include.Front
+-   generated/Include.Tools
+*** End Patch
