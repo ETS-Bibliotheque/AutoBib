@@ -70,6 +70,7 @@ autodoc_mock_imports = [
     "certifi",
     "idna",
     "urllib3",
+    "Include.pybliometrics",
 ]
 
 napoleon_google_docstring = False
