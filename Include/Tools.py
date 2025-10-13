@@ -1,51 +1,51 @@
-# © 2023 Benjamin Lepourtois <benjamin.lepourtois@gmail.com>
-# © 2024 Adji Toure <adji.toure.dev@gmail.com>
+#  2023 Benjamin Lepourtois <benjamin.lepourtois@gmail.com>
+#  2024 Adji Toure <adji.toure.dev@gmail.com>
 # Copyright: All rights reserved.
 # See the license attached to the root of the project.
 
 """
-Projet d'Automatisation de Rapports d'Analyses Bibliométriques:
+Projet d'Automatisation de Rapports d'Analyses Bibliometriques:
 
-Ce programme fait partie intégrante du projet de conception et développement d'outils automatisés pour la réalisation de rapports d'analyses bibliométriques.
+Ce programme fait partie integrante du projet de conception et developpement d'outils automatises pour la realisation de rapports d'analyses bibliometriques.
 
 Contexte:
 
-  ● Stage de 12 semaines sur l'été 2023 (12 juin au 1er septembre) dans l'École de Technologie Supérieure, Montréal, Canada
-  ● Mission principale:
-Développer des outils permettant l'automatisation de certaines étapes de production de rapports d'analyses bibliométriques 
-destinés à aider les chercheurs et chercheuses dans la planification de la mesure de l'impact de leurs contributions scientifiques.
+   Stage de 12 semaines sur l'ete 2023 (12 juin au 1er septembre) dans l'Ecole de Technologie Superieure, Montreal, Canada
+   Mission principale:
+Developper des outils permettant l'automatisation de certaines etapes de production de rapports d'analyses bibliometriques 
+destines a aider les chercheurs et chercheuses dans la planification de la mesure de l'impact de leurs contributions scientifiques.
 
 Approche choisie:
 
-Nous avons choisi d'utiliser un script Python pour gérer toute l'automatisation des rapports.
-  ● Extraction des données: par les API des différentes plateformes utilisées (Scopus et SciVal) à l'aide de la bibliothèque publique "pybliometrics"
-  ● Traitement des données: en Python à l'aide de la bibliothèque "pandas"
-  ● Interface Homme-Machine: en QT avec une interface très simpliste basée sur une boîte de dialogue
-  ● Exportation des données: en Python à l'aide de la bibliothèque "pywin32" vers un fichier "Workbook" MacroExcel (.xlsm)
-  ● Mise en forme Excel: avec des routines VBA appelées par le script Python
-  ● Réalisation du rapport Word: avec des routines VBA, appelées par le script Python, qui exportent les données et les graphiques réalisés sur un document Word
+Nous avons choisi d'utiliser un script Python pour gerer toute l'automatisation des rapports.
+   Extraction des donnees: par les API des differentes plateformes utilisees (Scopus et SciVal) a l'aide de la bibliotheque publique "pybliometrics"
+   Traitement des donnees: en Python a l'aide de la bibliotheque "pandas"
+   Interface Homme-Machine: en QT avec une interface tres simpliste basee sur une boite de dialogue
+   Exportation des donnees: en Python a l'aide de la bibliotheque "pywin32" vers un fichier "Workbook" MacroExcel (.xlsm)
+   Mise en forme Excel: avec des routines VBA appelees par le script Python
+   Realisation du rapport Word: avec des routines VBA, appelees par le script Python, qui exportent les donnees et les graphiques realises sur un document Word
 """
 
 
 """ 
-Projet repris par Adji Touré
+Projet repris par Adji Toure
 Contexte :
-  ● Stage de 12 semaines sur l'été 2024 (3 juin au 23 août) à l'École de Technologie Supérieure, Montréal, Canada.
+   Stage de 12 semaines sur l'ete 2024 (3 juin au 23 aout) a l'Ecole de Technologie Superieure, Montreal, Canada.
 
 Mission principale : 
-  ● Continuer le développement de l'outil en intégrant la production de rapports de colloaborations entre deux entités.
+   Continuer le developpement de l'outil en integrant la production de rapports de colloaborations entre deux entites.
 
-Approche adoptée et tâches réalisées:
-  ● Observation de la méthodologie existante : Analyse des processus et méthodes actuels utilisés pour la réalisation des rapports bibliométriques.
-  ● Participation aux échanges avec les fournisseurs : Interaction avec les partenaires externes pour mieux comprendre les outils et services disponibles.
-  ● Évaluation de différentes approches : Identification et test de la faisabilité de diverses approches pour le projet, analyse des avantages et inconvénients de chacune, et présentation de recommandations à l'équipe pour sélectionner l'approche optimale.
-  ● Maîtrise des bibliothèques et APIs : Étude approfondie de la documentation sur l'exploitation des APIs, notamment celles d'Elsevier, et acquisition de compétences en utilisant des bibliothèques comme pybliometrics pour l'extraction de données et pandas pour leur traitement.
-  ● Développement de scripts pour la détection de noms : Création d'un script Python pour détecter et identifier les noms des professeurs de l'établissement en utilisant des techniques de correspondance approximative.
-  ● Automatisation des rapports : Développement de scripts Python pour :
-        Extraction des données bibliométriques via l'API Scopus.
+Approche adoptee et taches realisees:
+   Observation de la methodologie existante : Analyse des processus et methodes actuels utilises pour la realisation des rapports bibliometriques.
+   Participation aux echanges avec les fournisseurs : Interaction avec les partenaires externes pour mieux comprendre les outils et services disponibles.
+   Evaluation de differentes approches : Identification et test de la faisabilite de diverses approches pour le projet, analyse des avantages et inconvenients de chacune, et presentation de recommandations a l'equipe pour selectionner l'approche optimale.
+   Maitrise des bibliotheques et APIs : Etude approfondie de la documentation sur l'exploitation des APIs, notamment celles d'Elsevier, et acquisition de competences en utilisant des bibliotheques comme pybliometrics pour l'extraction de donnees et pandas pour leur traitement.
+   Developpement de scripts pour la detection de noms : Creation d'un script Python pour detecter et identifier les noms des professeurs de l'etablissement en utilisant des techniques de correspondance approximative.
+   Automatisation des rapports : Developpement de scripts Python pour :
+        Extraction des donnees bibliometriques via l'API Scopus.
         Traitement et calcul des indicateurs requis.
-        Exportation des données vers Excel et intégration des graphiques dans des rapports Word via des routines VBA.
-        Amélioration de l'Interface Homme-Machine (IHM) : Développement d'une nouvelle branche pour l'IHM en Qt.
+        Exportation des donnees vers Excel et integration des graphiques dans des rapports Word via des routines VBA.
+        Amelioration de l'Interface Homme-Machine (IHM) : Developpement d'une nouvelle branche pour l'IHM en Qt.
 """
 
 import os, unicodedata, win32gui, time, re
@@ -79,52 +79,52 @@ from PySide6.QtWidgets import QPlainTextEdit
 text_style_warning = '"color: #D35230"'
 text_style_question = '"color: #0C5E31"'
 
-# Dictionnaires des traductions souhaitées
+# Dictionnaires des traductions souhaitees
 trad_en2fr = {
     'Article': 'Article',
-    'Review': 'Article de synthèse',
-    'Conference Paper': 'Conférence',
-    'Conference Review': 'Synthèse de conférence',
-    'Data Paper': 'Article de données',
-    'Editorial': 'Éditorial',
+    'Review': 'Article de synthese',
+    'Conference Paper': 'Conference',
+    'Conference Review': 'Synthese de conference',
+    'Data Paper': 'Article de donnees',
+    'Editorial': 'Editorial',
     'Book': 'Livre',
     'Book Chapter': 'Chapitre',
     'Erratum': 'Erratum',
     'Note': 'Commentaire',
     'Letter': "Lettre d'opinion",
-    'Short Survey': 'Enquête',
-    'Retracted': 'Rétractation',
-    '∅': '∅'
+    'Short Survey': 'Enquete',
+    'Retracted': 'Retractation',
+    '': ''
 }
 countries_dict = {
     "Afghanistan": "Afghanistan",
     "Afrique du Sud": "South Africa",
     "Albanie": "Albania",
-    "Algérie": "Algeria",
+    "Algerie": "Algeria",
     "Allemagne": "Germany",
     "Andorre": "Andorra",
     "Angola": "Angola",
     "Antigua-et-Barbuda": "Antigua and Barbuda",
     "Arabie Saoudite": "Saudi Arabia",
     "Argentine": "Argentina",
-    "Arménie": "Armenia",
+    "Armenie": "Armenia",
     "Australie": "Australia",
     "Autriche": "Austria",
-    "Azerbaïdjan": "Azerbaijan",
+    "Azerbaidjan": "Azerbaijan",
     "Bahamas": "Bahamas",
-    "Bahreïn": "Bahrain",
+    "Bahrein": "Bahrain",
     "Bangladesh": "Bangladesh",
     "Barbade": "Barbados",
     "Belgique": "Belgium",
     "Belize": "Belize",
-    "Bénin": "Benin",
+    "Benin": "Benin",
     "Bhoutan": "Bhutan",
-    "Biélorussie": "Belarus",
+    "Bielorussie": "Belarus",
     "Birmanie": "Myanmar",
     "Bolivie": "Bolivia",
-    "Bosnie-Herzégovine": "Bosnia and Herzegovina",
+    "Bosnie-Herzegovine": "Bosnia and Herzegovina",
     "Botswana": "Botswana",
-    "Brésil": "Brazil",
+    "Bresil": "Brazil",
     "Brunei": "Brunei",
     "Bulgarie": "Bulgaria",
     "Burkina Faso": "Burkina Faso",
@@ -140,56 +140,56 @@ countries_dict = {
     "Comores": "Comoros",
     "Congo-Brazzaville": "Republic of the Congo",
     "Congo-Kinshasa": "Democratic Republic of the Congo",
-    "Corée du Nord": "North Korea",
-    "Corée du Sud": "South Korea",
+    "Coree du Nord": "North Korea",
+    "Coree du Sud": "South Korea",
     "Costa Rica": "Costa Rica",
-    "Côte d'Ivoire": "Ivory Coast",
+    "Cote d'Ivoire": "Ivory Coast",
     "Croatie": "Croatia",
     "Cuba": "Cuba",
     "Danemark": "Denmark",
     "Djibouti": "Djibouti",
     "Dominique": "Dominica",
-    "Égypte": "Egypt",
-    "Émirats Arabes Unis": "United Arab Emirates",
-    "Équateur": "Ecuador",
-    "Érythrée": "Eritrea",
+    "Egypte": "Egypt",
+    "Emirats Arabes Unis": "United Arab Emirates",
+    "Equateur": "Ecuador",
+    "Erythree": "Eritrea",
     "Espagne": "Spain",
     "Estonie": "Estonia",
-    "États-Unis": "United States",
-    "Éthiopie": "Ethiopia",
+    "Etats-Unis": "United States",
+    "Ethiopie": "Ethiopia",
     "Fidji": "Fiji",
     "Finlande": "Finland",
     "France": "France",
     "Gabon": "Gabon",
     "Gambie": "Gambia",
-    "Géorgie": "Georgia",
+    "Georgie": "Georgia",
     "Ghana": "Ghana",
-    "Grèce": "Greece",
+    "Grece": "Greece",
     "Grenade": "Grenada",
     "Guatemala": "Guatemala",
-    "Guinée": "Guinea",
-    "Guinée-Bissau": "Guinea-Bissau",
-    "Guinée équatoriale": "Equatorial Guinea",
+    "Guinee": "Guinea",
+    "Guinee-Bissau": "Guinea-Bissau",
+    "Guinee equatoriale": "Equatorial Guinea",
     "Guyana": "Guyana",
-    "Haïti": "Haiti",
+    "Haiti": "Haiti",
     "Honduras": "Honduras",
     "Hongrie": "Hungary",
     "Inde": "India",
-    "Indonésie": "Indonesia",
+    "Indonesie": "Indonesia",
     "Irak": "Iraq",
     "Iran": "Iran",
     "Irlande": "Ireland",
     "Islande": "Iceland",
-    "Israël": "Israel",
+    "Israel": "Israel",
     "Italie": "Italy",
-    "Jamaïque": "Jamaica",
+    "Jamaique": "Jamaica",
     "Japon": "Japan",
     "Jordanie": "Jordan",
     "Kazakhstan": "Kazakhstan",
     "Kenya": "Kenya",
     "Kirghizistan": "Kyrgyzstan",
     "Kiribati": "Kiribati",
-    "Koweït": "Kuwait",
+    "Koweit": "Kuwait",
     "Laos": "Laos",
     "Lesotho": "Lesotho",
     "Lettonie": "Latvia",
@@ -199,7 +199,7 @@ countries_dict = {
     "Liechtenstein": "Liechtenstein",
     "Lituanie": "Lithuania",
     "Luxembourg": "Luxembourg",
-    "Macédoine": "North Macedonia",
+    "Macedoine": "North Macedonia",
     "Madagascar": "Madagascar",
     "Malaisie": "Malaysia",
     "Malawi": "Malawi",
@@ -211,32 +211,32 @@ countries_dict = {
     "Maurice": "Mauritius",
     "Mauritanie": "Mauritania",
     "Mexique": "Mexico",
-    "Micronésie": "Micronesia",
+    "Micronesie": "Micronesia",
     "Moldavie": "Moldova",
     "Monaco": "Monaco",
     "Mongolie": "Mongolia",
-    "Monténégro": "Montenegro",
+    "Montenegro": "Montenegro",
     "Mozambique": "Mozambique",
     "Namibie": "Namibia",
     "Nauru": "Nauru",
-    "Népal": "Nepal",
+    "Nepal": "Nepal",
     "Nicaragua": "Nicaragua",
     "Niger": "Niger",
-    "Nigéria": "Nigeria",
+    "Nigeria": "Nigeria",
     "Niue": "Niue",
-    "Norvège": "Norway",
-    "Nouvelle-Zélande": "New Zealand",
+    "Norvege": "Norway",
+    "Nouvelle-Zelande": "New Zealand",
     "Oman": "Oman",
     "Ouganda": "Uganda",
-    "Ouzbékistan": "Uzbekistan",
+    "Ouzbekistan": "Uzbekistan",
     "Pakistan": "Pakistan",
     "Palaos": "Palau",
     "Palestine": "Palestine",
     "Panama": "Panama",
-    "Papouasie-Nouvelle-Guinée": "Papua New Guinea",
+    "Papouasie-Nouvelle-Guinee": "Papua New Guinea",
     "Paraguay": "Paraguay",
     "Pays-Bas": "Netherlands",
-    "Pérou": "Peru",
+    "Perou": "Peru",
     "Philippines": "Philippines",
     "Pologne": "Poland",
     "Portugal": "Portugal",
@@ -251,19 +251,19 @@ countries_dict = {
     "Salomon": "Solomon Islands",
     "Salvador": "El Salvador",
     "Samoa": "Samoa",
-    "Sao Tomé-et-Principe": "Sao Tome and Principe",
-    "Sénégal": "Senegal",
+    "Sao Tome-et-Principe": "Sao Tome and Principe",
+    "Senegal": "Senegal",
     "Serbie": "Serbia",
     "Seychelles": "Seychelles",
     "Sierra Leone": "Sierra Leone",
     "Singapour": "Singapore",
     "Slovaquie": "Slovakia",
-    "Slovénie": "Slovenia",
+    "Slovenie": "Slovenia",
     "Somalie": "Somalia",
     "Soudan": "Sudan",
     "Soudan du Sud": "South Sudan",
     "Sri Lanka": "Sri Lanka",
-    "Suède": "Sweden",
+    "Suede": "Sweden",
     "Suisse": "Switzerland",
     "Suriname": "Suriname",
     "Swaziland": "Eswatini",
@@ -271,14 +271,14 @@ countries_dict = {
     "Tadjikistan": "Tajikistan",
     "Tanzanie": "Tanzania",
     "Tchad": "Chad",
-    "Tchéquie": "Czech Republic",
-    "Thaïlande": "Thailand",
+    "Tchequie": "Czech Republic",
+    "Thailande": "Thailand",
     "Timor oriental": "East Timor",
     "Togo": "Togo",
     "Tonga": "Tonga",
-    "Trinité-et-Tobago": "Trinidad and Tobago",
+    "Trinite-et-Tobago": "Trinidad and Tobago",
     "Tunisie": "Tunisia",
-    "Turkménistan": "Turkmenistan",
+    "Turkmenistan": "Turkmenistan",
     "Turquie": "Turkey",
     "Tuvalu": "Tuvalu",
     "Ukraine": "Ukraine",
@@ -287,7 +287,7 @@ countries_dict = {
     "Vatican": "Vatican City",
     "Venezuela": "Venezuela",
     "Vietnam": "Vietnam",
-    "Yémen": "Yemen",
+    "Yemen": "Yemen",
     "Zambie": "Zambia",
     "Zimbabwe": "Zimbabwe"
 }
@@ -315,54 +315,54 @@ def get_country_for_request(country_name : str):
         return country_name
     return country_name
 
-# Inverser le dictionnaire en échangeant les clés et les valeurs
+# Inverser le dictionnaire en echangeant les cles et les valeurs
 trad_fr2en = {v: k for k, v in trad_en2fr.items()}
 
 def homonyme(resultatRecherche: AuthorSearch, console: QPlainTextEdit, window_width: int):
     """
-    Determine the next step in the author disambiguation flow based on the search results.
-    
-    :param resultatRecherche: Result set returned by the Scopus author search.
+    Determiner la prochaine etape du processus de desambiguisation selon les resultats trouves.
+
+    :param resultatRecherche: Resultat renvoye par la recherche d'auteurs Scopus.
     :type resultatRecherche: AuthorSearch
-    :param console: Output console used to display guidance to the user.
+    :param console: Console utilisee pour afficher les messages a l'utilisateur.
     :type console: QPlainTextEdit
-    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :param window_width: Largeur (en caracteres) utilisee pour afficher les tableaux.
     :type window_width: int
-    :return: 0 when no candidate is found, 1 when several candidates require a manual choice, 2 when a single author is identified.
+    :return: 0 si aucun profil n'est trouve, 1 si l'utilisateur doit choisir parmi plusieurs, 2 si un seul auteur correspond.
     :rtype: int
     """
     if not resultatRecherche.get_results_size():
-        console.append('<p style={}>! Aucun résultat</p>'.format(text_style_warning))
+        console.append('<p style={}>! Aucun resultat</p>'.format(text_style_warning))
         console.append('')
-        console.append('<p style={}>● Veuillez entrer le nom et le prénom de la personne [respectivement avec virgule comme séparateur] :</p>'.format(text_style_question))
+        console.append('<p style={}> Veuillez entrer le nom et le prenom de la personne [respectivement avec virgule comme separateur] :</p>'.format(text_style_question))
         return 0
     else:
-        # Affiche les résultats de manière organisée
+        # Affiche les resultats de maniere organisee
         pd.set_option('display.max_columns', None)
         df = pd.DataFrame(resultatRecherche.authors)
         df.index.name = 'Index'
-        df = df.drop(df.columns[[0, 1, 3, 7]], axis=1) # Supprime les colonnes de données qui ne nous intéressent pas
-        df.columns = ['Nom', 'Prénom', 'Affiliation', 'Nb docs', 'Ville', 'Pays', 'Domaine(s) de recherche'] # Renomme alors celles qui nous intéressent
+        df = df.drop(df.columns[[0, 1, 3, 7]], axis=1) # Supprime les colonnes de donnees qui ne nous interessent pas
+        df.columns = ['Nom', 'Prenom', 'Affiliation', 'Nb docs', 'Ville', 'Pays', 'Domaine(s) de recherche'] # Renomme alors celles qui nous interessent
         console.append('')
-        console.append('<p style="text-decoration: underline; color: black;">Personne.s trouvée.s :</p>')
+        console.append('<p style="text-decoration: underline; color: black;">Personne.s trouvee.s :</p>')
         console.append(df.to_string(index=True, col_space=0, line_width=window_width))
 
         # Permet de savoir si l'utilisateur doit choisir une personne dans une liste
         if len(resultatRecherche.authors) > 1:
             console.append('')
-            console.append("<p style={}>● Quelle personne choisissez-vous? [Entrez le numéro de l'index]</p>".format(text_style_question))
+            console.append("<p style={}> Quelle personne choisissez-vous? [Entrez le numero de l'index]</p>".format(text_style_question))
             return 1
     return 2
 
 def _is_valid_integer(value, max_value):
     """
-    Validate that a textual value represents an accepted integer index.
-    
-    :param value: Raw value provided by the user.
+    Verifier qu'une chaine represente bien un index entier autorise.
+
+    :param value: Valeur saisie par l'utilisateur.
     :type value: str
-    :param max_value: Upper bound (excluded) for the accepted range.
+    :param max_value: Borne superieure (exclusive) de l'intervalle autorise.
     :type max_value: int
-    :return: ``True`` when the value is a valid integer index, ``False`` otherwise.
+    :return: ``True`` si l'index est valide, ``False`` sinon.
     :rtype: bool
     """
     if value.isdigit():
@@ -371,50 +371,50 @@ def _is_valid_integer(value, max_value):
     
 def selection_homonyme(choix: str, s: AuthorSearch, console: QPlainTextEdit):
     """
-    Check whether the user selection corresponds to a valid author index.
-    
-    :param choix: Value entered by the user.
+    Controler que l'indice choisi par l'utilisateur correspond a un auteur existant.
+
+    :param choix: Valeur entree par l'utilisateur.
     :type choix: str
-    :param s: Scopus search object containing the list of authors.
+    :param s: Objet Scopus contenant la liste des auteurs.
     :type s: AuthorSearch
-    :param console: Output console used to display guidance to the user.
+    :param console: Console utilisee pour afficher les messages.
     :type console: QPlainTextEdit
-    :return: ``True`` if the selection is valid, ``False`` otherwise.
+    :return: ``True`` si la selection est valide, ``False`` sinon.
     :rtype: bool
     """
-    # Vérifier si la valeur entrée est un entier et compris dans range de personnes trouvées
+    # Verifier si la valeur entree est un entier et compris dans range de personnes trouvees
     if _is_valid_integer(choix, len(s.authors)):
         return True
     else:
         console.append('<p style={}>! Veuillez entrer un index du tableau valide</p>'.format(text_style_warning))
         console.append('')
-        console.append("<p style={}>● Quelle personne choisissez-vous? [Entrez le numéro de l'index]</p>".format(text_style_question))
+        console.append("<p style={}> Quelle personne choisissez-vous? [Entrez le numero de l'index]</p>".format(text_style_question))
         return False
 
 
 def retrieval(choix: int, s: AuthorSearch, console: QPlainTextEdit):
     """
-    Retrieve the Scopus author profile selected by the user.
-    
-    :param choix: Index of the author chosen by the user.
+    Recuperer le profil Scopus correspondant a l'auteur selectionne.
+
+    :param choix: Index retenu par l'utilisateur.
     :type choix: int
-    :param s: Scopus author search containing the results.
+    :param s: Recherche Scopus contenant les resultats.
     :type s: AuthorSearch
-    :param console: Output console used to present the summary.
+    :param console: Console ou afficher le resume.
     :type console: QPlainTextEdit
-    :return: Tuple containing the author EID (without the ``s2.0-`` prefix) and the :class:`~pybliometrics.scopus.author_retrieval.AuthorRetrieval` instance.
+    :return: Tuple contenant l'EID (sans le prefixe ``s2.0-``) et l'instance :class:`AuthorRetrieval`.
     :rtype: tuple[str, AuthorRetrieval]
     """
-    # Récupération de l'identifier de l'eid en fonction de la personne sélectionné
+    # Recuperation de l'identifier de l'eid en fonction de la personne selectionne
     author_eid = s.authors[choix].eid
-    author_eid = author_eid.split("s2.0-")[-1] # récupère le 2ème élément créé avec le split (donc eid)
+    author_eid = author_eid.split("s2.0-")[-1] # recupere le 2eme element cree avec le split (donc eid)
 
-    # Affiche un résumé sur la personne sélectionnée
+    # Affiche un resume sur la personne selectionnee
     au_retrieval = AuthorRetrieval(author_eid, refresh=True)
     sum = str(au_retrieval)
 
     console.append('')
-    console.append('<p style="text-decoration: underline;">Résumé de la personne sélectionnée :</p>')
+    console.append('<p style="text-decoration: underline;">Resume de la personne selectionnee :</p>')
     console.append('<p style="font-weight: bold;">{}</p>'.format(sum))
     console.append('\n')
 
@@ -422,38 +422,38 @@ def retrieval(choix: int, s: AuthorSearch, console: QPlainTextEdit):
 
 def affRetrieval(choix: int, s: AffiliationSearch, console: QPlainTextEdit):
     """
-    Retrieve the Scopus affiliation profile selected by the user.
-    
-    :param choix: Index of the affiliation chosen by the user.
+    Recuperer le profil Scopus de l'affiliation selectionnee.
+
+    :param choix: Index retenu par l'utilisateur.
     :type choix: int
-    :param s: Scopus affiliation search containing the results.
+    :param s: Recherche d'affiliations Scopus.
     :type s: AffiliationSearch
-    :param console: Output console used to present the summary.
+    :param console: Console ou afficher le resume.
     :type console: QPlainTextEdit
-    :return: Tuple of the affiliation EID (without the ``s2.0-`` prefix) and the :class:`~pybliometrics.scopus.author_retrieval.AuthorRetrieval` instance.
+    :return: Tuple avec l'EID (sans ``s2.0-``) et l'instance :class:`AuthorRetrieval`.
     :rtype: tuple[str, AuthorRetrieval]
     """
-    # Récupération de l'identifier de l'eid en fonction de la personne sélectionné
+    # Recuperation de l'identifier de l'eid en fonction de la personne selectionne
     affiliation_eid = s.affiliations[choix].eid
-    affiliation_eid = affiliation_eid.split("s2.0-")[-1] # récupère le 2ème élément créé avec le split (donc eid)
+    affiliation_eid = affiliation_eid.split("s2.0-")[-1] # recupere le 2eme element cree avec le split (donc eid)
 
-    # Affiche un résumé sur l'entité sélectionnée
+    # Affiche un resume sur l'entite selectionnee
     aff_retrieval = AuthorRetrieval(affiliation_eid, refresh=True)
 
     return affiliation_eid, aff_retrieval
 
 def tous_les_docs_chercheur(au_retrieval: AuthorRetrieval, console: QPlainTextEdit):
     """
-    Build a dataframe summarising the publication types for the selected author.
-    
-    :param au_retrieval: Author retrieval instance previously fetched with :func:`retrieval`.
+    Construire un tableau recapitulatif des types de publications de l'auteur choisi.
+
+    :param au_retrieval: Instance obtenue via :func:`retrieval`.
     :type au_retrieval: AuthorRetrieval
-    :param console: Output console used to display the summary.
+    :param console: Console utilisee pour presenter le recapitulatif.
     :type console: QPlainTextEdit
-    :return: Dataframe with the document types (translated to French) and their occurrence count.
+    :return: DataFrame contenant chaque type de document (traduit) et son effectif.
     :rtype: pandas.DataFrame
     """
-    # Récupère tous les documents publiés de la personne et les stock dans un DataFrame
+    # Recupere tous les documents publies de la personne et les stock dans un DataFrame
     docs = pd.DataFrame(au_retrieval.get_documents(refresh=10))
 
     # Afficher les valeurs uniques dans la colonne 'subtypeDescription'
@@ -465,7 +465,7 @@ def tous_les_docs_chercheur(au_retrieval: AuthorRetrieval, console: QPlainTextEd
     # Compter les occurrences de chaque valeur
     value_counts = docs['subtypeDescription'].value_counts()
 
-    # Créer un DataFrame avec index de ref et données={type_de_document, value_counts}, renommage des colonnes de données
+    # Creer un DataFrame avec index de ref et donnees={type_de_document, value_counts}, renommage des colonnes de donnees
     df = pd.DataFrame({'count': value_counts})
     df = df.reset_index()
     df.columns = ['Type de documents', 'Nombre']
@@ -482,95 +482,95 @@ def tous_les_docs_chercheur(au_retrieval: AuthorRetrieval, console: QPlainTextEd
     return df
 
 def tous_les_docs_entite(aff_retrieval: AffiliationRetrieval):
-    """Fonction qui retourne un DataFrame contenant toutes les collaborations d'une entité
+    """Fonction qui retourne un DataFrame contenant toutes les collaborations d'une entite
     """
-    # Récupère tous les documents publiés de la personne et les stock dans un DataFrame
+    # Recupere tous les documents publies de la personne et les stock dans un DataFrame
     docs = pd.DataFrame(aff_retrieval.__str__())
     return docs
 
 def selection_types_de_documents(selected_types: list, len_df: int, console: QPlainTextEdit):
     """
-    Validate that the selected document types correspond to existing rows.
-    
-    :param selected_types: List of user provided indices.
+    Verifier que les types de documents selectionnes existent reellement.
+
+    :param selected_types: Liste d'indices fournis par l'utilisateur.
     :type selected_types: list
-    :param len_df: Number of rows available in the dataframe.
+    :param len_df: Nombre de lignes disponibles dans le DataFrame.
     :type len_df: int
-    :param console: Output console used to display error messages.
+    :param console: Console utilisee pour afficher les erreurs.
     :type console: QPlainTextEdit
-    :return: ``True`` when all indices are valid, ``False`` otherwise.
+    :return: ``True`` si tous les indices sont valides, ``False`` sinon.
     :rtype: bool
     """
     tout_valide = True
 
-    # Pour chaque type de docs sélectionné vérifier si l'index est valide si seulement un n'est pas valide alors la fonction retournera faux
+    # Pour chaque type de docs selectionne verifier si l'index est valide si seulement un n'est pas valide alors la fonction retournera faux
     for type_index in selected_types:
-        # Vérifier si l'index est valide
+        # Verifier si l'index est valide
         if not (type_index.isdigit() and int(type_index) < len_df):
             console.append('<p style={}>! Index non valide : {}</p>'.format(text_style_warning, type_index))
             tout_valide = False
         elif selected_types.count(str(int(type_index))) > 1:
-            console.append('<p style={}>! Doublon trouvé : {}</p>'.format(text_style_warning, type_index))
+            console.append('<p style={}>! Doublon trouve : {}</p>'.format(text_style_warning, type_index))
             tout_valide = False        
     
     return tout_valide
 
 def donnees_documents_graph_citations(au_retrieval: AuthorRetrieval, selected_types: list, df: pd.DataFrame, console: QPlainTextEdit):
     """
-    Prepare publication metadata required by the citation graph view.
-    
-    :param au_retrieval: Author retrieval instance used to obtain document information.
+    Preparer les metadonnees necessaires a l'affichage du graphique des citations.
+
+    :param au_retrieval: Instance AuthorRetrieval utilisee pour completer les donnees.
     :type au_retrieval: AuthorRetrieval
-    :param selected_types: List of document subtypes selected by the user.
+    :param selected_types: Liste des sous-types choisis.
     :type selected_types: list
-    :param df: Dataframe describing the available documents.
+    :param df: DataFrame decrivant les documents disponibles.
     :type df: pandas.DataFrame
-    :param console: Output console used to display intermediate feedback.
+    :param console: Console pour afficher les retours intermediaires.
     :type console: QPlainTextEdit
-    :return: Tuple containing the filtered dataframe and the list of document EIDs.
+    :return: Tuple contenant le DataFrame filtre et la liste des EID retenus.
     :rtype: tuple[pandas.DataFrame, list[str]]
     """
-    # Créé un DataFrame avec toutes les données sur tous les documents de la personne sélectionnée
+    # Cree un DataFrame avec toutes les donnees sur tous les documents de la personne selectionnee
     docs = pd.DataFrame(au_retrieval.get_documents(refresh=10))
 
-    # Trie par année de publication des documents
+    # Trie par annee de publication des documents
     draft_list = docs['coverDate'].str[:4].sort_values() # pour draft list
 
-    # Liste tous les types sélectionnés avec la retraduction en anglais (pour les matchs juste après)
+    # Liste tous les types selectionnes avec la retraduction en anglais (pour les matchs juste apres)
     selected_types = [trad_fr2en[doc] for doc in [df['Type de documents'].loc[int(type_index)] for type_index in selected_types]]
 
-    # Filtrer les documents en fonction des types sélectionnés
+    # Filtrer les documents en fonction des types selectionnes
     filtered_docs = [len(docs[docs['subtypeDescription'] == type_info]) for type_info in selected_types]
 
-    # Créer un DataFrame avec index=list_val et données=value_counts
+    # Creer un DataFrame avec index=list_val et donnees=value_counts
     df2 = pd.DataFrame({'Type de documents': selected_types,
                         'Nombre': filtered_docs})
 
-    # Affichage des traductions des types de docs du df2 (les sélectionnés) les uns après les autres séparés par une virgule
+    # Affichage des traductions des types de docs du df2 (les selectionnes) les uns apres les autres separes par une virgule
     selection_string = ', '.join([trad_en2fr[doc] for doc in df2['Type de documents'].tolist()])
     console.append('')
-    console.append('<a style="font-weight: bold;">Votre sélection : </a>' + selection_string)
+    console.append('<a style="font-weight: bold;">Votre selection : </a>' + selection_string)
     console.append('\n')
 
-    # Filtrer les documents en fonction des types sélectionnés et créer une nouvelle colonne 'Année'
+    # Filtrer les documents en fonction des types selectionnes et creer une nouvelle colonne 'Annee'
     filtered_docs2 = docs.loc[docs['subtypeDescription'].isin(selected_types), ['subtypeDescription', 'coverDate']].copy()
-    filtered_docs2['Année'] = filtered_docs2['coverDate'].str[:4]
+    filtered_docs2['Annee'] = filtered_docs2['coverDate'].str[:4]
 
-    # Grouper les documents filtrés par année et effectuer la somme des articles par année
-    counts_par_annee = filtered_docs2.groupby('Année').size()
+    # Grouper les documents filtres par annee et effectuer la somme des articles par annee
+    counts_par_annee = filtered_docs2.groupby('Annee').size()
 
-    # Créer un DataFrame à partir des comptages par année et affichage avec transposition
+    # Creer un DataFrame a partir des comptages par annee et affichage avec transposition
     df_final = pd.DataFrame({'Nombre': counts_par_annee})
 
-    # Créé la liste utilisée pour l'exportation des données dans Excel
+    # Cree la liste utilisee pour l'exportation des donnees dans Excel
     liste = df_final.reset_index().values.tolist()
     first_year = draft_list.values[0]
     total_annees = datetime.now().year - int(first_year) + 2
 
-    # Liste de toutes les années de la personne
+    # Liste de toutes les annees de la personne
     years = [int(first_year) + i for i in range(total_annees)]
 
-    # Créé la liste finale avec le nombre total de citations par année
+    # Cree la liste finale avec le nombre total de citations par annee
     final_list = [0] * total_annees
     index_liste = 0
     for i in range(int(first_year), int(first_year) + total_annees):
@@ -578,10 +578,10 @@ def donnees_documents_graph_citations(au_retrieval: AuthorRetrieval, selected_ty
             final_list[i - int(first_year)] = liste[index_liste][1]
             index_liste += 1
 
-    # Ajoute le total de cette liste à la fin de la liste (écrasement/overwriting)
+    # Ajoute le total de cette liste a la fin de la liste (ecrasement/overwriting)
     final_list.append(sum(final_list))
 
-    # Créé une liste de tous les eids des documents qui sont des types sélectionnés
+    # Cree une liste de tous les eids des documents qui sont des types selectionnes
     eids_list = docs.loc[docs['subtypeDescription'].isin(selected_types), ['eid']].copy()
     eids_list = eids_list['eid'].tolist()
 
@@ -589,42 +589,42 @@ def donnees_documents_graph_citations(au_retrieval: AuthorRetrieval, selected_ty
 
 def donnees_citations_graph_citations(au_retrieval: AuthorRetrieval, document_eids: list):
     """
-    Fetch citation counts per year for the provided documents.
-    
-    :param au_retrieval: Author retrieval instance used to query Scopus.
+    Recuperer les comptages de citations par annee pour les documents fournis.
+
+    :param au_retrieval: Instance AuthorRetrieval utilisee pour interroger Scopus.
     :type au_retrieval: AuthorRetrieval
-    :param document_eids: Identifiers of the documents to analyse.
+    :param document_eids: Identifiants des documents a analyser.
     :type document_eids: list[str]
-    :return: Dataframe containing citation counts per year.
+    :return: DataFrame listant les citations par annee.
     :rtype: pandas.DataFrame
     """
-    # Constantes nécessaires pour la suite des calculs
+    # Constantes necessaires pour la suite des calculs
     first_year = au_retrieval.publication_range[0]
     total_annees = datetime.now().year - first_year + 2
 
     # Modifier les eid dans document_eids
     document_eids = [eid.split(".0-")[-1] for eid in document_eids]
 
-    # Autres constantes nécessaires pour la suite des calculs
+    # Autres constantes necessaires pour la suite des calculs
     length_list_eids = len(document_eids)
     stop_value = int((length_list_eids-1)/25)
 
-    # Extraire les données du premier élément obligatoirement à part sinon cela impacte la boucle for si length > 25!
+    # Extraire les donnees du premier element obligatoirement a part sinon cela impacte la boucle for si length > 25!
     co = CitationOverview(identifier=document_eids[0:1], start=first_year, end=first_year+total_annees-1, refresh=True)
     header_citation = co._header
     citation_overviews = []
     citation_overviews.append(co.cc)
 
-    # Plusieurs extractions nécessaires si documents > 25
+    # Plusieurs extractions necessaires si documents > 25
     if length_list_eids > 25:
-        # Boucle le nombre de fois où il y a 25 dans length_list_eids
+        # Boucle le nombre de fois ou il y a 25 dans length_list_eids
         for i in range(0, int(length_list_eids / 25)):
-            # Extraire par 25 les données et les ajouter à la liste principale
+            # Extraire par 25 les donnees et les ajouter a la liste principale
             co = CitationOverview(identifier=document_eids[(i*25)+1 : (i*25)+26], start=first_year, end=first_year+total_annees-1, refresh=True)
             header_citation = co._header
             citation_overviews.append(co.cc)
 
-    # Extraire les données qu'il reste (nb de documents < 25)
+    # Extraire les donnees qu'il reste (nb de documents < 25)
     if (length_list_eids-1)%25 != 0:
         co = CitationOverview(identifier=document_eids[stop_value*25 + 1 : stop_value*25 + (length_list_eids-1)%25 + 1], start=first_year, end=first_year+total_annees-1, refresh=True)
         header_citation = co._header
@@ -632,57 +632,57 @@ def donnees_citations_graph_citations(au_retrieval: AuthorRetrieval, document_ei
     else:
         citation_overviews.append([[(0, 0) for _ in range(total_annees)]])
 
-    # Décapsulation de citation_overviews (liste principale) pour faire le total par année
+    # Decapsulation de citation_overviews (liste principale) pour faire le total par annee
     nb_cit_annees = [0] * total_annees
     for i in range(0, stop_value + 2):
         for y in range(0, len(citation_overviews[i])):
             for z in range(0, len(citation_overviews[i][y])):
                 nb_cit_annees[z] += citation_overviews[i][y][z][1]
 
-    # Affichage de manière tabulaire le nb de citations par année (T pour transposition matricielle)
+    # Affichage de maniere tabulaire le nb de citations par annee (T pour transposition matricielle)
     df = pd.DataFrame(nb_cit_annees).T # Transposition
-    years_list = [first_year + i for i in range(0, total_annees)] # Modification des index de colonnes avec les années
+    years_list = [first_year + i for i in range(0, total_annees)] # Modification des index de colonnes avec les annees
     df.columns = years_list
 
-    # Renommer l'axe des colonnes transposées ainsi que le nom de la colonne de données
-    df = df.rename_axis('Année', axis='columns')
+    # Renommer l'axe des colonnes transposees ainsi que le nom de la colonne de donnees
+    df = df.rename_axis('Annee', axis='columns')
     df = df.rename(index={0: 'Citations'})
 
-    # Ajoute le total de cette liste à la fin de la liste (écrasement/overwriting)
+    # Ajoute le total de cette liste a la fin de la liste (ecrasement/overwriting)
     nb_cit_annees.append(sum(nb_cit_annees))
 
     return nb_cit_annees, years_list, header_citation
 
 def tab_graph_citations(au_retrieval: AuthorRetrieval, eids_list: list, liste_docs: list, console: QPlainTextEdit, window_width: int):
     """
-    Compose the dataset and textual feedback required to plot citation trends.
-    
-    :param au_retrieval: Author retrieval instance used to fetch analytics.
+    Construire les donnees et retours textuels necessaires au graphique de citations.
+
+    :param au_retrieval: Instance AuthorRetrieval utilisee pour recuperer les mesures.
     :type au_retrieval: AuthorRetrieval
-    :param eids_list: List of document EIDs involved in the citation chart.
+    :param eids_list: Liste des EID inclus dans le graphique.
     :type eids_list: list[str]
-    :param liste_docs: List of document titles displayed to the user.
+    :param liste_docs: Liste des titres affiches.
     :type liste_docs: list[str]
-    :param console: Output console used to display tables and summaries.
+    :param console: Console pour afficher tableaux et syntheses.
     :type console: QPlainTextEdit
-    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :param window_width: Largeur en caracteres utilisee pour les tableaux.
     :type window_width: int
-    :return: Tuple containing the dataframe of citation values and the list of years considered.
+    :return: Tuple avec le DataFrame de citations et la liste des annees etudiees.
     :rtype: tuple[pandas.DataFrame, list[int]]
     """
     # PARTIE sur les citations
     liste_citations, years_list, header = donnees_citations_graph_citations(au_retrieval, eids_list)
 
-    # Créer une liste de paires avec les éléments alignés
+    # Creer une liste de paires avec les elements alignes
     resultat = list(zip(liste_citations, liste_docs))
 
-    # Affichage de manière tabulaire le nb de citations par année (T pour transposition matricielle)
+    # Affichage de maniere tabulaire le nb de citations par annee (T pour transposition matricielle)
     df = pd.DataFrame(resultat).T # Transposition
-    years_list.append('TOTAL') # Ajout du nom de colonne TOTAL à la suite des années
+    years_list.append('TOTAL') # Ajout du nom de colonne TOTAL a la suite des annees
     df.columns = years_list 
 
-    # Renommer l'axe des colonnes transposées ainsi que le nom de la colonne de données
-    df = df.rename_axis('Année', axis='columns')
+    # Renommer l'axe des colonnes transposees ainsi que le nom de la colonne de donnees
+    df = df.rename_axis('Annee', axis='columns')
     df = df.rename(index={0: 'Citations'})
     df = df.rename(index={1: 'Documents'})
     
@@ -695,7 +695,7 @@ def tab_graph_citations(au_retrieval: AuthorRetrieval, eids_list: list, liste_do
 
 def _replace_none_with_zero(lst: list):
     """Fonction utilitaire qui permet d'une liste de retourner une liste avec des 0
-    à la place des éléments vides (NONE)
+    a la place des elements vides (NONE)
     """
     for i in range(len(lst)):
         if lst[i] is None:
@@ -704,84 +704,84 @@ def _replace_none_with_zero(lst: list):
 
 def valeurs_encadre(author_eid, years_list: list):
     """
-    Calculate the key metrics displayed in the dashboard panel for an author.
-    
-    :param author_eid: Scopus identifier of the author.
+    Calculer les indicateurs cles affiches dans l'encadre de synthese.
+
+    :param author_eid: Identifiant Scopus de l'auteur.
     :type author_eid: str
-    :param years_list: Years that delimit the analysis window.
+    :param years_list: Annees delimitant la fenetre d'analyse.
     :type years_list: list[int]
-    :return: Tuple containing total citation count, h-index, and publication count.
+    :return: Tuple contenant total de citations, h-index et nombre de publications.
     :rtype: tuple[int, int, int]
     """
-    # Instance de l'objet AuthorLookup correspondant à la personne sélectionnée via l'EID
+    # Instance de l'objet AuthorLookup correspondant a la personne selectionnee via l'EID
     au = AuthorLookup(author_id=author_eid, refresh=True)
 
-    # Obtient via l'instance les metrics "ScholarlyOutput" sur les 10 dernières années complètes sous forme de liste tot_scholarly_out
+    # Obtient via l'instance les metrics "ScholarlyOutput" sur les 10 dernieres annees completes sous forme de liste tot_scholarly_out
     liste_sch_out = _replace_none_with_zero(au.get_metrics_Other(metricType='ScholarlyOutput', yearRange='10yrs').List)
 
-    # Adapte l'index correspondant à la première année pour les valeurs de l'encadré : moy de citations par pub ET moy MCR, vis-à-vis de la contrainte de l'API SciVal
+    # Adapte l'index correspondant a la premiere annee pour les valeurs de l'encadre : moy de citations par pub ET moy MCR, vis-a-vis de la contrainte de l'API SciVal
     index_10y_adapted = liste_sch_out[0].index(years_list[0]) if years_list[0] in liste_sch_out[0] else 0
-    # Créé une nouvelle liste en fonction de l'index trouvé
+    # Cree une nouvelle liste en fonction de l'index trouve
     annee_10y_adapt = liste_sch_out[0][index_10y_adapted]
 
-    ### Publications très citées (1er décile) sur les 5 dernières années complètes - 1 ###
-    # Calcul le total des "ScholarlyOutputs" pour les 5 dernières années complètes - 1
+    ### Publications tres citees (1er decile) sur les 5 dernieres annees completes - 1 ###
+    # Calcul le total des "ScholarlyOutputs" pour les 5 dernieres annees completes - 1
     tot_scholarly_5y = sum(liste_sch_out[-1][4:9])
-    # Calcul le total des "OutputsInTopCitationPercentiles" pour les 5 dernières années complètes - 1
+    # Calcul le total des "OutputsInTopCitationPercentiles" pour les 5 dernieres annees completes - 1
     tot_top_citations = sum(_replace_none_with_zero(au.get_metrics_Percentile(metricType='OutputsInTopCitationPercentiles', yearRange='10yrs').List[-1][4:9]))
-    # Calcul final : rapport des totaux multiplié par 100 pour avoir en pourcentage et arrondi au dixième ET valeur mis à 0 si tot_scholarly_5y vaut 0
+    # Calcul final : rapport des totaux multiplie par 100 pour avoir en pourcentage et arrondi au dixieme ET valeur mis a 0 si tot_scholarly_5y vaut 0
     top_citations = round(tot_top_citations/tot_scholarly_5y*100, 1) if tot_scholarly_5y != 0 else 0
 
-    ### Publications en collaboration avec l'industrie de -6 ans à l'année prochaine ###
-    # Calcul le total des "ScholarlyOutputs" pour les 5 dernières années - 1 complètes ainsi que l'année en cours et l'année future
+    ### Publications en collaboration avec l'industrie de -6 ans a l'annee prochaine ###
+    # Calcul le total des "ScholarlyOutputs" pour les 5 dernieres annees - 1 completes ainsi que l'annee en cours et l'annee future
     tot_scholarly_5ycf = sum([liste_sch_out[-1][4]] + _replace_none_with_zero(au.get_metrics_Other(metricType='ScholarlyOutput', yearRange='5yrsAndCurrentAndFuture').List[-1]))
-    # Calcul le total des "AcademicCorporateCollaborations" pour les 5 dernières années - 1 complètes ainsi que l'année en cours et l'année future
+    # Calcul le total des "AcademicCorporateCollaborations" pour les 5 dernieres annees - 1 completes ainsi que l'annee en cours et l'annee future
     tot_acad_collab = sum(_replace_none_with_zero([au.get_metrics_Collaboration(metricType='AcademicCorporateCollaboration', yearRange='10yrs', collabType='Academic-corporate collaboration').List[-1][4]] + au.get_metrics_Collaboration(metricType='AcademicCorporateCollaboration', yearRange='5yrsAndCurrentAndFuture', collabType='Academic-corporate collaboration').List[-1]))
-    # Calcul final : rapport des totaux multiplié par 100 pour avoir en pourcentage et arrondi au dixième ET valeur mis à 0 si tot_scholarly_5ycf vaut 0
+    # Calcul final : rapport des totaux multiplie par 100 pour avoir en pourcentage et arrondi au dixieme ET valeur mis a 0 si tot_scholarly_5ycf vaut 0
     acad_collab = round(tot_acad_collab/tot_scholarly_5ycf*100, 1) if tot_scholarly_5ycf != 0 else 0
 
     ###### Moyennes de citations par publication ET MCR
-    # Créé la liste des "ScholarlyOutputs" avec seulement les types Articles et ConferencePapers, et dynamiquement via l'index adapté
+    # Cree la liste des "ScholarlyOutputs" avec seulement les types Articles et ConferencePapers, et dynamiquement via l'index adapte
     liste_sch_out_10y_adapted_ArticlesConf = _replace_none_with_zero(au.get_metrics_Other(metricType='ScholarlyOutput', yearRange='10yrs', includedDocs='ArticlesConferencePapers').List)[-1][index_10y_adapted:9]
-    # Constante résultante de la somme des éléments de la liste ci-dessus
+    # Constante resultante de la somme des elements de la liste ci-dessus
     tot_liste_sch_out_10y_adapted_ArticlesConf = sum(liste_sch_out_10y_adapted_ArticlesConf)
 
     ### Moyenne de citations par publication ###
-    # Créé la liste des "CitationsPerPublication" avec seulement les types Articles et ConferencePapers, et dynamiquement via l'index adapté
+    # Cree la liste des "CitationsPerPublication" avec seulement les types Articles et ConferencePapers, et dynamiquement via l'index adapte
     liste_cit_per_pub = _replace_none_with_zero(au.get_metrics_Other(metricType='CitationsPerPublication', yearRange='10yrs', includedDocs='ArticlesConferencePapers').List[-1][index_10y_adapted:9])
-    # Calcul final : produit du nombre de documents publiés par la moy de citations par pub. par année, divisé par le total de documents publiés sur le range d'années,
-    # arrondi au dixième ET valeur mis à 0 si tot_liste_sch_out_10y_adapted_ArticlesConf vaut 0
+    # Calcul final : produit du nombre de documents publies par la moy de citations par pub. par annee, divise par le total de documents publies sur le range d'annees,
+    # arrondi au dixieme ET valeur mis a 0 si tot_liste_sch_out_10y_adapted_ArticlesConf vaut 0
     cit_per_pub = round(sum([elem1 * elem2 for elem1, elem2 in zip(liste_sch_out_10y_adapted_ArticlesConf, liste_cit_per_pub)])/tot_liste_sch_out_10y_adapted_ArticlesConf, 1) if tot_liste_sch_out_10y_adapted_ArticlesConf != 0 else 0
 
     ### Moyenne MCR ###
-    # Créé la liste des "FieldWeightedCitationImpact" avec seulement les types Articles et ConferencePapers, et dynamiquement via l'index adapté
+    # Cree la liste des "FieldWeightedCitationImpact" avec seulement les types Articles et ConferencePapers, et dynamiquement via l'index adapte
     liste_moy_MCR = _replace_none_with_zero(au.get_metrics_Other(metricType='FieldWeightedCitationImpact', yearRange='10yrs', includedDocs='ArticlesConferencePapers').List[-1][index_10y_adapted:9])
-    # Calcul final : produit du nombre de documents publiés par la moy MCR par année, divisé par le total de documents publiés sur le range d'années,
-    # arrondi au centième ET valeur mis à 0 si tot_liste_sch_out_10y_adapted_ArticlesConf vaut 0
+    # Calcul final : produit du nombre de documents publies par la moy MCR par annee, divise par le total de documents publies sur le range d'annees,
+    # arrondi au centieme ET valeur mis a 0 si tot_liste_sch_out_10y_adapted_ArticlesConf vaut 0
     moy_MCR = round(sum([elem1 * elem2 for elem1, elem2 in zip(liste_sch_out_10y_adapted_ArticlesConf, liste_moy_MCR)])/tot_liste_sch_out_10y_adapted_ArticlesConf, 2) if tot_liste_sch_out_10y_adapted_ArticlesConf != 0 else 0
 
     return [top_citations, cit_per_pub, moy_MCR, acad_collab], annee_10y_adapt, au._header
 
 
 def _affichage_plages_annees(parts: list, selected_types: list, df: pd.DataFrame, console: QPlainTextEdit):
-    """Fonction utilitaire pour gérer l'affichage mais aussi la création la liste des années sélectionnées
+    """Fonction utilitaire pour gerer l'affichage mais aussi la creation la liste des annees selectionnees
     """
-    # Constante nécessaire pour l'affichage et les calculs
+    # Constante necessaire pour l'affichage et les calculs
     current_year = datetime.now().year
 
     # Affichage
     console.append('')
-    console.append('<p><a style="font-weight: bold;">Votre sélection :</a> {}ans ({}), {}ans ({}) et Carrière ({})</p>'.format(current_year - parts[2], parts[2], current_year - parts[1], parts[1], parts[0]))
+    console.append('<p><a style="font-weight: bold;">Votre selection :</a> {}ans ({}), {}ans ({}) et Carriere ({})</p>'.format(current_year - parts[2], parts[2], current_year - parts[1], parts[1], parts[0]))
     console.append('\n')
     console.append('<p style="text-decoration: underline; color: black;">Nb de documents en fonction de leur type :</p>')
 
-    # Filtrer le DataFrame en utilisant la méthode isin() avec la liste des index
+    # Filtrer le DataFrame en utilisant la methode isin() avec la liste des index
     df_filtre_reset = df[df.index.isin(selected_types)].reset_index(drop=True)
     df_filtre_reset.index = range(len(df_filtre_reset))
     df_filtre_reset.index.name = 'Index'
     console.append(df_filtre_reset.to_string(index=True, col_space=0, line_width=200))
 
-    # Créé la liste de listes comportant les plages d'années souhaitées pour la personne
+    # Cree la liste de listes comportant les plages d'annees souhaitees pour la personne
     year_list = []
     for i in range(len(parts)):
         year_range = list(range(parts[i], current_year + 2))
@@ -792,68 +792,68 @@ def _affichage_plages_annees(parts: list, selected_types: list, df: pd.DataFrame
 
 def selection_plages_annees(annees_selec: str, years: list, selected_types: list, df: pd.DataFrame, console: QPlainTextEdit):
     """
-    Validate and parse the year ranges provided by the user.
-    
-    :param annees_selec: Raw textual input describing the year ranges.
+    Valider et interpreter les plages d'annees saisies par l'utilisateur.
+
+    :param annees_selec: Texte brut decrivant les plages d'annees.
     :type annees_selec: str
-    :param years: Sorted list of available years.
+    :param years: Liste triee des annees disponibles.
     :type years: list[int]
-    :param selected_types: Selected document types that restrict the ranges.
+    :param selected_types: Types de documents retenus, limitant les plages possibles.
     :type selected_types: list
-    :param df: Dataframe of publications for the author.
+    :param df: DataFrame des publications de l'auteur.
     :type df: pandas.DataFrame
-    :param console: Output console used to display instructions and errors.
+    :param console: Console ou afficher les instructions et erreurs.
     :type console: QPlainTextEdit
-    :return: List of valid year ranges expressed as tuples ``(start, end)``.
+    :return: Liste de plages valides sous forme de tuples ``(debut, fin)``.
     :rtype: list[tuple[int, int]]
     """
-    # Séparer les types de documents sélectionnés par l'utilisateur (et supprimer les espaces avant et après les éléments)
+    # Separer les types de documents selectionnes par l'utilisateur (et supprimer les espaces avant et apres les elements)
     parts = annees_selec.split(',')
     parts = [element.strip() for element in parts]
 
-    # Choix par défaut
+    # Choix par defaut
     if len(parts) == 1 and parts[0] == "":
-        return True, *_affichage_plages_annees([years[0], years[-1] - 6, years[-1] - 4], selected_types, df, console) # * permet d'ouvrir le tuple généré par la fonction
+        return True, *_affichage_plages_annees([years[0], years[-1] - 6, years[-1] - 4], selected_types, df, console) # * permet d'ouvrir le tuple genere par la fonction
     
-    # Si sélection avec manque ou surplus d'éléments
+    # Si selection avec manque ou surplus d'elements
     if not(len(parts) == 2 or len(parts) == 3):
-        # Ici indique erreur: manque ou surplus d'éléments
-        console.append("<p style={}>! Manque ou surplus d'éléments (2 ou 3 éléments demandés)</p>".format(text_style_warning))
+        # Ici indique erreur: manque ou surplus d'elements
+        console.append("<p style={}>! Manque ou surplus d'elements (2 ou 3 elements demandes)</p>".format(text_style_warning))
         return False, parts, df
     
-    # Vérification de la validité des éléments
+    # Verification de la validite des elements
     tout_valide = True
     for year_index in parts:
-        # Vérifier si l'index est valide
+        # Verifier si l'index est valide
         if not (year_index.isdigit() and years[0] <= int(year_index) <= years[-1]):
             console.append('<p style={}>! Index non valide: {}</p>'.format(text_style_warning, year_index))
             tout_valide = False
-    # Si au moins un élément n'est pas valide alors la sélection n'est pas retenue        
+    # Si au moins un element n'est pas valide alors la selection n'est pas retenue        
     if not tout_valide:
         return False, parts, df
 
-    # Création de la liste utilisée par la suite pour filtrer les données voulues
+    # Creation de la liste utilisee par la suite pour filtrer les donnees voulues
     parts = [int(n) for n in parts]
-    parts.append(years[0]) if len(parts) == 2 else None # Ajout année de début de carrière si 2 éléments
-    parts.sort() # Trie de la liste pour s'assurer que les éléments soient dans le bon ordre
+    parts.append(years[0]) if len(parts) == 2 else None # Ajout annee de debut de carriere si 2 elements
+    parts.sort() # Trie de la liste pour s'assurer que les elements soient dans le bon ordre
 
-    return True, *_affichage_plages_annees(parts, selected_types, df, console) # * permet d'ouvrir le tuple généré par la fonction
+    return True, *_affichage_plages_annees(parts, selected_types, df, console) # * permet d'ouvrir le tuple genere par la fonction
 
 
 def _combine_types(chaine: str):
-    """Fonction utilitaire pour créer une liste de listes en fonction des combinaisons sélectionnées
+    """Fonction utilitaire pour creer une liste de listes en fonction des combinaisons selectionnees
     """
     main_indices_list = []
-    # Création de la liste des types sélectionnés avec mise en forme (suppression des espaces)
+    # Creation de la liste des types selectionnes avec mise en forme (suppression des espaces)
     selected_types = chaine.split(',')
     selected_types = [element.strip() for element in selected_types]
     
-    # Pour chaque type dans les types sélectionnés, vérifier le pattern
+    # Pour chaque type dans les types selectionnes, verifier le pattern
     for types in selected_types:
         pattern = r'\[(.*?)\]'
         contenu_crochets = re.findall(pattern, types)
 
-        # Si pattern.s trouvé.s alors créer des listes dans la liste principale (Mise en forme relative à mon choix)
+        # Si pattern.s trouve.s alors creer des listes dans la liste principale (Mise en forme relative a mon choix)
         if len(contenu_crochets) > 0:
             element_list = [element_of_element.strip() for element_of_element in contenu_crochets[0].split(';')]
 
@@ -864,58 +864,58 @@ def _combine_types(chaine: str):
 
 def selection_2_types_docs(index_took: str, df: pd.DataFrame, console: QPlainTextEdit):
     """
-    Handle the user selection of the two document types to highlight.
-    
-    :param index_took: User input referencing the chosen document types.
+    Traiter la selection des deux types de documents a mettre en evidence.
+
+    :param index_took: Saisie utilisateur indiquant les indices choisis.
     :type index_took: str
-    :param df: Dataframe of available document types.
+    :param df: DataFrame des types disponibles.
     :type df: pandas.DataFrame
-    :param console: Output console used to display guidance to the user.
+    :param console: Console pour guider l'utilisateur.
     :type console: QPlainTextEdit
-    :return: Tuple ``(type_1, type_2)`` with the selected subtype descriptors.
+    :return: Tuple ``(type_1, type_2)`` decrivant les sous-types retenus.
     :rtype: tuple[str, str]
     """
-    # Combiner des types si c'est indiqué par l'utilisateur
+    # Combiner des types si c'est indique par l'utilisateur
     selected_types = _combine_types(index_took)
     
     tout_valide = True
-    # Créé une liste des types de documents sélectionnés
+    # Cree une liste des types de documents selectionnes
     liste_types_selec = df['Type de documents'].to_list()
 
-    # Si l'utilisateur prend les choix par défaut
+    # Si l'utilisateur prend les choix par defaut
     if len(selected_types) == 1 and selected_types[0][0] == "":
         console.append('')
-        console.append('<p><a style="font-weight: bold;">Votre sélection :</a> {}, {}</p>'.format(liste_types_selec[0], liste_types_selec[1] if len(liste_types_selec)>1 else 'N/A'))
+        console.append('<p><a style="font-weight: bold;">Votre selection :</a> {}, {}</p>'.format(liste_types_selec[0], liste_types_selec[1] if len(liste_types_selec)>1 else 'N/A'))
         console.append('\n')
         return True, [[liste_types_selec[0]], [liste_types_selec[1] if len(liste_types_selec)>1 else 'N/A']]
     
-    # Si sélection avec manque ou surplus d'éléments
+    # Si selection avec manque ou surplus d'elements
     if not len(selected_types) == 2:
-        console.append("<p style={}>! Manque ou surplus d'éléments (2 éléments demandés)</p>".format(text_style_warning))
+        console.append("<p style={}>! Manque ou surplus d'elements (2 elements demandes)</p>".format(text_style_warning))
         return False, selected_types
 
-    # Créé une liste "plate", "écrasée" de la liste de listes pour analyser élément par élément plus simplement
+    # Cree une liste "plate", "ecrasee" de la liste de listes pour analyser element par element plus simplement
     flattened_list = [element for sublist in selected_types for element in sublist]
     for type_index in flattened_list:
-        # Vérifier si l'index est valide
+        # Verifier si l'index est valide
         if not (type_index.isdigit() and int(type_index) < len(df)):
             console.append('<p style={}>! Index non valide: {}</p>'.format(text_style_warning, type_index))
             tout_valide = False
             continue
         elif flattened_list.count(str(int(type_index))) > 1:
-            console.append('<p style={}>! Doublon trouvé: {}</p>'.format(text_style_warning, type_index))
+            console.append('<p style={}>! Doublon trouve: {}</p>'.format(text_style_warning, type_index))
             tout_valide = False
 
-    # Si au moins un élément n'est pas valide alors la sélection n'est pas retenue  
+    # Si au moins un element n'est pas valide alors la selection n'est pas retenue  
     if not tout_valide:
         return False, selected_types
     
-    # Obtenir une liste d'entier puis mettre à jour la liste
+    # Obtenir une liste d'entier puis mettre a jour la liste
     selected_types = [[int(element) for element in sublist] for sublist in selected_types]
 
     # Affichage
     console.append('')
-    console.append('<p><a style="font-weight: bold;">Votre sélection :</a> {}, {}</p>'.format(df.at[selected_types[0][0], 'Type de documents'], df.at[selected_types[1][0], 'Type de documents']))
+    console.append('<p><a style="font-weight: bold;">Votre selection :</a> {}, {}</p>'.format(df.at[selected_types[0][0], 'Type de documents'], df.at[selected_types[1][0], 'Type de documents']))
     console.append('\n')
 
     return True, [[df.loc[element, 'Type de documents'] for element in sublist] for sublist in selected_types] # Traduction des index en nom de type de documents
@@ -925,44 +925,44 @@ def selection_2_types_docs(index_took: str, df: pd.DataFrame, console: QPlainTex
 
 def tab_graph_publications(au_retrieval: AuthorRetrieval, document_eids: list, liste_annees: list, liste_type: list, console: QPlainTextEdit, window_width: int):
     """
-    Build the dataset required to render publication counts by year and subtype.
-    
-    :param au_retrieval: Author retrieval instance used to obtain document metadata.
+    Construire les donnees necessaires pour tracer les publications par annee et par type.
+
+    :param au_retrieval: Instance AuthorRetrieval utilisee pour completer les metadonnees.
     :type au_retrieval: AuthorRetrieval
-    :param document_eids: Identifiers of the documents to include.
+    :param document_eids: Identifiants des documents a inclure.
     :type document_eids: list[str]
-    :param liste_annees: Years displayed on the publication graph.
+    :param liste_annees: Annees affichees sur le graphique.
     :type liste_annees: list[int]
-    :param liste_type: Document types tracked on the graph.
+    :param liste_type: Types de documents suivis.
     :type liste_type: list[str]
-    :param console: Output console used to display textual feedback.
+    :param console: Console pour afficher les retours textuels.
     :type console: QPlainTextEdit
-    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :param window_width: Largeur en caracteres utilisee pour les tableaux.
     :type window_width: int
-    :return: Dataframe indexed by year and document type containing publication counts.
+    :return: DataFrame indexe par annee et type contenant les effectifs.
     :rtype: pandas.DataFrame
     """
-    # Parcourir chaque sous-liste de la liste pour modifier les les types des années (de int à str)
+    # Parcourir chaque sous-liste de la liste pour modifier les les types des annees (de int a str)
     liste_annees = [[str(annee) for annee in sous_liste] for sous_liste in liste_annees]
 
-    # Filtrer les documents en fonction des EIDs spécifiés
+    # Filtrer les documents en fonction des EIDs specifies
     docs = pd.DataFrame(au_retrieval.get_documents(refresh=10))
     docs_filtered = docs[docs['eid'].isin(document_eids)]
 
-    # Extraire les années de publication
+    # Extraire les annees de publication
     df = pd.DataFrame({
         'DocType': docs_filtered['subtypeDescription'],
         'Year': pd.to_datetime(docs_filtered['coverDate']).dt.year.astype(str),
     })
-    # Traduction inverse pour les matchs après
+    # Traduction inverse pour les matchs apres
     liste_type_en = [[trad_fr2en[doc] for doc in sublist] for sublist in liste_type]
-    # Créé une liste "plate", "écrasée" de la liste de listes pour plus simplement manier les données des types
+    # Cree une liste "plate", "ecrasee" de la liste de listes pour plus simplement manier les donnees des types
     flattened_liste_type_en = [element for sublist in liste_type_en for element in sublist]
 
-    # DataFrame vide pour stocker les résultats
+    # DataFrame vide pour stocker les resultats
     results = pd.DataFrame(columns=flattened_liste_type_en + ['Autres'])  
 
-    # Pour chaque range d'années sélectionné, faire les totaux des documents par type (de tous les index demandés)
+    # Pour chaque range d'annees selectionne, faire les totaux des documents par type (de tous les index demandes)
     for annees in liste_annees:
         df_filtered = df[df['Year'].isin(annees)]
         counts = df_filtered['DocType'].value_counts()
@@ -981,7 +981,7 @@ def tab_graph_publications(au_retrieval: AuthorRetrieval, document_eids: list, l
             results = results.drop(sublist[i], axis=1)
 
     # Renommage dynamique des index et des colonnes du dataframe
-    results = results.rename(index={0: 'Carrière (≥' + liste_annees[0][-1] + ')', 1: liste_annees[1][-1] + ' à ≥' + liste_annees[0][1], 2: liste_annees[2][-1] + ' à ≥' + liste_annees[0][1]}, 
+    results = results.rename(index={0: 'Carriere (' + liste_annees[0][-1] + ')', 1: liste_annees[1][-1] + ' a ' + liste_annees[0][1], 2: liste_annees[2][-1] + ' a ' + liste_annees[0][1]}, 
                              columns={liste_type_en[0][0]: liste_type[0][0], liste_type_en[1][0]: liste_type[1][0]})
 
     # Calcul le total par ligne et ajouter une colonne 'Total'
@@ -995,87 +995,87 @@ def tab_graph_publications(au_retrieval: AuthorRetrieval, document_eids: list, l
 
 
 def _for_SNIP_list_10y_current_future(lst: list):
-    """Fonction utilitaire de la fonction "tab_graph_SNIP" pour permettre d'extraire depuis un résultat
-    d'une requête les valeurs nécessaires pour les calculs pour le graphique SNIP
+    """Fonction utilitaire de la fonction "tab_graph_SNIP" pour permettre d'extraire depuis un resultat
+    d'une requete les valeurs necessaires pour les calculs pour le graphique SNIP
     """
-    # Pour chaque élément de la liste (qui sont des dictionnaires)
+    # Pour chaque element de la liste (qui sont des dictionnaires)
     for element in lst:
-        # Prend les valeurs par années
+        # Prend les valeurs par annees
         value_by_year = element['valueByYear']
 
         if element['threshold'] == 5:
-            annees = [int(annee) for annee in list(value_by_year.keys())]   # Créé la liste du range d'années
-            element_with_threshold_5 = list(value_by_year.values())         # Créé la liste des valeurs pour le seuil des 5%
+            annees = [int(annee) for annee in list(value_by_year.keys())]   # Cree la liste du range d'annees
+            element_with_threshold_5 = list(value_by_year.values())         # Cree la liste des valeurs pour le seuil des 5%
         elif  element['threshold'] == 10:
-            element_with_threshold_10 = list(value_by_year.values())        # Créé la liste des valeurs pour le seuil des 10%
+            element_with_threshold_10 = list(value_by_year.values())        # Cree la liste des valeurs pour le seuil des 10%
         elif  element['threshold'] == 25:
-            element_with_threshold_25 = list(value_by_year.values())        # Créé la liste des valeurs pour le seuil des 25%
+            element_with_threshold_25 = list(value_by_year.values())        # Cree la liste des valeurs pour le seuil des 25%
 
     return [annees, element_with_threshold_5, element_with_threshold_10, element_with_threshold_25]
 
 def sort_by_first_list(*lists):
-    """Fonction générique pour trier plusieurs listes selon l'ordre croissant de la première liste
+    """Fonction generique pour trier plusieurs listes selon l'ordre croissant de la premiere liste
     """
-    # Zip toutes les listes, trie selon la première, puis dézippe
+    # Zip toutes les listes, trie selon la premiere, puis dezippe
     zipped = list(zip(*lists))
     zipped_sorted = sorted(zipped, key=lambda x: x[0])
     return tuple([list(t) for t in zip(*zipped_sorted)])
 
-def tab_graph_SNIP(author_id: str, years_list: list, console: pd.DataFrame, window_width: int):
+def tab_graph_SNIP(author_id: str, years_list: list, console: QPlainTextEdit, window_width: int):
     """
-    Aggregate SNIP indicators for the journals linked to the author output.
-    
-    :param author_id: Scopus identifier of the author.
+    Agreger les indicateurs SNIP associes aux productions de l'auteur.
+
+    :param author_id: Identifiant Scopus de l'auteur.
     :type author_id: str
-    :param years_list: Years that delimit the analysis window.
+    :param years_list: Annees qui delimitent la fenetre d'analyse.
     :type years_list: list[int]
-    :param console: Output console used to display textual feedback.
+    :param console: Console utilisee pour afficher les retours textuels.
     :type console: QPlainTextEdit
-    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :param window_width: Largeur en caracteres utilisee lors de l'affichage des tableaux.
     :type window_width: int
-    :return: Dataframe containing the SNIP statistics per year.
+    :return: DataFrame contenant les valeurs SNIP par annee.
     :rtype: pandas.DataFrame
     """
-    # Convertie le type toutes les années (de str/string à int/integer)
+    # Convertie le type toutes les annees (de str/string a int/integer)
     years_list = [[int(item) for item in sublist] for sublist in years_list]
 
-    # Instance de l'objet AuthorLookup correspondant à la personne sélectionnée via l'ID
+    # Instance de l'objet AuthorLookup correspondant a la personne selectionnee via l'ID
     au = AuthorLookup(author_id=author_id, refresh=True)
 
     # Obtient via l'instance les metrics "PublicationsInTopJournalPercentiles" avec seulement les types Articles et Reviews
-    # sur les 10 dernières années complètes sous forme de liste ten_y_cf_list
+    # sur les 10 dernieres annees completes sous forme de liste ten_y_cf_list
     ten_y_cf_list = _for_SNIP_list_10y_current_future(au._get_metrics_rawdata(metricType='PublicationsInTopJournalPercentiles', yearRange='10yrs', journalImpactType="SNIP", includedDocs='ArticlesReviews'))
-    # Même chose pour 3 years and current and future
+    # Meme chose pour 3 years and current and future
     three_y_cf_list = _for_SNIP_list_10y_current_future(au._get_metrics_rawdata(metricType="PublicationsInTopJournalPercentiles", yearRange="3yrsAndCurrentAndFuture", journalImpactType="SNIP", includedDocs='ArticlesReviews'))
 
     # Obtient via l'instance les metrics "ScholarlyOutput" avec seulement les types Articles et Reviews
-    # sur les 10 dernières années complètes sous forme de liste ten_y_scho_list
+    # sur les 10 dernieres annees completes sous forme de liste ten_y_scho_list
     ten_y_scho_list = au.get_metrics_Other(metricType="ScholarlyOutput", yearRange="10yrs", includedDocs='ArticlesReviews').List
-    # Même chose pour 3 years and current and future
+    # Meme chose pour 3 years and current and future
     three_y_cf_scho_list = au.get_metrics_Other(metricType="ScholarlyOutput", yearRange="3yrsAndCurrentAndFuture", includedDocs='ArticlesReviews').List
 
     ten_y_scho_list[0], ten_y_scho_list[1] = sort_by_first_list(ten_y_scho_list[0], ten_y_scho_list[1])
     three_y_cf_scho_list[0], three_y_cf_scho_list[1] = sort_by_first_list(three_y_cf_scho_list[0], three_y_cf_scho_list[1])
-    # Concaténation des listes en une seule sous le format : [[années], [ScholarlyOutputs], [Top5%], [Top10%], [Top25%]]
+    # Concatenation des listes en une seule sous le format : [[annees], [ScholarlyOutputs], [Top5%], [Top10%], [Top25%]]
     ten_y_cf_list = [_replace_none_with_zero(item1 + item2[-2:]) for item1, item2 in zip(ten_y_scho_list, three_y_cf_scho_list)] + [_replace_none_with_zero(item1 + item2[-2:]) for item1, item2 in zip(ten_y_cf_list, three_y_cf_list)][-3:]
 
-    # Index par défaut si les index choisis par l'utilisateur ne rentrent pas dans le range max de 10y, de la contrainte des API SciVal
+    # Index par defaut si les index choisis par l'utilisateur ne rentrent pas dans le range max de 10y, de la contrainte des API SciVal
     default_index_year_list = [0, -7, -5]
-    # Réalisation de la liste des années sélectionnées si c'est dans le range max proposé par les API SciVal (ex: [2013, 2018, 2020])
+    # Realisation de la liste des annees selectionnees si c'est dans le range max propose par les API SciVal (ex: [2013, 2018, 2020])
     real_years_list = [years_list[i][-1] if years_list[i][-1] in ten_y_cf_list[0] else ten_y_cf_list[0][default_index_year_list[i]] for i in range(3)]
     
     # Liste des noms des colonnes
     column_name_list = ['Top 5%', 'Top 10%', 'Top 25%', 'Autres']
-    # Créé le DataFrame avec toutes nos données récoltées
+    # Cree le DataFrame avec toutes nos donnees recoltees
     df = pd.DataFrame().assign(**{column_name_list[i]: [sum(ten_y_cf_list[i+2][ten_y_cf_list[0].index(year):]) for year in real_years_list] for i in range(len(column_name_list) - 1)})
 
-    # Créé la colonne Autres et réalise les vraies colonnes de données Top 25% et Top 10%
+    # Cree la colonne Autres et realise les vraies colonnes de donnees Top 25% et Top 10%
     df[column_name_list[3]] = [sum(ten_y_cf_list[1][ten_y_cf_list[0].index(year):]) - df['Top 25%'].to_list()[j] for j, year in enumerate(real_years_list)]
     df['Top 25%'] = df['Top 25%'] - df['Top 10%']
     df['Top 10%'] = df['Top 10%'] - df['Top 5%']
 
-    # Renomme les index de manière dynamique
-    df = df.rename(index={0: '≥'+str(real_years_list[0]), 1: str(real_years_list[1])+' à ≥'+str(ten_y_cf_list[0][-2]), 2: str(real_years_list[2])+' à ≥'+str(ten_y_cf_list[0][-2])})
+    # Renomme les index de maniere dynamique
+    df = df.rename(index={0: ''+str(real_years_list[0]), 1: str(real_years_list[1])+' a '+str(ten_y_cf_list[0][-2]), 2: str(real_years_list[2])+' a '+str(ten_y_cf_list[0][-2])})
 
     # Ajoute une colonne "TOTAL" contenant la somme des valeurs des autres colonnes
     df['TOTAL'] = df.sum(axis=1)
@@ -1089,47 +1089,47 @@ def tab_graph_SNIP(author_id: str, years_list: list, console: pd.DataFrame, wind
 
 
 def _for_Collab_list_10y_current_future(lst: list):
-    """Fonction utilitaire de la fonction "tab_graph_Collab" pour permettre d'extraire depuis un résultat
-    d'une requête les valeurs nécessaires pour les calculs pour le graphique SNIP
+    """Fonction utilitaire de la fonction "tab_graph_Collab" pour permettre d'extraire depuis un resultat
+    d'une requete les valeurs necessaires pour les calculs pour le graphique SNIP
     """
-    # Pour chaque élément de la liste (qui sont des dictionnaires)
+    # Pour chaque element de la liste (qui sont des dictionnaires)
     for element in lst:
-        # Prend les valeurs par années
+        # Prend les valeurs par annees
         value_by_year = element['valueByYear']
 
         if element['collabType'] == "Institutional collaboration":
-            annees = [int(annee) for annee in list(value_by_year.keys())]   # Créé la liste du range d'années
-            inst_collab = list(value_by_year.values())                      # Créé la liste des valeurs pour la collaboration institutionnelle
+            annees = [int(annee) for annee in list(value_by_year.keys())]   # Cree la liste du range d'annees
+            inst_collab = list(value_by_year.values())                      # Cree la liste des valeurs pour la collaboration institutionnelle
         elif  element['collabType'] == "International collaboration":
-            international_collab = list(value_by_year.values())             # Créé la liste des valeurs pour la collaboration internationale
+            international_collab = list(value_by_year.values())             # Cree la liste des valeurs pour la collaboration internationale
         elif  element['collabType'] == "National collaboration":
-            national_collab = list(value_by_year.values())                  # Créé la liste des valeurs pour la collaboration nationale
+            national_collab = list(value_by_year.values())                  # Cree la liste des valeurs pour la collaboration nationale
         elif  element['collabType'] == "Single authorship":
-            no_collab = list(value_by_year.values())                        # Créé la liste des valeurs pour les publications sans collaboration
+            no_collab = list(value_by_year.values())                        # Cree la liste des valeurs pour les publications sans collaboration
 
     return [annees, inst_collab, international_collab, national_collab, no_collab]
 
-def tab_graph_Collab(author_id: str, years_list: list, console: pd.DataFrame, window_width: int):
+def tab_graph_Collab(author_id: str, years_list: list, console: QPlainTextEdit, window_width: int):
     """
-    Aggregate collaboration indicators for the given author.
-    
-    :param author_id: Scopus identifier of the author.
+    Agreger les indicateurs de collaboration pour l'auteur etudie.
+
+    :param author_id: Identifiant Scopus de l'auteur.
     :type author_id: str
-    :param years_list: Years that delimit the analysis window.
+    :param years_list: Annees qui delimitent la fenetre d'analyse.
     :type years_list: list[int]
-    :param console: Output console used to display textual feedback.
+    :param console: Console utilisee pour afficher les retours textuels.
     :type console: QPlainTextEdit
-    :param window_width: Console width (number of characters) used when rendering tabular content.
+    :param window_width: Largeur en caracteres utilisee pour les tableaux.
     :type window_width: int
-    :return: Dataframe containing collaboration counts per year.
+    :return: DataFrame contenant le nombre de collaborations par annee.
     :rtype: pandas.DataFrame
     """
-    # Instance de l'objet AuthorLookup correspondant à la personne sélectionnée via l'ID
+    # Instance de l'objet AuthorLookup correspondant a la personne selectionnee via l'ID
     au = AuthorLookup(author_id=author_id, refresh=True)
 
-    # Obtient via l'instance les metrics "Collaboration" sur les 10 dernières années complètes sous forme de liste ten_y_cf_list
+    # Obtient via l'instance les metrics "Collaboration" sur les 10 dernieres annees completes sous forme de liste ten_y_cf_list
     ten_y_cf_list = _for_Collab_list_10y_current_future(au._get_metrics_rawdata(metricType='Collaboration', yearRange='10yrs'))
-    # Même chose pour 3 years and current and future
+    # Meme chose pour 3 years and current and future
     three_y_cf_list = _for_Collab_list_10y_current_future(au._get_metrics_rawdata(metricType='Collaboration', yearRange='3yrsAndCurrentAndFuture'))
     ten_y_cf_list[0], ten_y_cf_list[1], ten_y_cf_list[2], ten_y_cf_list[3], ten_y_cf_list[4] = sort_by_first_list(
         ten_y_cf_list[0], ten_y_cf_list[1], ten_y_cf_list[2], ten_y_cf_list[3], ten_y_cf_list[4]
@@ -1138,24 +1138,24 @@ def tab_graph_Collab(author_id: str, years_list: list, console: pd.DataFrame, wi
         three_y_cf_list[0], three_y_cf_list[1], three_y_cf_list[2], three_y_cf_list[3], three_y_cf_list[4]
     )
 
-    # Concaténation des listes en une seule sous le format : [[années], [Inst], [Inter], [Nat], [Aucune]]
+    # Concatenation des listes en une seule sous le format : [[annees], [Inst], [Inter], [Nat], [Aucune]]
     ten_y_cf_list = [_replace_none_with_zero(item1 + item2[-2:]) for item1, item2 in zip(ten_y_cf_list, three_y_cf_list)]
 
-    # Index par défaut si les index choisis par l'utilisateur ne rentrent pas dans le range max de 10y, de la contrainte des API SciVal
+    # Index par defaut si les index choisis par l'utilisateur ne rentrent pas dans le range max de 10y, de la contrainte des API SciVal
     default_index_year_list = [0, -7, -5]
-    # Réalisation de la liste des années sélectionnées si c'est dans le range max proposé par les API SciVal (ex: [2013, 2018, 2020])
+    # Realisation de la liste des annees selectionnees si c'est dans le range max propose par les API SciVal (ex: [2013, 2018, 2020])
     real_years_list = [years_list[i][-1] if years_list[i][-1] in ten_y_cf_list[0] else ten_y_cf_list[0][default_index_year_list[i]] for i in range(3)]
 
     # Liste des noms des colonnes
     column_name_list = ['Internat.', 'Nationale', 'Inst.', 'Aucune']
-    # Créé le DataFrame avec toutes nos données récoltées
+    # Cree le DataFrame avec toutes nos donnees recoltees
     df = pd.DataFrame().assign(**{column_name_list[i]: [sum(ten_y_cf_list[i+1][ten_y_cf_list[0].index(year):]) for year in real_years_list] for i in range(len(column_name_list))})
 
     # Intervertie les colonnes pour avoir l'ordre: International, National, Institutionnel
     df['Internat.'], df['Nationale'], df['Inst.'] = df['Nationale'].copy(), df['Inst.'].copy(), df['Internat.'].copy()
 
     # Renomme les index
-    df = df.rename(index={0: '≥'+str(real_years_list[0]), 1: str(real_years_list[1])+' à ≥'+str(ten_y_cf_list[0][-2]), 2: str(real_years_list[2])+' à ≥'+str(ten_y_cf_list[0][-2])})
+    df = df.rename(index={0: ''+str(real_years_list[0]), 1: str(real_years_list[1])+' a '+str(ten_y_cf_list[0][-2]), 2: str(real_years_list[2])+' a '+str(ten_y_cf_list[0][-2])})
 
     # Ajoute une colonne "Total" contenant la somme des valeurs des autres colonnes
     df['TOTAL'] = df.sum(axis=1)
@@ -1172,17 +1172,17 @@ def tab_graph_Collab(author_id: str, years_list: list, console: pd.DataFrame, wi
 
 def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_adapt: int):
     """
-    Populate the first Excel template with author level indicators.
-    
-    :param df: Dataframe containing the metrics to export.
+    Renseigner le premier gabarit Excel avec les indicateurs de l'auteur.
+
+    :param df: DataFrame contenant les metriques a exporter.
     :type df: pandas.DataFrame
-    :param nom_prenom: Pair ``[last_name, first_name]`` used to label the sheets.
+    :param nom_prenom: Liste ``[nom, prenom]`` utilisee pour nommer les feuilles.
     :type nom_prenom: list[str]
-    :param en_tete: Header values injected in the workbook.
+    :param en_tete: Valeurs d'en-tete injectees dans le classeur.
     :type en_tete: list[str]
-    :param annee_10y_adapt: First year of the ten year rolling window.
+    :param annee_10y_adapt: Premiere annee de la fenetre glissante de dix ans.
     :type annee_10y_adapt: int
-    :return: Tuple ``(excel_app, workbook)`` exposing the COM objects.
+    :return: Tuple ``(excel_app, workbook)`` exposant les objets COM.
     :rtype: tuple
     """
     # Ouvrir le classeur Excel existant
@@ -1193,13 +1193,13 @@ def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_ada
 
     cell_tab_citations = [4, 0] # ligne, colonne
 
-    # Création de l'objet Excel, et le rendre visible en plein écran lors du processus
+    # Creation de l'objet Excel, et le rendre visible en plein ecran lors du processus
     excel = win32.gencache.EnsureDispatch('Excel.Application')
     excel.Visible = True
     excel.WindowState = win32.constants.xlMaximized
 
     try:
-        # Vérifier si le fichier Excel est déjà ouvert
+        # Verifier si le fichier Excel est deja ouvert
         for wb in excel.Workbooks:
             if wb.FullName == nom_fichier:
                 wb.Close(False)  # Fermer le classeur sans enregistrer les modifications
@@ -1207,7 +1207,7 @@ def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_ada
         # Ouverture du fichier Excel
         classeur = excel.Workbooks.Open(nom_fichier)
         classeur.Visible = True  # Rendre le classeur visible
-        classeur.WindowState = win32.constants.xlMaximized  # Mettre le classeur en plein écran 
+        classeur.WindowState = win32.constants.xlMaximized  # Mettre le classeur en plein ecran 
 
         # Enregistrer sous le nouveau nom
         date_formated = datetime.now().strftime('%Y-%m-%d')
@@ -1222,66 +1222,66 @@ def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_ada
 
         classeur.SaveAs(os.path.abspath(DOCS_PATH[0] + '/' + date_formated + '_' + nom_ou_prenom[1] + '_' + nom_ou_prenom[0] + '.xlsm'), FileFormat=52)
 
-        # Mettre la fenêtre en premier plan
+        # Mettre la fenetre en premier plan
         try:
             win32gui.SetForegroundWindow(win32gui.FindWindow(None, classeur.Name + " - Excel"))
         except:
             win32gui.SetForegroundWindow(win32gui.FindWindow(None, classeur.Name.split('.')[0] + " - Excel"))
       
-        # Accéder à la feuille de calcul existante
+        # Acceder a la feuille de calcul existante
         feuille = classeur.Worksheets(nom_feuille)
 
-        # Effacer le contenu des lignes de cellules et cellules à modifier
-        start_row = 2 + cell_tab_citations[0]  # Numéro de la première ligne de cellule (à supprimer)
-        end_row = start_row + len(df) - 1  # Numéro de la dernière ligne de cellule (à supprimer)
+        # Effacer le contenu des lignes de cellules et cellules a modifier
+        start_row = 2 + cell_tab_citations[0]  # Numero de la premiere ligne de cellule (a supprimer)
+        end_row = start_row + len(df) - 1  # Numero de la derniere ligne de cellule (a supprimer)
 
-        feuille.Range(f"{start_row-1}:{end_row}").ClearContents()  # Nettoie seulement le contenu des lignes souhaitées
+        feuille.Range(f"{start_row-1}:{end_row}").ClearContents()  # Nettoie seulement le contenu des lignes souhaitees
 
         # Path ainsi que le path de ce programme pour enregistrer le Word
         feuille.Cells(1, 110).Value = DOCS_PATH[0]
         feuille.Cells(2, 110).Value = os.path.dirname(os.path.abspath(__file__)) + "\\..\\"
 
-        # Écrire prénom et nom
+        # Ecrire prenom et nom
         for i in range(len(nom_prenom)):
             feuille.Cells(1 + i, 2).Value = nom_prenom[i]
 
-        # Écrire année des 10y_adapt
+        # Ecrire annee des 10y_adapt
         feuille.Cells(1, 104).Value = annee_10y_adapt
 
-        # Écrire prénom et nom sans accent
+        # Ecrire prenom et nom sans accent
         for i in range(len(nom_prenom)):
             feuille.Cells(1 + i, 5).Value = nom_ou_prenom[i]
 
-        # Écrire les données du DataFrame dans la feuille de calcul
+        # Ecrire les donnees du DataFrame dans la feuille de calcul
         for i, row in enumerate(df.values):
             for j, value in enumerate(row):
                 if j > len(row) - 4:
-                    feuille.Cells(i+2+cell_tab_citations[0], j+2+cell_tab_citations[1]+2).Value = value  # Ajouter 2 pour décaler les cellules
+                    feuille.Cells(i+2+cell_tab_citations[0], j+2+cell_tab_citations[1]+2).Value = value  # Ajouter 2 pour decaler les cellules
                     if j > len(row) - 3:
                         continue
                 feuille.Cells(i+2+cell_tab_citations[0], j+2+cell_tab_citations[1]).Value = value
 
-        # Écrire les index dans la première colonne de la feuille de calcul
+        # Ecrire les index dans la premiere colonne de la feuille de calcul
         for i, index_value in enumerate(df.index):
             feuille.Cells(i+2+cell_tab_citations[0], 1+cell_tab_citations[1]).Value = index_value
 
-        # Écrire les données supplémentaires
+        # Ecrire les donnees supplementaires
         year_list = df.columns.to_list()
         feuille.Cells(1, 103).Value = year_list[-3]
         feuille.Cells(2, 102).Value = year_list[0]
         feuille.Cells(1, 106).Value = date_formated
-        # Convertir la chaîne de date en objet datetime
+        # Convertir la chaine de date en objet datetime
         date_obj = datetime.strptime(date_formated, '%Y-%m-%d')
         feuille.Cells(1, 107).Value = date_obj.day
         feuille.Cells(1, 108).Value = date_obj.month
         feuille.Cells(1, 109).Value = date_obj.year
 
 
-        # Écrire les noms des colonnes dans la première ligne de la feuille de calcul d'après les conditions du cahier des charges
+        # Ecrire les noms des colonnes dans la premiere ligne de la feuille de calcul d'apres les conditions du cahier des charges
         len_row = len(row)
         len_year_list = len(year_list)
 
-        # Écrit TOUS les noms des colonnes
+        # Ecrit TOUS les noms des colonnes
         for j, column_name in enumerate(df.columns):
             column_name = str(column_name)[-2:] if len_year_list-3 <= 20 and j < len_row-1 else column_name
 
@@ -1291,18 +1291,18 @@ def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_ada
                     continue
             feuille.Cells(1+cell_tab_citations[0], j+2+cell_tab_citations[1]).Value = column_name
 
-        # Efface si nécessaire en fonction du CDC
+        # Efface si necessaire en fonction du CDC
         if len_year_list-3 > 10:
             for j, column_name in enumerate(df.columns):
                 if len_year_list-3 <= 30 and (j%2 == 1 and j != len_year_list-3 or (len_year_list-2)%2 == 0 and j == len_year_list-4) or len_year_list-3 > 30 and (j%5 != 0 and j != len_year_list-3 or (len_year_list-2)%2 == 0 and j == len_year_list-5 or len_year_list-7 < j < len_year_list-3):
                     feuille.Cells(1+cell_tab_citations[0], j+2+cell_tab_citations[1]).Value = None
 
 
-        # Écrire les données de l'en-tête de SciVal
+        # Ecrire les donnees de l'en-tete de SciVal
         for i in range(len(en_tete)):
             feuille.Cells(32 + i, 2).Value = en_tete[i]
 
-        # Appel de la procédure VBA
+        # Appel de la procedure VBA
         excel.Run(f'{nom_module}.{nom_procedure}', nom_feuille, 'TOTAL', 5)
         
         classeur.Visible = False  # Rendre le classeur invisible
@@ -1316,17 +1316,17 @@ def Excel_part1(df: pd.DataFrame, nom_prenom: list, en_tete: list, annee_10y_ada
     
 def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Collab: pd.DataFrame):
     """
-    Write SNIP and collaboration data into the existing Excel workbook.
-    
-    :param excel: Running Excel COM application returned by :func:`Excel_part1`.
+    Ecrire les donnees SNIP et collaborations dans le classeur Excel deja ouvert.
+
+    :param excel: Application Excel COM renvoyee par :func:`Excel_part1`.
     :type excel: Any
-    :param classeur: Workbook instance returned by :func:`Excel_part1`.
+    :param classeur: Classeur retourne par :func:`Excel_part1`.
     :type classeur: Any
-    :param df: Publication dataframe appended to the workbook.
+    :param df: DataFrame des publications ajoute au classeur.
     :type df: pandas.DataFrame
-    :param df_SNIP: Dataframe containing SNIP values.
+    :param df_SNIP: DataFrame contenant les valeurs SNIP.
     :type df_SNIP: pandas.DataFrame
-    :param df_Collab: Dataframe containing collaboration counts.
+    :param df_Collab: DataFrame contenant les indicateurs de collaboration.
     :type df_Collab: pandas.DataFrame
     :return: ``None``.
     :rtype: None
@@ -1338,39 +1338,39 @@ def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Col
 
     cell_tab_publications = [10, 41, 48] # lignes de commencement des tableaux pour les graphiques
 
-    # Rendre à nouveau visible l'Excel
+    # Rendre a nouveau visible l'Excel
     excel.Visible = True
 
     try:
-        # Vérifier si le fichier Excel est déjà ouvert
+        # Verifier si le fichier Excel est deja ouvert
         for wb in excel.Workbooks:
             if wb.FullName == nom_fichier:
                 wb.Close(False)  # Fermer le classeur sans enregistrer les modifications
 
         # Ouverture du fichier Excel
         classeur.Visible = True  # Rendre le classeur visible
-        classeur.WindowState = win32.constants.xlMaximized  # Mettre le classeur en plein écran 
+        classeur.WindowState = win32.constants.xlMaximized  # Mettre le classeur en plein ecran 
 
-        # Mettre la fenêtre Excel en premier plan
+        # Mettre la fenetre Excel en premier plan
         try:
             win32gui.SetForegroundWindow(win32gui.FindWindow(None, classeur.Name + " - Excel"))
         except:
             win32gui.SetForegroundWindow(win32gui.FindWindow(None, classeur.Name.split('.')[0] + " - Excel"))
 
 
-        # Accéder à la feuille de calcul existante
+        # Acceder a la feuille de calcul existante
         feuille = classeur.Worksheets(nom_feuille)
 
 
         ### GRAPHIQUE DES PUBLICATIONS ###
 
-        # Effacer le contenu des lignes de cellules et cellules à modifier
-        start_row = 2 + cell_tab_publications[0]  # Numéro de la première ligne de cellule (à supprimer)
-        end_row = start_row + len(df) - 1  # Numéro de la dernière ligne de cellule (à supprimer)
+        # Effacer le contenu des lignes de cellules et cellules a modifier
+        start_row = 2 + cell_tab_publications[0]  # Numero de la premiere ligne de cellule (a supprimer)
+        end_row = start_row + len(df) - 1  # Numero de la derniere ligne de cellule (a supprimer)
 
-        feuille.Range(f"{start_row-1}:{end_row}").ClearContents()   # Nettoie seulement le contenu des lignes souhaitées
+        feuille.Range(f"{start_row-1}:{end_row}").ClearContents()   # Nettoie seulement le contenu des lignes souhaitees
 
-        # Écrire les données du DataFrame dans la feuille de calcul
+        # Ecrire les donnees du DataFrame dans la feuille de calcul
         for i, row in enumerate(df.values):
             for j, value in enumerate(row):
                 if not value == 0:
@@ -1378,24 +1378,24 @@ def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Col
                 else:
                     feuille.Cells(i+2+cell_tab_publications[0], j+2).ClearContents()
 
-        # Écrire les index dans la première colonne de la feuille de calcul
+        # Ecrire les index dans la premiere colonne de la feuille de calcul
         for i, index_value in enumerate(df.index):
             feuille.Cells(i+2+cell_tab_publications[0], 1).Value = index_value
 
-        # Écrire les noms des colonnes dans la première ligne de la feuille de calcul
+        # Ecrire les noms des colonnes dans la premiere ligne de la feuille de calcul
         for j, column_name in enumerate(df.columns):
             feuille.Cells(1+cell_tab_publications[0], j+2).Value = column_name
 
 
         ### GRAPHIQUE SNIP ###
 
-        # Effacer le contenu des lignes de cellules et cellules à modifier
-        start_row = 2 + cell_tab_publications[1]  # Numéro de la première ligne de cellule (à supprimer)
-        end_row = start_row + len(df_SNIP) - 1  # Numéro de la dernière ligne de cellule (à supprimer)
+        # Effacer le contenu des lignes de cellules et cellules a modifier
+        start_row = 2 + cell_tab_publications[1]  # Numero de la premiere ligne de cellule (a supprimer)
+        end_row = start_row + len(df_SNIP) - 1  # Numero de la derniere ligne de cellule (a supprimer)
 
-        feuille.Range(f"{start_row-1}:{end_row}").ClearContents()   # Nettoie seulement le contenu des lignes souhaitées
+        feuille.Range(f"{start_row-1}:{end_row}").ClearContents()   # Nettoie seulement le contenu des lignes souhaitees
 
-        # Écrire les données du DataFrame dans la feuille de calcul
+        # Ecrire les donnees du DataFrame dans la feuille de calcul
         for i, row in enumerate(df_SNIP.values):
             for j, value in enumerate(row):
                 if not value == 0:
@@ -1403,24 +1403,24 @@ def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Col
                 else:
                     feuille.Cells(i+2+cell_tab_publications[1], j+2).ClearContents()
 
-        # Écrire les index dans la première colonne de la feuille de calcul
+        # Ecrire les index dans la premiere colonne de la feuille de calcul
         for i, index_value in enumerate(df_SNIP.index):
             feuille.Cells(i+2+cell_tab_publications[1], 1).Value = index_value
 
-        # Écrire les noms des colonnes dans la première ligne de la feuille de calcul
+        # Ecrire les noms des colonnes dans la premiere ligne de la feuille de calcul
         for j, column_name in enumerate(df_SNIP.columns):
             feuille.Cells(1+cell_tab_publications[1], j+2).Value = column_name
 
 
         ### GRAPHIQUE COLLAB ###
 
-        # Effacer le contenu des lignes de cellules et cellules à modifier
-        start_row = 2 + cell_tab_publications[2]  # Numéro de la première ligne de cellule (à supprimer)
-        end_row = start_row + len(df_Collab) - 1  # Numéro de la dernière ligne de cellule (à supprimer)
+        # Effacer le contenu des lignes de cellules et cellules a modifier
+        start_row = 2 + cell_tab_publications[2]  # Numero de la premiere ligne de cellule (a supprimer)
+        end_row = start_row + len(df_Collab) - 1  # Numero de la derniere ligne de cellule (a supprimer)
 
-        feuille.Range(f"{start_row-1}:{end_row}").ClearContents()   # Nettoie seulement le contenu des lignes souhaitées
+        feuille.Range(f"{start_row-1}:{end_row}").ClearContents()   # Nettoie seulement le contenu des lignes souhaitees
 
-        # Écrire les données du DataFrame dans la feuille de calcul
+        # Ecrire les donnees du DataFrame dans la feuille de calcul
         for i, row in enumerate(df_Collab.values):
             for j, value in enumerate(row):
                 if not value == 0:
@@ -1428,11 +1428,11 @@ def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Col
                 else:
                     feuille.Cells(i+2+cell_tab_publications[2], j+2).ClearContents()
 
-        # Écrire les index dans la première colonne de la feuille de calcul
+        # Ecrire les index dans la premiere colonne de la feuille de calcul
         for i, index_value in enumerate(df_Collab.index):
             feuille.Cells(i+2+cell_tab_publications[2], 1).Value = index_value
 
-        # Écrire les noms des colonnes dans la première ligne de la feuille de calcul
+        # Ecrire les noms des colonnes dans la premiere ligne de la feuille de calcul
         for j, column_name in enumerate(df_Collab.columns):
             feuille.Cells(1+cell_tab_publications[2], j+2).Value = column_name
 
@@ -1446,18 +1446,18 @@ def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Col
         # Reboot pour prendre la main
         word_app.Quit()
 
-        # Appel de la procédure VBA
+        # Appel de la procedure VBA
         excel.Run(f'{nom_module}.GenerationWord')
 
         # Attendre la fin des subroutines en cours
         time.sleep(1)
         
-        # Récupérer la feuille à supprimer
+        # Recuperer la feuille a supprimer
         sheet = wb.Sheets("Main")
         # Supprimer la feuille
-        excel.DisplayAlerts = False  # Désactiver les alertes
+        excel.DisplayAlerts = False  # Desactiver les alertes
         sheet.Delete()
-        excel.DisplayAlerts = True  # Réactiver les alertes
+        excel.DisplayAlerts = True  # Reactiver les alertes
 
         # Supprimer les cellules tampons
         start_row, num_rows = 1, 2
@@ -1479,29 +1479,42 @@ def Excel_part2(excel, classeur, df: pd.DataFrame, df_SNIP: pd.DataFrame, df_Col
 
 #-------------------------------------Nouvelles fonctions d'Autobib+-------------------------------------------------
 
-def collaborationExtract(researchersA: list = None, institutionsA: list = None, researchersB: list = None, institutionsB: list = None,\
-                         """
-                         Extract collaboration records between two sets of researchers or institutions.
-                         
-                         :param researchersA: Optional identifiers for the first group of researchers.
-                         :type researchersA: list[str] | None
-                         :param institutionsA: Optional identifiers for the first group of institutions.
-                         :type institutionsA: list[str] | None
-                         :param researchersB: Optional identifiers for the second group of researchers.
-                         :type researchersB: list[str] | None
-                         :param institutionsB: Optional identifiers for the second group of institutions.
-                         :type institutionsB: list[str] | None
-                         :param collabCountry: Optional country filter applied to collaborations.
-                         :type collabCountry: str | None
-                         :param keys: Pair of API key and token used to call Elsevier services.
-                         :type keys: list[str]
-                         :param console: Output console used to display progress.
-                         :type console: QPlainTextEdit | None
-                         :return: Dataframe with the collaboration records.
-                         :rtype: pandas.DataFrame
-                         """
-                         country: str = None, start_year: int = None, end_year: int = None, keys: list = None, console: QPlainTextEdit = None):
-    # Construction de la requete pour les collabs entre l'entité A et l'entité B
+def collaborationExtract(
+    researchersA: list | None = None,
+    institutionsA: list | None = None,
+    researchersB: list | None = None,
+    institutionsB: list | None = None,
+    country: str | None = None,
+    start_year: int | None = None,
+    end_year: int | None = None,
+    keys: list | None = None,
+    console: QPlainTextEdit | None = None,
+):
+    """
+    Extraire les collaborations entre deux groupes de chercheures ou d'institutions.
+
+    :param researchersA: Identifiants du premier groupe de chercheures.
+    :type researchersA: list[str] | None
+    :param institutionsA: Identifiants du premier groupe d'institutions.
+    :type institutionsA: list[str] | None
+    :param researchersB: Identifiants du second groupe de chercheures.
+    :type researchersB: list[str] | None
+    :param institutionsB: Identifiants du second groupe d'institutions.
+    :type institutionsB: list[str] | None
+    :param country: Filtre pays applique aux collaborations.
+    :type country: str | None
+    :param start_year: Annee de debut pour restreindre les resultats.
+    :type start_year: int | None
+    :param end_year: Annee de fin pour restreindre les resultats.
+    :type end_year: int | None
+    :param keys: Cles API (cle + token) pour interroger Elsevier.
+    :type keys: list[str] | None
+    :param console: Console utilisee pour afficher l'avancement.
+    :type console: QPlainTextEdit | None
+    :return: DataFrame contenant les collaborations trouvees.
+    :rtype: pandas.DataFrame
+    """
+    # Construction de la requete pour les collabs entre l'entite A et l'entite B
     query_part2 = []
     if researchersA:
         query_part1 = [f'AU-ID({researcher})' for researcher in researchersA]
@@ -1533,10 +1546,10 @@ def collaborationExtract(researchersA: list = None, institutionsA: list = None, 
     RequestQuery = f"({query_partA}) AND ({query_partB})"
     
     try:
-        # Recherche sur Scopus avec la clé API et le Token
+        # Recherche sur Scopus avec la cle API et le Token
         search = ScopusSearch(query=RequestQuery, api_key= keys[0], token= keys[1])
         if search.results is not None:
-            # Extraction des résultats
+            # Extraction des resultats
             results = []
             for collaboration in search.results:
                 results.append({
@@ -1561,27 +1574,27 @@ def collaborationExtract(researchersA: list = None, institutionsA: list = None, 
                     'Funding texts': collaboration.fund_acr,
                 })
             
-            # Conversion des résultats en DataFrame pandas
+            # Conversion des resultats en DataFrame pandas
             df = pd.DataFrame(results)
             return df
         else: 
-            console.append('<p style={}>! Aucune collaboration trouvée.</p>'.format(text_style_warning))
+            console.append('<p style={}>! Aucune collaboration trouvee.</p>'.format(text_style_warning))
             return None
-    except Exception as e: 
+    except: 
         return None
 def getEntityProfile(selection: str, entity: str, keys: list, rechercheParId: bool):
     """
-    Retrieve the bibliometric profile of a given entity.
-    
-    :param selection: Type of entity to query (author or institution).
+    Recuperer le profil bibliometrique d'une entite donnee.
+
+    :param selection: Type d'entite a interroger (auteur ou institution).
     :type selection: str
-    :param entity: Identifier or search text identifying the entity.
+    :param entity: Identifiant ou texte de recherche de l'entite.
     :type entity: str
-    :param keys: Pair of API key and token used to call Elsevier services.
+    :param keys: Couple (cle, token) permettant d'appeler les services Elsevier.
     :type keys: list[str]
-    :param rechercheParId: When ``True`` the entity value is treated as a direct identifier.
+    :param rechercheParId: ``True`` si l'entite est fournie sous forme d'identifiant.
     :type rechercheParId: bool
-    :return: Tuple containing the search object and the retrieval object associated with the entity.
+    :return: Tuple contenant l'objet de recherche et l'objet de recuperation associes.
     :rtype: tuple[AuthorSearch | AffiliationSearch, AuthorRetrieval | AffiliationRetrieval]
     """
 
@@ -1593,7 +1606,7 @@ def getEntityProfile(selection: str, entity: str, keys: list, rechercheParId: bo
         else : 
             query_entity = f'AU-ID({entity})'
             search = AuthorSearch(query=query_entity, api_key= keys[0], token= keys[1])
-        # Vérification des résultats
+        # Verification des resultats
         if search.authors is None:
             return 'NONE'
         else:
@@ -1625,11 +1638,11 @@ def getEntityProfile(selection: str, entity: str, keys: list, rechercheParId: bo
         return
 def getSelectedYears(response: str):
     """
-    Parse the user response describing the analysis period.
-    
-    :param response: Raw textual input collected from the interface.
+    Interpreter la reponse de l'utilisateur decrivant la periode d'analyse.
+
+    :param response: Texte brut saisi via l'interface.
     :type response: str
-    :return: List of selected years, sorted chronologically.
+    :return: Liste d'annees selectionnees, triees chronologiquement.
     :rtype: list[int]
     """
     if response == '':
@@ -1648,11 +1661,11 @@ def getSelectedYears(response: str):
     return start_year, end_year
 def count_document_types(df: pd.DataFrame):
     """
-    Count the number of retrieved publications per document subtype.
-    
-    :param df: Dataframe listing the publications.
+    Compter le nombre de publications par sous-type documentaire.
+
+    :param df: DataFrame referencant les publications.
     :type df: pandas.DataFrame
-    :return: Dictionary ``{subtype: count}``.
+    :return: Dictionnaire ``{sous-type: effectif}``.
     :rtype: dict[str, int]
     """
     # Initialiser un dictionnaire pour stocker les comptes de chaque type de document
@@ -1676,12 +1689,12 @@ def count_document_types(df: pd.DataFrame):
         for doc_type in ['ar', 're', 'cp', 'ch', 'ed', 'bk', 'dp', 'er', 'sh']:
             if doc_type not in doc_type_counts:
                 doc_type_counts[doc_type] = 0
-        # Créer une DataFrame à partir du dictionnaire
+        # Creer une DataFrame a partir du dictionnaire
         doc_type_df = pd.DataFrame(list(doc_type_counts.items()), columns=['DocumentType', 'Count'])
         
-        # Ajouter cette nouvelle DataFrame à la DataFrame originale (comme une nouvelle colonne)
+        # Ajouter cette nouvelle DataFrame a la DataFrame originale (comme une nouvelle colonne)
         df_with_counts = pd.concat([df, doc_type_df], axis=1)
-        # Remplacer les NaN par une chaîne vide
+        # Remplacer les NaN par une chaine vide
         df_with_counts = df_with_counts.fillna('')
 
     # Retourner la DataFrame originale
@@ -1689,75 +1702,75 @@ def count_document_types(df: pd.DataFrame):
 
 
 def countAuthorsInCollab(df : pd.DataFrame, keys: list):
-        """
-        Count how frequently each author appears in the collaboration dataframe.
-        
-        :param df: Collaboration dataframe produced by :func:`collaborationExtract`.
-        :type df: pandas.DataFrame
-        :param keys: Pair of API key and token used to enrich the results.
-        :type keys: list[str]
-        :return: Tuple of three dictionaries storing author counts, identifiers and affiliations.
-        :rtype: tuple[dict[str, int], dict[str, str], dict[str, str]]
-        """
-        author_counts = {}
-        Author_IDs = {}
-        Author_Aff = {}
-        if 'Authors' in df.columns:
-            authors = df['Authors'].dropna().str.split(';')
-            authorsIDs = df['Authors ID'].dropna().str.split(';')
-            afIDs = df['Authors affiliations'].dropna().str.split(';')
-            for afID_list, author_list, authorsID_list in zip(afIDs, authors, authorsIDs):
-                for afID, author, authorID in zip(afID_list, author_list, authorsID_list):
-                    author = author.strip()
-                    authorID = authorID.strip()
-                    afID = afID.strip()
-                    if not afID == '':
-                        name_parts = author.split(', ')
-                        last_name = name_parts[0].strip()
-                        first_name = name_parts[1].strip() if len(name_parts) > 1 else ""
-                        update_entity_author_counts(author_counts, Author_IDs, 
-                                                                Author_Aff, last_name, first_name, 
-                                                                author, authorID, keys)
-            author_df = pd.DataFrame(list(author_counts.items()), columns=['Author', 'Nbre de publications'])
-             # Ajouter les colonne pour les IDs , affiliation des auteurs
-            author_df['AU-ID'] = author_df['Author'].map(lambda author: ', '.join(Author_IDs.get(author, [])))
-            author_df['AU-ID']  = author_df['AU-ID'].str.replace(', ', '', regex=False)
-            author_df['Affiliation'] = author_df['Author'].map(lambda author: ', '.join(Author_Aff.get(author, [])))
-            author_df['Affiliation']  = author_df['Affiliation'].str.replace(', ', '', regex=False)
-            # Trier les résultats
-            author_df = author_df.sort_values(by='Nbre de publications', ascending=False).reset_index(drop=True)
-            return author_df
+    """
+    Compter la frequence d'apparition de chaque auteur dans les collaborations.
+
+    :param df: DataFrame de collaborations issu de :func:`collaborationExtract`.
+    :type df: pandas.DataFrame
+    :param keys: Couple (cle, token) pour enrichir les resultats.
+    :type keys: list[str]
+    :return: Tuple de dictionnaires contenant effectifs, identifiants et affiliations.
+    :rtype: tuple[dict[str, int], dict[str, str], dict[str, str]]
+    """
+    author_counts = {}
+    Author_IDs = {}
+    Author_Aff = {}
+    if 'Authors' in df.columns:
+        authors = df['Authors'].dropna().str.split(';')
+        authorsIDs = df['Authors ID'].dropna().str.split(';')
+        afIDs = df['Authors affiliations'].dropna().str.split(';')
+        for afID_list, author_list, authorsID_list in zip(afIDs, authors, authorsIDs):
+            for afID, author, authorID in zip(afID_list, author_list, authorsID_list):
+                author = author.strip()
+                authorID = authorID.strip()
+                afID = afID.strip()
+                if not afID == '':
+                    name_parts = author.split(', ')
+                    last_name = name_parts[0].strip()
+                    first_name = name_parts[1].strip() if len(name_parts) > 1 else ""
+                    update_entity_author_counts(author_counts, Author_IDs, 
+                                                            Author_Aff, last_name, first_name, 
+                                                            author, authorID, keys)
+        author_df = pd.DataFrame(list(author_counts.items()), columns=['Author', 'Nbre de publications'])
+            # Ajouter les colonne pour les IDs , affiliation des auteurs
+        author_df['AU-ID'] = author_df['Author'].map(lambda author: ', '.join(Author_IDs.get(author, [])))
+        author_df['AU-ID']  = author_df['AU-ID'].str.replace(', ', '', regex=False)
+        author_df['Affiliation'] = author_df['Author'].map(lambda author: ', '.join(Author_Aff.get(author, [])))
+        author_df['Affiliation']  = author_df['Affiliation'].str.replace(', ', '', regex=False)
+        # Trier les resultats
+        author_df = author_df.sort_values(by='Nbre de publications', ascending=False).reset_index(drop=True)
+        return author_df
         
 def countInstitutionsInCollab(df : pd.DataFrame, collabCountry : str):
-        institution_counts = {}
-        if 'affilname' in df.columns and 'Countries' in df.columns:
-            affiliations = df['affilname'].dropna().str.split(';')
-            countries = df['Countries'].dropna().str.split(';')
-                
-            for affil_list, country_list in zip(affiliations, countries):
-                for affil, country in zip(affil_list, country_list):
-                    affil = affil.strip()
-                    if country.strip() == collabCountry:
-                        if affil in institution_counts:
-                            institution_counts[affil] += 1
-                        else:
-                            institution_counts[affil] = 1
+    institution_counts = {}
+    if 'affilname' in df.columns and 'Countries' in df.columns:
+        affiliations = df['affilname'].dropna().str.split(';')
+        countries = df['Countries'].dropna().str.split(';')
+            
+        for affil_list, country_list in zip(affiliations, countries):
+            for affil, country in zip(affil_list, country_list):
+                affil = affil.strip()
+                if country.strip() == collabCountry:
+                    if affil in institution_counts:
+                        institution_counts[affil] += 1
+                    else:
+                        institution_counts[affil] = 1
 
-            institution_df = pd.DataFrame(list(institution_counts.items()), columns=['Institution', 'Nbre de publications en collaboration'])
-            institution_df = institution_df.sort_values(by='Nbre de publications en collaboration', ascending=False).reset_index(drop=True)
-            return institution_df
+        institution_df = pd.DataFrame(list(institution_counts.items()), columns=['Institution', 'Nbre de publications en collaboration'])
+        institution_df = institution_df.sort_values(by='Nbre de publications en collaboration', ascending=False).reset_index(drop=True)
+        return institution_df
 
 def countEntityAuthorsInCollab(df : pd.DataFrame, collabEntityList : list, keys: list):
     """
-    Count authors associated with the provided entity list within the collaboration dataframe.
-    
-    :param df: Collaboration dataframe produced by :func:`collaborationExtract`.
+    Compter les auteurs associes a une entite donnee dans les collaborations.
+
+    :param df: DataFrame de collaborations issu de :func:`collaborationExtract`.
     :type df: pandas.DataFrame
-    :param collabEntityList: List of entities that should be tracked.
+    :param collabEntityList: Liste des entites a suivre.
     :type collabEntityList: list[str]
-    :param keys: Pair of API key and token used to enrich the results.
+    :param keys: Couple (cle, token) pour enrichir les resultats.
     :type keys: list[str]
-    :return: Tuple of three dictionaries storing author counts, identifiers and affiliations.
+    :return: Tuple de dictionnaires contenant effectifs, identifiants et affiliations.
     :rtype: tuple[dict[str, int], dict[str, str], dict[str, str]]
     """
     entityAuthor_counts = {}
@@ -1800,7 +1813,7 @@ def countEntityAuthorsInCollab(df : pd.DataFrame, collabEntityList : list, keys:
         entity_author_df['Affiliation'] = entity_author_df['Auteur'].map(lambda author: ', '.join(entityAuthor_Aff.get(author, [])))
         entity_author_df['Affiliation']  = entity_author_df['Affiliation'].str.replace(', ', '', regex=False)
             
-        # Trier les résultats
+        # Trier les resultats
         entity_author_df = entity_author_df.sort_values(by='Nbre de publications', ascending=False).reset_index(drop=True)
         return entity_author_df
     else:
@@ -1833,11 +1846,11 @@ def update_entity_author_counts(entityAuthor_counts, entityAuthor_IDs, entityAut
 
 def load_ETS_profs(console: QPlainTextEdit):
     """
-    Load the reference list of ETS professors from disk.
-    
-    :param console: Output console used to display status messages.
+    Charger la liste de reference des professeurs de l'ETS depuis le disque.
+
+    :param console: Console utilisee pour afficher les messages d'etat.
     :type console: QPlainTextEdit
-    :return: Dataframe containing the professor list.
+    :return: DataFrame contenant la liste des professeurs.
     :rtype: pandas.DataFrame
     """
     try : 
@@ -1846,7 +1859,7 @@ def load_ETS_profs(console: QPlainTextEdit):
             df = pd.read_excel(file_name, sheet_name='Noms_Profs_ETS')
             return df
     except Exception :
-        console.append('<p style={}>! Liste des profésseurs ETS non trouvé.</p>'.format(text_style_warning))
+        console.append('<p style={}>! Liste des professeurs ETS non trouve.</p>'.format(text_style_warning))
         return
 
 def load_ORN(console: QPlainTextEdit):
@@ -1856,7 +1869,7 @@ def load_ORN(console: QPlainTextEdit):
             df = pd.read_excel(file_name, sheet_name='Liste_ORN')
             return df
     except Exception :
-        console.append('<p style={}>! Liste des ORN non trouvée.</p>'.format(text_style_warning))
+        console.append('<p style={}>! Liste des ORN non trouvee.</p>'.format(text_style_warning))
         return
     
 def load_UQ(console: QPlainTextEdit):
@@ -1866,7 +1879,7 @@ def load_UQ(console: QPlainTextEdit):
             df = pd.read_excel(file_name, sheet_name='Reseau_UQ')
             return df
     except Exception :
-        console.append('<p style={}>! Liste des établissements de l\'UQ non trouvée.</p>'.format(text_style_warning))
+        console.append('<p style={}>! Liste des etablissements de l\'UQ non trouvee.</p>'.format(text_style_warning))
         return
 def load_ETS(console: QPlainTextEdit):
     try : 
@@ -1875,26 +1888,26 @@ def load_ETS(console: QPlainTextEdit):
             df = pd.read_excel(file_name, sheet_name='Reseau_ETS')
             return df
     except Exception :
-        console.append('<p style={}>! Liste des établissements de l\'ETS non trouvée.</p>'.format(text_style_warning))
+        console.append('<p style={}>! Liste des etablissements de l\'ETS non trouvee.</p>'.format(text_style_warning))
         return
     
 def add_affiliation_ids_to_list(df: pd.DataFrame, affiliation_list: list, console: QPlainTextEdit):
     """
-    Collect the affiliation identifiers associated with each collaboration row.
-    
-    :param df: Collaboration dataframe produced by :func:`collaborationExtract`.
+    Collecter les identifiants d'affiliation associes a chaque ligne de collaboration.
+
+    :param df: DataFrame issu de :func:`collaborationExtract`.
     :type df: pandas.DataFrame
-    :param affiliation_list: List that receives the collected identifiers.
+    :param affiliation_list: Liste recevant les identifiants collectes.
     :type affiliation_list: list[str]
-    :param console: Output console used to display progress.
+    :param console: Console utilisee pour indiquer la progression.
     :type console: QPlainTextEdit
     :return: ``None``.
     :rtype: None
     """
     try:
-        # Vérifie si la colonne 'Affiliation ID' existe dans la DataFrame
+        # Verifie si la colonne 'Affiliation ID' existe dans la DataFrame
         if 'Affiliation ID' in df.columns:
-            # Récupère toutes les valeurs de la colonne 'Affiliation ID' et les ajoute à la liste
+            # Recupere toutes les valeurs de la colonne 'Affiliation ID' et les ajoute a la liste
             affiliation_list.extend([str(aff_id) for aff_id in df['Affiliation ID'].tolist()])
             return affiliation_list
     except Exception:
@@ -1903,15 +1916,15 @@ def add_affiliation_ids_to_list(df: pd.DataFrame, affiliation_list: list, consol
 
 def findFuzzyMatches(df1: pd.DataFrame, df2: pd.DataFrame, console: QPlainTextEdit):    
     """
-    Build a dataframe containing fuzzy matches between ETS and external authors.
-    
-    :param df1: Reference dataframe (usually ETS authors).
+    Construire un DataFrame listant les correspondances approximatives entre auteurs ETS et externes.
+
+    :param df1: DataFrame de reference (souvent les auteurs ETS).
     :type df1: pandas.DataFrame
-    :param df2: Dataframe containing collaboration participants.
+    :param df2: DataFrame des participants aux collaborations.
     :type df2: pandas.DataFrame
-    :param console: Output console used to display progress.
+    :param console: Console utilisee pour afficher la progression.
     :type console: QPlainTextEdit
-    :return: Dataframe with the fuzzy match results.
+    :return: DataFrame contenant les resultats de l'appariement.
     :rtype: pandas.DataFrame
     """
     if 'Author' not in df1.columns or 'Nom_prof_ETS' not in df2.columns:
@@ -1929,7 +1942,7 @@ def findFuzzyMatches(df1: pd.DataFrame, df2: pd.DataFrame, console: QPlainTextEd
         
         authors = df1[['Nom', 'Prenom', 'Author']].dropna().values.tolist()
         publications = df1.set_index('Author')['Nbre de publications'].to_dict()
-        profs = df2[['Nom', 'Prenom', 'Nom_prof_ETS', 'Département']].dropna().values.tolist()
+        profs = df2[['Nom', 'Prenom', 'Nom_prof_ETS', 'Departement']].dropna().values.tolist()
         
         matches = []
         non_matches = []
@@ -1962,7 +1975,7 @@ def findFuzzyMatches(df1: pd.DataFrame, df2: pd.DataFrame, console: QPlainTextEd
                 fuzzy_matches.append(auteur_complet)
                 non_matches.remove(auteur_complet)
         
-        matches_df = pd.DataFrame(matches, columns=['Auteur', 'Professeur_ETS_correspondant', 'Département', 'Nbre de publications'])
+        matches_df = pd.DataFrame(matches, columns=['Auteur', 'Professeur_ETS_correspondant', 'Departement', 'Nbre de publications'])
         non_matches_df = pd.DataFrame(non_matches, columns=['Author'])
         non_matches_df['Nbre de publications'] = non_matches_df['Author'].map(publications)
         return matches_df, non_matches_df, fuzzy_matches
@@ -1980,34 +1993,34 @@ def findOthersEtsAffiliations(non_matches_df: pd.DataFrame, all_collabs_df : pd.
                     for affil, author in zip(affil_list, author_list):
                         affil = affil.strip()
                         if author.strip() == non_matched_author:
-                            if affil  == 'École de Technologie Supérieure':
+                            if affil  == 'Ecole de Technologie Superieure':
                                 results.append({
                                 'Author': non_matched_author,
                                 'Nbre de publications' : nbr_publication
                                     })
                                 gotIt = True
-                        if gotIt == True:
+                        if gotIt:
                             break
-                    if gotIt == True:
+                    if gotIt:
                         break
                         
-        # Conversion des résultats en DataFrame pandas
+        # Conversion des resultats en DataFrame pandas
         other_ets_authors_df = pd.DataFrame(results)
         return other_ets_authors_df
 
 def findCollabCountryAffiliations(non_matches_df: pd.DataFrame, all_collabs_df : pd.DataFrame, collabCountry : str, keys : list):
         """
-        Retrieve detailed affiliation information for collaborations filtered by country.
+        Recuperer les details d'affiliation pour les collaborations filtrees par pays.
         
-        :param non_matches_df: Authors that could not be matched to ETS.
+        :param non_matches_df: Auteurs non apparies avec l'ETS.
         :type non_matches_df: pandas.DataFrame
-        :param all_collabs_df: Full collaboration dataframe.
+        :param all_collabs_df: DataFrame complet des collaborations.
         :type all_collabs_df: pandas.DataFrame
-        :param collabCountry: Country code used to restrict the search.
+        :param collabCountry: Code pays applique au filtrage.
         :type collabCountry: str
-        :param keys: Pair of API key and token used to call Elsevier services.
+        :param keys: Couple (cle, token) pour appeler les services Elsevier.
         :type keys: list[str]
-        :return: Dataframe enriched with affiliation and country information.
+        :return: DataFrame enrichi avec les informations d'affiliation et de pays.
         :rtype: pandas.DataFrame
         """
         results = []
@@ -2034,7 +2047,7 @@ def findCollabCountryAffiliations(non_matches_df: pd.DataFrame, all_collabs_df :
                                         'Nbre de publications' : nbr_publication
                                             })
                                         gotIt = True
-                                if gotIt == True:
+                                if gotIt:
                                     break
 
                         else : 
@@ -2047,31 +2060,31 @@ def findCollabCountryAffiliations(non_matches_df: pd.DataFrame, all_collabs_df :
                                     'Nbre de publications' : nbr_publication
                                         })
                                     gotIt = True
-                            if gotIt == True:
+                            if gotIt:
                                 break
-                    if gotIt == True:
+                    if gotIt:
                         break
                         
-        # Conversion des résultats en DataFrame pandas
+        # Conversion des resultats en DataFrame pandas
         other_authors_df = pd.DataFrame(results)
         return other_authors_df
 
     
 def saveResults(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df : pd.DataFrame, other_authors_df : pd.DataFrame, institutions_df : pd.DataFrame, allResults_df : pd.DataFrame):
         """
-        Persist the collaboration analysis in an Excel workbook.
+        Enregistrer l'analyse des collaborations dans un classeur Excel.
         
-        :param fileName: Base name of the exported workbook.
+        :param fileName: Nom de base du classeur exporte.
         :type fileName: str
-        :param matches_df: Authors that were matched with ETS staff.
+        :param matches_df: Auteurs apparies avec le personnel ETS.
         :type matches_df: pandas.DataFrame
-        :param other_ets_authors_df: ETS authors that collaborate externally.
+        :param other_ets_authors_df: Auteurs ETS collaborant avec l'exterieur.
         :type other_ets_authors_df: pandas.DataFrame
-        :param other_authors_df: External authors detected in the collaboration.
+        :param other_authors_df: Auteurs externes identifies.
         :type other_authors_df: pandas.DataFrame
-        :param institutions_df: Institutions involved in the collaboration.
+        :param institutions_df: Institutions impliquees.
         :type institutions_df: pandas.DataFrame
-        :param allResults_df: Consolidated dataframe with all collaboration rows.
+        :param allResults_df: DataFrame consolide de toutes les lignes de collaboration.
         :type allResults_df: pandas.DataFrame
         :return: ``None``.
         :rtype: None
@@ -2098,11 +2111,11 @@ def saveResults(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df : 
 
 def highlight_fuzzy_matches(fileName, fuzzy_matches):
         """
-        Highlight the rows corresponding to fuzzy matches inside the Excel workbook.
+        Mettre en surbrillance les lignes correspondant aux appariements approximatifs.
         
-        :param fileName: Target Excel file.
+        :param fileName: Fichier Excel cible.
         :type fileName: str
-        :param fuzzy_matches: Dataframe listing the fuzzy matches.
+        :param fuzzy_matches: DataFrame listant les appariements.
         :type fuzzy_matches: pandas.DataFrame
         :return: ``None``.
         :rtype: None
@@ -2120,31 +2133,31 @@ def highlight_fuzzy_matches(fileName, fuzzy_matches):
 
 def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df: pd.DataFrame, other_authors_df: pd.DataFrame, institutions_df: pd.DataFrame, allResults_df: pd.DataFrame, fuzzy_matches_df: pd.DataFrame, country : str, debut : str, fin : str, date : str):
     """
-    Create the collaboration Excel report for a specific country.
+    Generer le rapport Excel de collaborations pour un pays donne.
     
-    :param fileName: Destination workbook name.
+    :param fileName: Nom du classeur de destination.
     :type fileName: str
-    :param matches_df: Authors that were matched with ETS staff.
+    :param matches_df: Auteurs apparies avec le personnel ETS.
     :type matches_df: pandas.DataFrame
-    :param other_ets_authors_df: ETS authors collaborating with the target country.
+    :param other_ets_authors_df: Auteurs ETS collaborant avec le pays cible.
     :type other_ets_authors_df: pandas.DataFrame
-    :param other_authors_df: External authors detected in the collaboration.
+    :param other_authors_df: Auteurs externes identifies.
     :type other_authors_df: pandas.DataFrame
-    :param institutions_df: Institutions involved in the collaboration.
+    :param institutions_df: Institutions impliquees.
     :type institutions_df: pandas.DataFrame
-    :param allResults_df: Consolidated dataframe with all collaboration rows.
+    :param allResults_df: DataFrame consolidant toutes les lignes de collaboration.
     :type allResults_df: pandas.DataFrame
-    :param fuzzy_matches_df: Dataframe describing fuzzy matches.
+    :param fuzzy_matches_df: DataFrame decrivant les appariements approximatifs.
     :type fuzzy_matches_df: pandas.DataFrame
-    :param country: Country targeted by the analysis.
+    :param country: Pays cible par l'analyse.
     :type country: str
-    :param debut: Start year of the collaboration window (string as provided by the UI).
+    :param debut: Annee de debut (telle que saisie dans l'interface).
     :type debut: str
-    :param fin: End year of the collaboration window (string as provided by the UI).
+    :param fin: Annee de fin (telle que saisie dans l'interface).
     :type fin: str
-    :param date: Timestamp string injected in the report.
+    :param date: Chaine de date a inserer dans le rapport.
     :type date: str
-    :return: Tuple ``(excel_app, workbook)`` exposing the COM objects.
+    :return: Tuple ``(excel_app, workbook)`` exposant les objets COM.
     :rtype: tuple
     """
 
@@ -2162,20 +2175,20 @@ def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_au
     'fin': [fin, 0, 0, 0, 0, 0, 0, 0, 0],
     'date' : [date, 0, 0, 0, 0, 0, 0, 0, 0]
     }
-    # Créer le DataFrame
+    # Creer le DataFrame
     df_infos = pd.DataFrame(infos)
     # Ouvrir le classeur Excel existant
     template_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'GABARITCOLLABS.xlsm')
     sheet_names = ['Institutions', 'professeurs_ETS', 'autres_ETS', 'autres', 'allResults', 'infos']
     dataframes = [institutions_df, matches_df, other_ets_authors_df, other_authors_df, allResults_df, df_infos]
 
-    # Création de l'objet Excel, et le rendre visible en plein écran lors du processus
+    # Creation de l'objet Excel, et le rendre visible en plein ecran lors du processus
     excel = win32.gencache.EnsureDispatch('Excel.Application')
     excel.Visible = True
     excel.WindowState = win32.constants.xlMaximized
 
     try:
-        # Vérifier si le fichier Excel est déjà ouvert
+        # Verifier si le fichier Excel est deja ouvert
         for wb in excel.Workbooks:
             if wb.FullName == template_file:
                 wb.Close(False)  # Fermer le classeur sans enregistrer les modifications
@@ -2183,12 +2196,12 @@ def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_au
         # Ouverture du fichier Excel
         workbook = excel.Workbooks.Open(template_file)
         workbook.Visible = True  # Rendre le classeur visible
-        workbook.WindowState = win32.constants.xlMaximized  # Mettre le classeur en plein écran 
+        workbook.WindowState = win32.constants.xlMaximized  # Mettre le classeur en plein ecran 
 
         # Enregistrer sous le nouveau nom
         workbook.SaveAs(os.path.abspath(DOCS_PATH[0] + '/' + fileName), FileFormat=52)
 
-        # Écrire les données des DataFrames dans les feuilles de calcul
+        # Ecrire les donnees des DataFrames dans les feuilles de calcul
         for sheet_name, df in zip(sheet_names, dataframes):
             worksheet = workbook.Worksheets(sheet_name)
             for i, col in enumerate(df.columns):
@@ -2206,7 +2219,7 @@ def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_au
                 for col in range(1, professeurs_sheet.UsedRange.Columns.Count + 1):
                     professeurs_sheet.Cells(row, col).Interior.Color = yellow  # Jaune
 
-        # Mettre la fenêtre en premier plan
+        # Mettre la fenetre en premier plan
         try:
             win32gui.SetForegroundWindow(win32gui.FindWindow(None, workbook.Name + " - Excel"))
         except:
@@ -2217,14 +2230,14 @@ def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_au
 
         #enregistrer les modifications
         workbook.Save()
-        # Déverrouiller le fichier pour modification
+        # Deverrouiller le fichier pour modification
         workbook.Protect(Structure=False, Windows=False)
-        # Appel de la procédure VBA
+        # Appel de la procedure VBA
         nom_module = 'Module1'
         nom_procedure = 'Workbook_Open'
         excel.Run(f'{nom_module}.{nom_procedure}')
 
-        # Mettre à jour l'affichage pour s'assurer que l'utilisateur peut voir et interagir avec le classeur
+        # Mettre a jour l'affichage pour s'assurer que l'utilisateur peut voir et interagir avec le classeur
         excel.ScreenUpdating = True
         excel.Interactive = True
         workbook.Activate()
@@ -2236,26 +2249,26 @@ def Excel_collabs_ETS_pays(fileName: str, matches_df: pd.DataFrame, other_ets_au
 
 
 def Excel_autes_collabs(fileName: str, matches_df: pd.DataFrame, other_ets_authors_df: pd.DataFrame, other_authors_df: pd.DataFrame, institutions_df: pd.DataFrame, allResults_df: pd.DataFrame, fuzzy_matches_df: pd.DataFrame):
-"""
-Create the collaboration Excel report when analysing two entities.
+    """
+    Generer le rapport Excel de collaborations pour deux entites comparees.
 
-:param fileName: Destination workbook name.
-:type fileName: str
-:param matches_df: Authors that were matched with ETS staff.
-:type matches_df: pandas.DataFrame
-:param other_ets_authors_df: ETS authors collaborating within the comparison.
-:type other_ets_authors_df: pandas.DataFrame
-:param other_authors_df: External authors detected in the collaboration.
-:type other_authors_df: pandas.DataFrame
-:param institutions_df: Institutions involved in the collaboration.
-:type institutions_df: pandas.DataFrame
-:param allResults_df: Consolidated dataframe with all collaboration rows.
-:type allResults_df: pandas.DataFrame
-:param fuzzy_matches_df: Dataframe describing fuzzy matches.
-:type fuzzy_matches_df: pandas.DataFrame
-:return: Tuple ``(excel_app, workbook)`` exposing the COM objects.
-:rtype: tuple
-"""
+    :param fileName: Nom du classeur de destination.
+    :type fileName: str
+    :param matches_df: Auteurs apparies avec le personnel ETS.
+    :type matches_df: pandas.DataFrame
+    :param other_ets_authors_df: Auteurs ETS impliques dans la comparaison.
+    :type other_ets_authors_df: pandas.DataFrame
+    :param other_authors_df: Auteurs externes detectes.
+    :type other_authors_df: pandas.DataFrame
+    :param institutions_df: Institutions impliquees.
+    :type institutions_df: pandas.DataFrame
+    :param allResults_df: DataFrame consolidant toutes les collaborations.
+    :type allResults_df: pandas.DataFrame
+    :param fuzzy_matches_df: DataFrame decrivant les appariements approximatifs.
+    :type fuzzy_matches_df: pandas.DataFrame
+    :return: Tuple ``(excel_app, workbook)`` exposant les objets COM.
+    :rtype: tuple
+    """
 
     # Remplacer l'extension par .docx
     rapportPath = DOCS_PATH[0] + '\\' + os.path.splitext(fileName)[0] + '.docx'
@@ -2263,20 +2276,20 @@ Create the collaboration Excel report when analysing two entities.
     paths = {
     'pathToFile': [gabaritPath, rapportPath]
     }
-    # Créer le DataFrame
+    # Creer le DataFrame
     df_paths = pd.DataFrame(paths)
     # Ouvrir le classeur Excel existant
     template_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'GABARITCOLLABS.xlsm')
     sheet_names = ['Institutions', 'professeurs_ETS', 'autres_ETS', 'autres', 'allResults', 'paths']
     dataframes = [institutions_df, matches_df, other_ets_authors_df, other_authors_df, allResults_df, df_paths]
 
-    # Création de l'objet Excel, et le rendre visible en plein écran lors du processus
+    # Creation de l'objet Excel, et le rendre visible en plein ecran lors du processus
     excel = win32.gencache.EnsureDispatch('Excel.Application')
     excel.Visible = True
     excel.WindowState = win32.constants.xlMaximized
 
     try:
-        # Vérifier si le fichier Excel est déjà ouvert
+        # Verifier si le fichier Excel est deja ouvert
         for wb in excel.Workbooks:
             if wb.FullName == template_file:
                 wb.Close(False)  # Fermer le classeur sans enregistrer les modifications
@@ -2284,12 +2297,12 @@ Create the collaboration Excel report when analysing two entities.
         # Ouverture du fichier Excel
         workbook = excel.Workbooks.Open(template_file)
         workbook.Visible = True  # Rendre le classeur visible
-        workbook.WindowState = win32.constants.xlMaximized  # Mettre le classeur en plein écran 
+        workbook.WindowState = win32.constants.xlMaximized  # Mettre le classeur en plein ecran 
 
         # Enregistrer sous le nouveau nom
         workbook.SaveAs(os.path.abspath(DOCS_PATH[0] + '/' + fileName), FileFormat=52)
 
-        # Écrire les données des DataFrames dans les feuilles de calcul
+        # Ecrire les donnees des DataFrames dans les feuilles de calcul
         for sheet_name, df in zip(sheet_names, dataframes):
             worksheet = workbook.Worksheets(sheet_name)
             for i, col in enumerate(df.columns):
@@ -2307,7 +2320,7 @@ Create the collaboration Excel report when analysing two entities.
                 for col in range(1, professeurs_sheet.UsedRange.Columns.Count + 1):
                     professeurs_sheet.Cells(row, col).Interior.Color = yellow  # Jaune
 
-        # Mettre la fenêtre en premier plan
+        # Mettre la fenetre en premier plan
         try:
             win32gui.SetForegroundWindow(win32gui.FindWindow(None, workbook.Name + " - Excel"))
         except:
@@ -2318,14 +2331,14 @@ Create the collaboration Excel report when analysing two entities.
 
         #enregistrer les modifications
         workbook.Save()
-        # Déverrouiller le fichier pour modification
+        # Deverrouiller le fichier pour modification
         workbook.Protect(Structure=False, Windows=False)
-        # Appel de la procédure VBA
+        # Appel de la procedure VBA
         nom_module = 'Module1'
         nom_procedure = 'Workbook_Open'
         excel.Run(f'{nom_module}.{nom_procedure}')
 
-        # Mettre à jour l'affichage pour s'assurer que l'utilisateur peut voir et interagir avec le classeur
+        # Mettre a jour l'affichage pour s'assurer que l'utilisateur peut voir et interagir avec le classeur
         excel.ScreenUpdating = True
         excel.Interactive = True
         workbook.Activate()
@@ -2335,62 +2348,62 @@ Create the collaboration Excel report when analysing two entities.
     return excel, workbook
 
 def saveInter(fileName :str, dfAllResults :pd.DataFrame, dfAuteurs :pd.DataFrame = None, dfAuteursA :pd.DataFrame = None, dfAuteursB :pd.DataFrame = None, dfInstitutions :pd.DataFrame = None):
-"""
-Save intermediary dataframes in a multi-sheet Excel workbook.
+    """
+    Sauvegarder les jeux de donnees intermediaires dans un classeur Excel multi-feuilles.
 
-:param fileName: Destination workbook name.
-:type fileName: str
-:param dfAllResults: Consolidated dataframe with all collaboration rows.
-:type dfAllResults: pandas.DataFrame
-:param dfAuteurs: Optional dataframe with the author list.
-:type dfAuteurs: pandas.DataFrame | None
-:param dfAuteursA: Optional dataframe with entity A authors.
-:type dfAuteursA: pandas.DataFrame | None
-:param dfAuteursB: Optional dataframe with entity B authors.
-:type dfAuteursB: pandas.DataFrame | None
-:param dfInstitutions: Optional dataframe with the institution list.
-:type dfInstitutions: pandas.DataFrame | None
-:return: ``None``.
-:rtype: None
-"""
-# def saveInter(dfAllResults :pd.DataFrame, fileName :str):
+    :param fileName: Nom du classeur de destination.
+    :type fileName: str
+    :param dfAllResults: DataFrame regroupant toutes les collaborations.
+    :type dfAllResults: pandas.DataFrame
+    :param dfAuteurs: DataFrame optionnel contenant la liste des auteurs.
+    :type dfAuteurs: pandas.DataFrame | None
+    :param dfAuteursA: DataFrame optionnel des auteurs de l'entite A.
+    :type dfAuteursA: pandas.DataFrame | None
+    :param dfAuteursB: DataFrame optionnel des auteurs de l'entite B.
+    :type dfAuteursB: pandas.DataFrame | None
+    :param dfInstitutions: DataFrame optionnel listant les institutions.
+    :type dfInstitutions: pandas.DataFrame | None
+    :return: ``None``.
+    :rtype: None
+    """
+    # def saveInter(dfAllResults :pd.DataFrame, fileName :str):
     directory = DOCS_PATH[0] + '/' 
     file_path = os.path.join(directory, fileName)
     if not file_path.endswith('.xlsx'):
         file_path += '.xlsx'
     with pd.ExcelWriter(file_path, engine='openpyxl') as writer:
-        # Écrire dfAllResults en premier
+        # Ecrire dfAllResults en premier
         dfAllResults.to_excel(writer, sheet_name='allResults', index=False)
         
-        # Écrire les autres DataFrames si elles ne sont pas None ou vides
+        # Ecrire les autres DataFrames si elles ne sont pas None ou vides
         if dfAuteurs is not None and not dfAuteurs.empty:
             dfAuteurs.to_excel(writer, sheet_name='Liste des auteurs', index=False)
         
         if dfAuteursA is not None and not dfAuteursA.empty:
-            dfAuteursA.to_excel(writer, sheet_name='Auteurs entité A', index=False)
+            dfAuteursA.to_excel(writer, sheet_name='Auteurs entite A', index=False)
         
         if dfAuteursB is not None and not dfAuteursB.empty:
-            dfAuteursB.to_excel(writer, sheet_name='Auteurs entité B', index=False)
+            dfAuteursB.to_excel(writer, sheet_name='Auteurs entite B', index=False)
         
         if dfInstitutions is not None and not dfInstitutions.empty:
-            dfInstitutions.to_excel(writer, sheet_name='Institutions entité B', index=False)
+            dfInstitutions.to_excel(writer, sheet_name='Institutions entite B', index=False)
 
     return
 
 def getAffiliation(InstitutionId: str, keys: list):
     """
-    Retrieve the name of the institution associated with a Scopus affiliation identifier.
+    Recuperer le nom de l'institution associe a un identifiant Scopus.
     
-    :param InstitutionId: Scopus affiliation identifier.
+    :param InstitutionId: Identifiant d'affiliation Scopus.
     :type InstitutionId: str
-    :param keys: Pair of API key and token used to call Elsevier services.
+    :param keys: Couple (cle, token) pour appeler les services Elsevier.
     :type keys: list[str]
-    :return: Institution name when available, ``"NONE"`` otherwise.
+    :return: Nom de l'institution ou ``"NONE"`` si introuvable.
     :rtype: str
     """
     query_entity = f'AF-ID({InstitutionId})'
     search = AffiliationSearch(query=query_entity, api_key= keys[0], token= keys[1])
-    # Vérification des résultats
+    # Verification des resultats
     if search.affiliations is None:
         return 'NONE'
     else:
@@ -2398,21 +2411,23 @@ def getAffiliation(InstitutionId: str, keys: list):
             affiliation = f"{element.name}"
         if affiliation:
             return affiliation
-        else: return 'NONE'
+        else: 
+            return 'NONE'
+        
 def getAffiliationCountry(InstitutionId: str, keys: list):
     """
-    Retrieve the name and country of a Scopus affiliation.
+    Recuperer le nom et le pays associes a une affiliation Scopus.
     
-    :param InstitutionId: Scopus affiliation identifier.
+    :param InstitutionId: Identifiant d'affiliation Scopus.
     :type InstitutionId: str
-    :param keys: Pair of API key and token used to call Elsevier services.
+    :param keys: Couple (cle, token) pour appeler les services Elsevier.
     :type keys: list[str]
-    :return: Tuple ``(name, country)`` or ``"NONE"`` when the affiliation is not found.
+    :return: Tuple ``(nom, pays)`` ou ``"NONE"`` si l'affiliation est introuvable.
     :rtype: tuple[str, str] | str
     """
     query_entity = f'AF-ID({InstitutionId})'
     search = AffiliationSearch(query=query_entity, api_key= keys[0], token= keys[1])
-    # Vérification des résultats
+    # Verification des resultats
     if search.affiliations is None:
         return 'NONE'
     else:
@@ -2421,21 +2436,23 @@ def getAffiliationCountry(InstitutionId: str, keys: list):
             affiliation = f"{element.name}"
         if affiliation:
             return affiliation, affiliationCountry
-        else: return 'NONE'
+        else: 
+            return 'NONE'
+        
 def getAuthorORCID(authorId: str, keys: list):
     """
-    Retrieve the ORCID associated with a Scopus author identifier.
+    Recuperer l'ORCID associe a un identifiant auteur Scopus.
     
-    :param authorId: Scopus author identifier.
+    :param authorId: Identifiant auteur Scopus.
     :type authorId: str
-    :param keys: Pair of API key and token used to call Elsevier services.
+    :param keys: Couple (cle, token) pour appeler les services Elsevier.
     :type keys: list[str]
-    :return: ORCID string or ``"NONE"`` when not found.
+    :return: Chaine ORCID ou ``"NONE"`` si introuvable.
     :rtype: str
     """
     query_entity = f'AU-ID({authorId})'
     search = AuthorSearch(query=query_entity, api_key= keys[0], token= keys[1])
-    # Vérification des résultats
+    # Verification des resultats
     if search.authors is None:
         return 'NONE'
     else:
@@ -2443,22 +2460,23 @@ def getAuthorORCID(authorId: str, keys: list):
             orcid = element.orcid
         if orcid:
             return orcid
-        else: return 'NONE'
+        else: 
+            return 'NONE'
 
 def getAbstract(EID: str, keys: list):
     """
-    Retrieve the abstract text associated with a Scopus document.
+    Recuperer le resume associe a un document Scopus.
     
-    :param EID: Scopus document identifier.
+    :param EID: Identifiant Scopus du document.
     :type EID: str
-    :param keys: Pair of API key and token used to call Elsevier services.
+    :param keys: Couple (cle, token) pour appeler les services Elsevier.
     :type keys: list[str]
-    :return: Abstract text when available or ``"NONE"``.
+    :return: Texte du resume ou ``"NONE"`` si absent.
     :rtype: str
     """
     try : 
         search = AbstractRetrieval(identifier=EID, api_key= keys[0], token= keys[1])
-        # Vérification des résultats
+        # Verification des resultats
         if search.abstract is None:
             if search.description is None:
                 return 'NOT FOUND'
