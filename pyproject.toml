@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "altgraph==0.17.4",
-    "certifi==2025.10.5",
+    "certifi==2025.11.12",
     "charset-normalizer==3.4.3",
     "colorama==0.4.6",
     "docx==0.2.4",
