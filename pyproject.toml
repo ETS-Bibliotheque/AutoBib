@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "altgraph==0.17.4",
+    "altgraph==0.17.5",
     "certifi==2025.10.5",
     "charset-normalizer==3.4.3",
     "colorama==0.4.6",
