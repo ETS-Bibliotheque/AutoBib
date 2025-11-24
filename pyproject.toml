@@ -25,7 +25,7 @@ dependencies = [
     "pyinstaller-hooks-contrib==2025.9; sys_platform == 'win32'",
     "pyside6==6.10.0; sys_platform == 'win32'",
     "pyside6-addons==6.10.0; sys_platform == 'win32'",
-    "pyside6-essentials==6.10.0; sys_platform == 'win32'",
+    "pyside6-essentials==6.10.1; sys_platform == 'win32'",
     "python-dateutil==2.9.0.post0",
     "pytz==2025.2",
     "pywin32==311; sys_platform == 'win32'",
