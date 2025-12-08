@@ -39,6 +39,6 @@ dependencies = [
     "tqdm==4.67.1",
     "tzdata==2025.2",
     "unidecode==1.4.0",
-    "urllib3==2.5.0",
+    "urllib3==2.6.0",
     "xlsxwriter==3.2.9",
 ]
