@@ -37,7 +37,7 @@ dependencies = [
     "six==1.17.0",
     "sphinx>=8.2.3",
     "tqdm==4.67.1",
-    "tzdata==2025.2",
+    "tzdata==2025.3",
     "unidecode==1.4.0",
     "urllib3==2.5.0",
     "xlsxwriter==3.2.9",
