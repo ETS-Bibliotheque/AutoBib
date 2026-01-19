@@ -21,7 +21,7 @@ dependencies = [
     "pandas==2.3.3",
     "pefile>=2022.5.30,!=2024.8.26; sys_platform == 'win32'",
     "pillow==11.3.0",
-    "pyinstaller==6.16.0; sys_platform == 'win32'",
+    "pyinstaller==6.18.0; sys_platform == 'win32'",
     "pyinstaller-hooks-contrib==2025.9; sys_platform == 'win32'",
     "pyside6==6.10.0; sys_platform == 'win32'",
     "pyside6-addons==6.10.0; sys_platform == 'win32'",
